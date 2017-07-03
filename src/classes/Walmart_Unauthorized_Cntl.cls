@@ -1,7 +1,16 @@
 public Class Walmart_Unauthorized_Cntl{
+
+String chosenCategoryLabel;
     
     public Walmart_Unauthorized_Cntl(){
-    
+        Map<String, Cookie> siteCookies = new Map<String, Cookie>();
+        siteCookies = ApexPages.currentPage().getCookies();
+        Cookie selectedCategoryCookie = siteCookies.get('FullyQualifiedCategory');
+        Cookie chosenCategoryCookie = siteCookies.get('ChosenCategory');
+        system.debug('DDDDDDDDDDDDD' + chosenCategoryCookie);
+        if(chosenCategoryCookie != null){
+          chosenCategoryLabel = chosenCategoryCookie.getValue();          
+        }
     }
     
     /************** method to set the Organization cache with the IP address of the user and the landing page *******/
@@ -32,7 +41,15 @@ public Class Walmart_Unauthorized_Cntl{
         orgPart.put(ReturnValue, finalurl);
         
         //fetching the login Url from the label
-        String LandingURl = Label.Walmart_Login_Link;
+        String LandingURl = '';//Label.Walmart_Login_Link;
+        String categoryselected = chosenCategoryLabel + '__c';
+        Account_Setting_Metadata__mdt asMdt = [SELECT Matching_Login_URL__c FROM Account_Setting_Metadata__mdt  where Matching_Configured_Data_Category__c = :categoryselected LIMIT 1];
+        if(asMdt != null)
+        {
+            LandingURl = asMdt.Matching_Login_URL__c;
+        }
+        else
+            LandingURl = null;
         
         return new pagereference(LandingURl);
     }
