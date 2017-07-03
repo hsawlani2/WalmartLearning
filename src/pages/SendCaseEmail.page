@@ -1,0 +1,847 @@
+<apex:page standardController="Case" extensions="SendCaseEmailController" sidebar="false" showHeader="false">
+    <head>
+        <script src="{!$Resource.pkb_jquery_1_6_2}" type="text/javascript" />
+        <script src="{!$Resource.pkb_jquery_simplemodal_1_4_1}" type="text/javascript" />
+        
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slick_theme_css)}" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,500,700' rel='stylesheet' type='text/css' />
+        <c:custom_pkb_css />
+        
+        <style>
+            .logo-img{
+                position: absolute;
+                top: 3%;
+                width: 250px;
+                left: 3%;
+            }
+            
+            #about {
+                background-color: #3d454c;
+                color: #fff;
+            }
+            
+            #about h3 {
+                color: #D7D7D7;
+                margin: 0 0 10px;
+                text-transform: none;
+                border-bottom: 3px solid #D7D7D7;
+                padding-bottom: 15px;
+                font-size: 25px;
+                text-align: center;
+            }
+            
+            .howItWorks {
+                text-align: center;
+                font-size: 38px;
+                color: #d7d7d7;
+                margin-bottom: 50px;
+            }
+            
+            .sec-title p {
+                font-size: 25px;
+                position: relative;
+                text-transform: none;
+                color: #333;
+                line-height: 35px;
+            }
+            
+            #footer {
+                background-color: #3d454c;
+                padding: 10px 0;
+                color: #fff;
+            }
+            
+            .web-to-lead{
+                max-width: 100%;
+                margin: 0 auto;
+                float: none;
+            }
+
+            .btn-effect:hover, .btn-effect:focus, .btn-effect:active {
+                color: #fff;
+            }
+            
+            .btn-blue:hover{
+                color: #000;
+            }
+            
+            .btn{
+                background-image: none;
+            }
+            
+            .service-item h3 {
+                line-height: 35px;
+            }
+            
+            .error{
+                margin: 0 !important;
+                color: #E04C4C !important;
+                font-size: 20px !important;
+            }
+            
+            @media only screen and (max-width: 767px){
+                .sec-title h2 {
+                    font-size: 30px;
+                }
+                .caption-content h2 {
+                    font-size: 35px;
+                }
+                .service-item {
+                    width: 100%;
+                    margin-top: 30px;
+                }
+                .caption-content .cch2 {
+                    font-size: 50px;
+                    color : #177DC1;
+                    text-shadow: 1px 1px 5px #FFFFFF;
+                    font-weight: 900;
+                }
+                .caption-content .cch3{
+                    font-size: 25px;
+                    color : #177DC1;
+                    text-shadow: 1px 1px 5px #FFFFFF;
+                    font-weight: 300;
+                }
+                .slide-caption .caption-content{
+                    padding-top: 280px;
+                    padding-left: 3%;
+                }
+                .logo-img{
+                    width: 180px;
+                    position: absolute;
+                    top: 3%;
+                    left: 3%;
+                }
+            }
+            
+            @media only screen and (max-width: 485px){
+                .btn-add{
+                    margin-bottom: 10px;
+                    width: 80%;
+                }
+                .btn-add-default{
+                    margin-left: 0px !important;
+                }
+                .caption-content .cch2, .caption-content .cch3{
+                    text-align: left;
+                    padding-left: 5%;
+                }
+                .slide-caption .caption-content{
+                    text-align: center;
+                    padding-top: 280px;
+                    position: relative;
+                    padding-left: 3%;
+                }
+                .caption-content .cch2 {
+                    font-size: 42px;
+                }
+                .caption-content .cch3{
+                    font-size: 25px;
+                }
+            }
+            
+            @media only screen and (min-width: 485px){
+                .slide-caption .caption-content{
+                    text-align: left;
+                    //padding-top: 185px;
+                    position: relative;
+                    padding-left: 3%;
+                }
+            }
+            
+            @media only screen and (min-width: 899px){
+                .caption-content .cch2 {
+                    font-size: 85px;
+                    color : #177DC1;
+                    text-shadow: 1px 1px 5px #FFFFFF;
+                    font-weight: 900;
+                }
+                .caption-content .cch3{
+                    font-size: 48px;
+                    text-shadow: 1px 1px 5px #FFFFFF;
+                    color : #177DC1;
+                    font-weight: 300;
+                }
+                .slide-caption .caption-content{
+                    padding-top: 185px;
+                    padding-left: 3%;
+                }
+            }
+            
+            @media only screen and (min-width: 768px) and (max-width: 899px){
+                .caption-content .cch2 {
+                    font-size: 60px;
+                    color : #177DC1;
+                    text-shadow: 1px 1px 5px #FFFFFF;
+                    font-weight: 900;
+                }
+                .caption-content .cch3{
+                    font-size: 36px;
+                    text-shadow: 1px 1px 5px #FFFFFF;
+                    color : #177DC1;
+                    font-weight: 300;
+                }
+                .slide-caption .caption-content{
+                    padding-top: 185px;
+                    padding-left: 3%;
+                }
+            }
+            
+            @media only screen and (min-width: 1440px){
+                .container {
+                    width: 1440px;
+                }
+            }
+            @media only screen and (max-width: 1439px){
+                .container {
+                    width: 100%;
+                }
+            }
+            .bt {
+                background: #A4ACB0;
+                height: 23px !important;
+                width: 25px;
+                color: #454544 !important;
+                border: 1px solid #A4ACB0;
+                box-shadow: inset 0px 1px 2px #f2f3f3;
+                transition: all 0.2s !important;
+                font-size: 14px;
+            }
+            .sec-title h2 {
+                font-size: 30px;
+                margin: 0 0 0px;
+                padding-bottom: 0px;
+                position: relative;
+                text-transform: none;
+                color: #333;
+                text-align:left;
+            }
+            .form-control {
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 0px !important;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                border: 1px solid #A4ACB0 !important;
+                border-radius: 3px !important;
+                box-shadow: none;
+                color: #454544;
+                font-size: 14px;
+                height: 34px;
+                display: block;
+                width: 100%;
+                padding: 6px 12px;
+                margin-bottom: 10px;
+            }
+            span.form-control{
+                border:none !important;
+                background: transparent !important;
+            }
+            footer{
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+            }
+            .heavyTable {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                animation: float 5s infinite;
+                margin-top : -1px;
+            }
+            .noSidebarCell, .sidebarCell .fixed {
+                padding: 0px;
+            }
+            body{
+                font-size : 12px;
+            }
+            .heavyTable {
+                box-shadow: none;
+                animation: float 5s infinite;
+                border: 0px solid #d4dadc
+            }
+            .table td {
+                padding: 0px !important;
+                padding-top: 4px !important;
+            }
+            th {
+                background: #DFE1E1;
+                height: 30px !important;
+                //width: 25% !important;
+                font-weight: normal;
+                color: #454544 !important;
+                border: 1px solid #A4ACB0 !important;
+                transition: all 0.2s !important;
+                padding: 8px 0px !important
+                text-align: left;
+                vertical-align: middle !important;
+                padding-left: 15px !important;
+                font-size: 15px;
+            }
+            .table-striped>tbody>tr:nth-of-type(odd) {
+                background-color: #fcfcfc;
+            }
+            .chk{
+                width: 16px;
+                height: 16px;
+                margin: 7px 3px !important;
+            }
+            .table-striped tbody tr:nth-of-type(odd) {
+                background-color: #fff;
+            }
+            .table-striped tbody tr:nth-of-type(even) {
+                //background-color: #F3F4F4;
+            }
+            .table tbody tr td{
+                border: 1px solid #E3E2E1;
+            }
+            .ui-multiselect{
+                min-width : 420px !important;
+            }
+            .ui-widget {
+                font-size: 13px;
+            }
+            .ui-filter{
+                margin: 1%;
+                width: 98%;
+                border-radius: 3px !important;
+            }
+            .bodyDiv {
+                border-top: 0px solid;
+            }
+            .btn-icon{
+                float: left;
+                width: 15px;
+                margin-top: 3px;
+            }
+            .btn-span{
+                float: left;
+                margin-left: 5px;
+            }
+            .errorM4, .errorM3 {
+                background-image: linear-gradient(45deg,rgba(0,0,0,.035) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.035) 50%,rgba(0,0,0,.035) 75%,transparent 75%,transparent);
+                color: #fff;
+                background-color: #c23934;
+                background-size: 64px 64px;
+                padding: 0px 20px 10px;
+                border-radius: 4px;
+            }
+            .errorM4 img, .errorM3 img{
+                display : none;
+            }
+            .message .messageText, .errorM4 h4, .errorM3 h4 {
+                color: #fff;
+            }
+            span.form-control{
+                height: auto;
+            }
+            .left img{
+                width: 175px;
+                max-width: 175px;
+            }
+            #AppBodyHeader .phHeader {
+                margin-bottom: 0px;
+            }
+            .infoM6, .infoM4, .infoM3, .infoM2, .infoS1 {
+                background: #54698d;
+                border: none;
+                background-image: linear-gradient(45deg,rgba(0,0,0,.025) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.025) 50%,rgba(0,0,0,.025) 75%,transparent 75%,transparent);
+            }
+            .infoM6 .messageText, .infoM4 .messageText, .infoM3 .messageText, .infoM2 .messageText, .infoS1 .messageText {
+                float: left;
+                margin-top: -8px;
+            }
+            .boldText{
+                font-weight: 800;
+                text-decoration: underline;
+            }
+            .table tbody tr td {
+                border: 0px solid #E3E2E1;
+                padding: 8px 10px !important;
+                padding-bottom: 3px !important;
+            }
+            .popup{
+                position: fixed;
+                background: #fff;
+                border-radius: 3px;
+                top: 20%;
+                left: 20%;
+                width: 60%;
+                z-index: 1112;
+                display:none;
+                padding: 0px;
+            }
+            .overlay{
+                position: fixed;
+                background: #000;
+                top: 0;
+                width: 100%;
+                left: 0;
+                height:100%;
+                opacity: 0.3;
+                z-index: 1111;
+                display:none;
+            }
+            .message {
+                margin: 10px 0px;
+            }
+            .message li{
+                color: #fff;
+            }
+            #ul{
+                padding: 0;
+                list-style: none;
+                margin: 0;
+            }
+            #ul li{
+                margin: 0;
+                background: #f4f6f9;
+                width: 70%;
+                border: 1px solid #eee;
+                padding: 4px 10px;
+                padding-bottom: 2px;
+                border-radius: 3px;
+                margin-bottom: 3px;
+                overflow: hidden;
+            }
+            #ul span.last{
+                cursor: pointer;
+                color: #777;
+                font-size: 14px;
+                float: right;
+                width: 2%;
+            }
+            #ul span.first{
+                width:90%;
+                float: left;
+            }
+            .select{
+                font-family: 'Arial','Helvetica',san-serif;
+                color: #222;
+                font-padding: 10px;
+                height: 30px;
+                padding-top: 6px;
+                padding-bottom: 6px;
+                background-image: -moz-linear-gradient(top,rgb(255,255,255) 16%,rgb(243,243,243) 58% );
+                background-image: -webkit-linear-gradient(top,rgb(255,255,255) 16%,rgb(243,243,243) 58% );
+                background-image: -ms-linear-gradient(top,rgb(255,255,255) 16%,rgb(243,243,243) 58% );
+                background-image: -webkit-gradient(linear,left top,left bottom,color-stop(.16,rgb(255,255,255) ),color-stop(.58,rgb(243,243,243) ) );
+                background-image: linear-gradient(top,rgb(255,255,255) 16%,rgb(243,243,243) 58% );
+                border: 1px solid #c7ccce;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                border-radius: 3px;
+                width: 100%;
+                padding: 7px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+            .text{
+                border: 1px solid #c7ccce !important;
+                -moz-border-radius: 3px !important;
+                -webkit-border-radius: 3px !important;
+                border-radius: 3px !important;
+                width: 100% !important;
+                padding: 7px !important;
+                -webkit-box-sizing: border-box !important;
+                -moz-box-sizing: border-box !important;
+                box-sizing: border-box !important;
+                margin: 0 !important;
+                background: #fff !important;
+                -moz-box-shadow: 0 1px 1px rgba(208,213,214,.5) inset !important;
+                -webkit-box-shadow: 0 1px 1px rgba(208,213,214,.5) inset !important;
+                box-shadow: 0 1px 1px rgba(208,213,214,.5) inset !important;
+                margin-bottom: 10px !important;
+            }
+            label {
+                display: inline-block;
+                max-width: 100%;
+                margin-bottom: 0px;
+                font-weight: 700;
+                font-size: .917em;
+                margin-top: 10px;
+            }
+            .article{
+                cursor: pointer;
+                border: 1px solid #d4dadc;
+                height: 37px;
+                padding: 9px 0px 6px 15px;
+                white-space: nowrap;
+                overflow: hidden;
+                background-color: #f5f5f6;
+                line-height: 1.3;
+            }
+            .edIcon {
+                background: url(/img/support/caseinteraction/pluses_sprite.png) 0 0;
+                cursor: pointer;
+                width: 16px;
+                height: 16px;
+                float: left;
+            }
+            .efpdExpandedIcon {
+                background: url(/img/support/caseinteraction/pluses_sprite.png) 0 -32px;
+                cursor: pointer;
+                width: 16px;
+                height: 16px;
+                float: left;
+            }
+            .efpDrawerLabel {
+                cursor: pointer;
+                font-weight: bold;
+                color: #222;
+                display: inline-block;
+                padding-top: 1px;
+                padding-left: 10px;
+            }
+            a {
+                color: #015ba7;
+                font-weight: bold;
+                font-size: 12px;
+            }
+            .bottomBar {
+                padding: 9px;
+                line-height: 30px;
+                background: #f5f6f6;
+                border: 1px solid #c7ccce;
+                border-top: none;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                float: left;
+                width: 100%;
+                height: auto;
+            }
+            .bottomBarRight {
+                float: right;
+            }
+            .zen-btn {
+                color: #222;
+                border: 1px solid #c3c3c3;
+                border-color: #c3c3c3 #aaa #909090;
+                font-size: .917em;
+                font-weight: bold;
+                text-decoration: none;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                background: #f0f0f0;
+                background: -moz-linear-gradient(#fff,#f0f0f0);
+                background: -webkit-linear-gradient(#fff,#f0f0f0);
+                background: -ms-linear-gradient(#fff,#f0f0f0);
+            }
+            .zen-highlightBtn {
+                font-family: Arial !important;
+                font-size: 1.08em !important;
+                background-color: #8ab529 !important;
+                border: 1px solid #6c8049 !important;
+                background-image: -ms-linear-gradient(top,#8AB529 0,#87AC31 100%) !important;
+                background-image: -moz-linear-gradient(top,#8AB529 0,#87AC31 100%) !important;
+                background-image: -webkit-linear-gradient(top,#8AB529 0,#87AC31 100%) !important;
+                background-image: linear-gradient(top,#8AB529 0,#87AC31 100%) !important;
+                display: inline-block !important;
+                padding-top: 0 !important;
+                padding-bottom: 1px !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                height: 30px !important;
+                color: #fff !important;
+                -moz-border-radius: 3px !important;
+                border-radius: 2px !important;
+                -moz-box-shadow: 0 1px 2px 0 #adadad !important;
+                -webkit-box-shadow: 0 1px 2px 0 #adadad !important;
+                box-shadow: 0 1px 2px 0 #adadad !important;
+                margin: 0 !important;
+                margin-left: 10px !important;
+            }
+            .table{
+                margin-bottom: 0px;
+            }
+            .container{
+                padding:0;
+            }
+            .showEmail{
+                display: none;
+            }
+            .showArticle{
+                display: none;
+            }
+        </style>
+        
+        
+        <script>
+            var showEmail = false, showArticle = false;
+            
+            function selectTemplate()
+            {
+                $('.popup,.overlay').fadeIn();
+            }
+            
+            function hideTemplate()
+            {
+                $('.popup,.overlay').hide();
+            }
+            
+            function showArticleFn(shwArticle){
+                showArticle = shwArticle;
+                if(showArticle){
+                    $('.showArticle,.efpdExpandedIconA').show();
+                    $('.edIconA').hide();
+                    showArticle = false;
+                }else{
+                    $('.showArticle,.efpdExpandedIconA').hide();
+                    $('.edIconA').show();
+                    showArticle = true;
+                }
+            }
+            
+            function showEmailFn(shwEmail){
+                showEmail = shwEmail;
+                if(showEmail){
+                    $('.showEmail,.efpdExpandedIconE').show();
+                    $('.edIconE').hide();
+                    showEmail = false;
+                }else{
+                    $('.showEmail,.efpdExpandedIconE').hide();
+                    $('.edIconE').show();
+                    showEmail = true;
+                }
+            }
+            
+            function checkError(){
+                var cls = $('.message').attr('class');
+                if(cls == undefined){
+                    window.close();
+                }
+            }
+            
+            function handle(e){
+                var key=e.keyCode || e.which;
+                if (key==13){
+                    e.preventDefault(); // Otherwise the form will be submitted
+                    $('[id$="submitButton"]').click();
+                }
+            }
+        </script>
+    </head>
+    
+    <body>
+        <apex:form id="frm">
+            <div style="display:none;" id="status">
+                <div style="background:#000; opacity: 0.4; width: 100%; height:700px; top:0px; left:0px; position: fixed; z-index:1000000"></div>
+                <div class="dv_load" style="position:fixed;width:5%;top:40%;left:47%;z-index:1000000">
+                    <img src="{!$Resource.loader}" style="vertical-align:middle;" />
+                </div>
+            </div>
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <div style="background:#000; opacity: 0.4; width: 100%; height:700px; top:0px; left:0px; position: fixed; z-index:1000000"></div>
+                    <div class="dv_load" style="position:fixed;width:5%;top:40%;left:47%;z-index:1000000">
+                        <img src="{!$Resource.loader}" style="vertical-align:middle;" />
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+            
+            <apex:actionFunction name="callAdd" action="{!addArticle}" reRender="errpnl,bodyPanel" status="status">
+                <apex:param value="" name="asd" assignTo="{!articleId}"/>
+                <apex:param value="" name="asd2" assignTo="{!articleName}"/>
+            </apex:actionFunction>
+            
+            <apex:actionFunction name="callDelete" action="{!removeArticle}" reRender="errpnl,bodyPanel" status="status">
+                <apex:param value="" name="asd3" assignTo="{!removeIndex}"/>
+            </apex:actionFunction>
+                
+            <div class="overlay"></div>
+            <div class="popup">
+                <div style="border: 1px solid #d4dadc; height: auto; overflow: hidden; border-radius: 1px; padding: 10px;">
+                    <h3 style="float:left; margin-bottom:10px; font-size: 12px;">Select Email Template</h3>
+                    <div style="float:left; width: 100%; text-align:center;">
+                        <apex:selectList value="{!FoldersId}" size="1" styleClass="select">
+                            <apex:selectOptions value="{!EmailFolders}"></apex:selectOptions>
+                            <apex:actionSupport event="onchange" action="{!actionTemplates}" reRender="tempId"/>
+                        </apex:selectList>
+                        <apex:selectList value="{!templateId}" size="1" styleClass="select" id="tempId">
+                            <apex:selectOptions value="{!EmailTemplates}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>                    
+                </div>    
+                <div class="bottomBar">
+                    <div class="bottomBarRight">
+                        <span class="publisherShareButtonPlaceholder">
+                            <apex:commandButton value="Select" styleClass="zen-btn zen-highlightBtn" onclick="$('#status').show();" action="{!populateTemplate}"/>
+                            <apex:commandButton value="Cancel" styleClass="zen-btn zen-highlightBtn" onclick="hideTemplate(); return false;"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+                <apex:actionFunction name="shwEmail" action="{!showHideEmail}" status="status" immediate="true"/>
+                <apex:actionFunction name="shwBcc" action="{!showHideBcc}" status="status" immediate="true"/>
+                
+                <div style="float: left; padding: 2px; width: 100%;">
+                    <div class="article" style="padding-right: 10px; padding-top: 10px;">
+                        <div class="{!IF(showEmail, 'efpdExpandedIcon', 'edIcon')}" onclick="$('#status').show();shwEmail();"></div>
+                        <div style="display:none">
+                            <apex:inputHidden value="{!Case.Subject}" />
+                        </div>
+                        <apex:commandlink value="Select a Template" onclick="selectTemplate(); return false;" style="float:right;"/>
+                    </div>
+                    
+                    <div style="border: 1px solid #d4dadc; border-top:none;height: auto; overflow: hidden; border-radius: 1px; padding: 10px;">
+                        <div style="margin-bottom: 10px; float:left; width: 100%;">
+                            <apex:outputPanel id="errpnl">
+                                <apex:pageMessages ></apex:pageMessages>
+                            </apex:outputPanel>
+                        </div>
+                        
+                        <apex:outputPanel id="bodyPanel">
+                            <table style="float: left; width: 100%" cellspacing="10" cellpadding="10">  
+                                <tr style="display:{!IF(showEmail,'', 'none')};">
+                                    <td>          
+                                        From
+                                    </td>
+                                    <td>
+                                        <apex:selectList value="{!emailMsg.FromAddress}" size="1" styleClass="longTextField select">
+                                            <apex:selectOptions value="{!fromOptions}"></apex:selectOptions>
+                                        </apex:selectList>
+                                    </td>
+                                </tr>
+                                
+                                <tr style="display:{!IF(showEmail,'', 'none')};">
+                                    <td>          
+                                        To
+                                    </td>
+                                    <td>
+                                        <apex:inputText id="idRecipient" styleClass="longTextField text" required="true" value="{!emailMsg.ToAddress}" style="width:95% !important; float:left;"/>
+                                        <div class="{!IF(showBcc, 'efpdExpandedIcon', 'edIcon')}" onclick="$('#status').show();shwBcc();" style="float: right; margin: 9px 0px 0px 0px;"></div>
+                                    </td>
+                                </tr>
+                                
+                                <tr style="display:{!IF(showEmail && showBcc,'', 'none')};">
+                                    <td>          
+                                        CC
+                                    </td>
+                                    <td>
+                                        <apex:inputTextarea id="idCcRecipients" styleClass="wideTextArea text" value="{!emailMsg.CcAddress}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr style="display:{!IF(showEmail,'', 'none')};">
+                                    <td>          
+                                        BCC
+                                    </td>
+                                    <td>
+                                        <apex:inputTextarea id="idBccRecipients" styleClass="wideTextArea text" value="{!emailMsg.BccAddress}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr style="display:{!IF(showEmail,'', 'none')};">
+                                    <td>          
+                                        Subject
+                                    </td>
+                                    <td>
+                                        <apex:inputText id="idSubject" styleClass="longTextField text" value="{!emailMsg.Subject}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td colspan="2">          
+                                        <apex:inputTextarea id="idBody" rows="15" styleClass="extraDeepTextArea text" value="{!emailMsg.TextBody}"/>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>          
+                                        Articles<br/>
+                                        <ul id="ul">
+                                            <apex:variable value="{!0}" var="x"/>
+                                            <apex:repeat value="{!articleList}" var="a">
+                                                <li id="{!a.articleId}">
+                                                    <span class="first">{!a.articleName}</span>
+                                                    <span onclick="callDelete('{!x}')" class="last">X</span>
+                                                    <apex:variable value="{!x+1}" var="x"/>
+                                                </li>
+                                            </apex:repeat>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                        </apex:outputPanel>
+                    </div>
+                    <div class="bottomBar">
+                        <!--<apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" style="float: left;margin-top: 5px;"/>
+                        -->
+                        <div class="bottomBarRight">
+                            <span class="publisherShareButtonPlaceholder">
+                                <apex:commandButton value="Send" action="{!send}" oncomplete="checkError();" styleClass="zen-btn zen-highlightBtn" status="status" reRender="errpnl"/>
+                                <!--<apex:commandButton value="Cancel" action="{!cancel}" styleClass="zen-btn zen-highlightBtn" immediate="true"/>-->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="container">
+                <apex:actionFunction name="shwArticle" action="{!showHideArticle}" status="status" immediate="true"/>
+                <div style="float: left; padding: 2px; width: 100%;">
+                    
+                    <div class="article">
+                        <div class="{!IF(showArticle, 'efpdExpandedIcon', 'edIcon')}" onclick="$('#status').show();shwArticle();"></div>
+                        <span class="efpDrawerLabel">Articles</span>
+                    </div> 
+                    
+                    <apex:outputPanel id="theSearchResults">
+                        <apex:outputPanel rendered="{!showArticle}">
+                            <div style="float: left; width: 100%; margin-top: -1px;">
+                                <apex:inputText value="{!searchstring}" id="theSearchstring" onkeypress="handle(event);" style="padding: 3px 10px; margin: 5px; border-radius: 3px; width: 200px;"/> &nbsp;
+                                <apex:commandButton value="Search Again" id="submitButton" onclick="$('#status').show();"/>
+                                
+                                <table class="table table-striped heavyTable">
+                                    <tbody>
+                                        <knowledge:articleList sortBy="Title" keyword="{!searchstring}" articleVar="article" pageNumber="{!currentPageNumber}" hasMoreVar="true" pageSize="5">
+                                            <tr class="datarows">
+                                                <td width="60px">
+                                                    <apex:commandLink onclick="callAdd('{!article.id}', '{!article.Title}'); return false;" value="Select"></apex:commandLink>
+                                                </td>
+                                                <td>
+                                                    <apex:outputLink target="_blank" value="{!URLFOR($Action.KnowledgeArticle.View, article.id,['popup' = 'true'])}">{!article.title}</apex:outputLink><br/>
+                                                    <apex:outputText style="color: #7d7d84;" value="{!article.abstract}"></apex:outputText>
+                                                </td>
+                                                <!--<td width="100px">
+                                                    <apex:outputText >{!article.articleTypeLabel}</apex:outputText>
+                                                </td>-->
+                                            </tr>
+                                        </knowledge:articleList>
+                                        <tr class="datarows">
+                                            <td colspan="2" style="padding: 0 !important;">
+                                                <div class="bottomBar" style="border: none;">
+                                                    <div class="bottomBarRight">
+                                                        <span class="publisherShareButtonPlaceholder">
+                                                            <apex:commandLink action="{!previous}" value="Previous" onclick="$('#status').show();" styleClass="zen-btn zen-highlightBtn"/> 
+                                                            <apex:commandLink action="{!next}" value="Next" onclick="$('#status').show();" styleClass="zen-btn zen-highlightBtn"/>  
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </apex:form>
+    </body>
+</apex:page>

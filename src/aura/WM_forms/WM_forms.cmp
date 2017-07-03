@@ -1,0 +1,245 @@
+<aura:component controller="SupplierApplication">
+    <aura:attribute type="smartApp_Wrapper.fieldDisplay[]" name="FieldList"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<aura:attribute type="String" name="HTMLTest"/>
+    <aura:unescapedHtml value="{!v.HTMLTest}"/>
+	<fieldset class="slds-form--compound">
+		<div class="slds-form-element__group">
+		<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+		<!-- First Name -->
+			<div class="slds-form-element__row">
+				<div class="slds-size--6-of-12">
+					<div class="">
+						<label class="slds-form-element__label" >First Name <span>*</span></label>
+						<div class="slds-form-element__control">
+							<input type="text" class="slds-input" />
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+		<!-- Last Name -->
+			<div class="slds-form-element__row">
+				<div class="slds-size--6-of-12">
+						<label class="slds-form-element__label" >First Name <span>*</span></label>
+						<div class="slds-form-element__control">
+							<input type="text" class="slds-input" />
+						</div>
+				</div>
+			</div>
+		<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+		<!-- Email Name -->
+			<div class="slds-form-element__row">
+				<div class="slds-size--6-of-12">
+						<label class="slds-form-element__label" >First Name <span>*</span></label>
+						<div class="slds-form-element__control">
+							<input type="text" class="slds-input" />
+						</div>
+				</div>
+			</div>
+		<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+		<!-- Job Title -->
+			<div class="slds-form-element__row">
+				<div class="slds-size--3-of-12">
+						<label class="slds-form-element__label" >First Name <span>*</span></label>
+						<div class="slds-form-element__control">
+							<input type="text" class="slds-input" />
+						</div>
+				</div>
+			</div>
+		<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+		<!-- Phone -->
+			<div class="slds-form-element__row">
+				<div class="slds-size--6-of-12" style="display:inherit">
+				<div class="slds-size--3-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04">City</label>
+						<div class="slds-form-element__control">
+							<input type="text" id="input-04" class="slds-input" />
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--1-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04"></label>
+						<div class="slds-form-element__control">
+							<div>-</div>
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--4-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-05">State</label>
+						<div class="slds-form-element__control">
+							<input type="text" id="input-05" class="slds-input" />
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--1-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04"></label>
+						<div class="slds-form-element__control">
+							<div>&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--3-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04">City</label>
+						<div class="slds-form-element__control">
+							<input type="text" id="input-04" class="slds-input" />
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-1">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+		<!-- Mobile phone -->
+			<div class="slds-form-element__row">
+				<div class="slds-size--3-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04">Mobile</label>
+						<div class="slds-form-element__control">
+							<input type="text" id="input-04" class="slds-input" />
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--1-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04">&nbsp;</label>
+						<div class="slds-form-element__control">
+							<div>-</div>
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--4-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04"></label>
+						<div class="slds-form-element__control">
+							<input type="text" id="input-04" class="slds-input" />
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--1-of-12">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label" for="input-04"></label>
+						<div class="slds-form-element__control">
+							<div>&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--3-of-12">
+					<div class="slds-form-element">
+						<div class="slds-form-element__control">
+							<label class="slds-form-element__label"/>
+							<label class="slds-checkbox" for="agree">
+								<input type="checkbox" name="default" id="agree" />
+								<span class="slds-checkbox--faux"></span>
+								<span class="slds-form-element__label">Permission to Text</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- just for trying -->
+			<!-- Job Title -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03">First Name <span>*</span></label>
+					<!-- help text -->
+						<div class="slds-form-element__icon" style="float:right">
+							<button aria-describedby="help" class="slds-button slds-button_icon">
+								<div>
+									Help is here
+								</div>
+								<span class="slds-assistive-text">Help</span>
+							</button>
+						</div>
+						<!-- ends here -->
+					<input type="text" id="input-03" class="slds-input" />
+				</div>
+			</div>
+			<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+			<div class="slds-form-element__row">
+				<div class="slds-size--2-of-2">
+					 <div class="slds-form-element" style="display:inline-flex;">
+						<label class="slds-form-element__label">Is your warehouse address the same as above ?</label>
+						<div class="slds-form-element__control" style="display:inline-flex;">
+							<span class="slds-radio">
+							  <input type="radio" id="radio-645" name="options" checked=""/>
+							  <label class="slds-radio__label" for="radio-645">
+								<span class="slds-radio_faux"></span>
+								<span class="slds-form-element__label">Yes</span>
+							  </label>
+							</span>
+							<span class="slds-radio">
+							  <input type="radio" id="radio-646" name="options" checked=""/>
+							  <label class="slds-radio__label" for="radio-646">
+								<span class="slds-radio_faux"></span>
+								<span class="slds-form-element__label">No</span>
+							  </label>
+							</span>
+						</div>
+					 </div> 
+				</div>
+			</div>
+			
+			<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+			<div class="slds-form-element__row">
+				<div class="slds-size--2-of-2">
+					 <div class="slds-form-element">
+						<label class="slds-form-element__label">Picklist Label</label>
+						<div class="slds-form-element__control">
+							<Select class="slds-input">
+								<Option text="All Primary" label="All Contacts" value="true"/>
+								<Option text="All Primary" label="All Primary"/>
+								<Option text="All Secondary" label="All Secondary"/>
+							</Select>
+						</div>
+					</div>
+				</div>
+			</div>
+						
+		</div>
+	</fieldset>
+</aura:component>

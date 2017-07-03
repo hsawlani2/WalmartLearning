@@ -1,0 +1,7 @@
+<aura:tokens >
+	<aura:token name="backgroundColor" value="#007DC6"/>
+    <aura:token name="marginSpace" value="40px"/>
+    <aura:token name="fontColor" value="#ffffff"/>
+    <aura:token name="ProgressBar" value="#6FE864"/>
+    <aura:token name="labelFontSize" value="1.2rem"/>
+</aura:tokens>

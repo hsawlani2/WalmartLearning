@@ -1,0 +1,12 @@
+<aura:component >
+    <aura:attribute name="pillsList" type="string[]" default="text"/>
+    <span>
+        <aura:iteration var="pillLabel" items="{!v.pillsList}">
+            <span class="slds-pill">{!pillLabel}
+                <button class="slds-button slds-button--icon slds-pill__remove" title="Remove">
+                    <lightning:icon iconName="utility:close" size="x-small" class="slds-input__icon" alternativeText="Remove" />
+                </button>
+            </span>
+        </aura:iteration>
+    </span>
+</aura:component>

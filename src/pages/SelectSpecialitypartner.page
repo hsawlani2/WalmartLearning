@@ -1,0 +1,147 @@
+<apex:page controller="SelectSpecialitypartnerController" tabstyle="Account" id="pg">
+
+<style>
+  .centerHeading{
+    text-align:center;
+  }
+  .bold{
+    font-weight:bold;
+  }
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script> 
+<script type="text/javascript"> 
+
+  var allAccountNames = [];
+  var allAccountIds = [];
+  var selectedAccountIds = [];
+  
+  <apex:repeat value="{!lstSpecialitypartnerWrapper}" var="ac" >
+    allAccountIds.push("{!ac.Id}");
+    allAccountNames.push("{!ac.Name}");
+  </apex:repeat>
+
+   
+   $(document).ready(function(){
+   <apex:repeat value="{!lstExistingSpecialitypartner}" var="sp" >
+    selectedAccountIds.push("{!sp}");
+  </apex:repeat>
+
+    var opt;
+    
+    var destiOpts='';
+    var srcOpts='';
+    
+    for(i=0 ;i<allAccountNames.length;i++){
+      if(IsExistingAccount(allAccountIds[i])==false){
+        opt= '<option value="' + allAccountIds[i] + '">' + allAccountNames[i] + '</option>';
+        srcOpts += opt;  
+      }
+    }
+
+    for(i=0 ;i<selectedAccountIds.length;i++){
+        opt= '<option value="' + selectedAccountIds[i] + '">' + getAccountName(selectedAccountIds[i]) + '</option>';
+        destiOpts += opt;  
+    }
+
+    $('#destiSelect').append(destiOpts);
+    $('#sourceSelect').append(srcOpts);
+   });
+   
+   function getAccountName(apiName){
+    for(j=0 ;j<allAccountIds.length;j++){
+      if(allAccountIds[j]== apiName){
+       return allAccountNames[j];
+      }
+    }
+   }
+   
+   function IsExistingAccount(apiName){
+     for(j=0;j<selectedAccountIds.length;j++){
+      if(selectedAccountIds[j]== apiName){
+       return true;
+      }
+     }
+     return false;
+   }
+   
+   function moveSrcToDesti(){
+     $(document.getElementById('sourceSelect')).find('option:selected').each(function(){
+           $(document.getElementById('destiSelect')).append($(this));
+         });
+   }
+   
+   function moveDestiToSrc(){
+     $(document.getElementById('destiSelect')).find('option:selected').each(function(){
+         $(document.getElementById('sourceSelect')).append($(this));
+       });
+   }
+      
+   
+   function selectedaccounts(){
+    var retId = '';
+    var retName = '';
+    $(document.getElementById('destiSelect')).find('option').each(function(){
+      retId += $(this).val() + ',';
+      retName += $(this).text() + ',';
+    });
+
+    selectIntegrationMethodHandler(retId,retName);
+   }
+
+</script>   
+<apex:form id="frm">
+	<apex:actionFunction action="{!save}" name="selectIntegrationMethodHandler" rerender="pb">
+		<apex:param assignTo="{!sSelectedSpecialitypartnerIds}" name="sIds" value="" />
+		<apex:param assignTo="{!sSelectedSpecialitypartner}" name="sNames" value="" />
+	</apex:actionFunction>
+<apex:pageblock Id="pb" title="Add Speciality Partner">
+<apex:pageBlockButtons location="bottom">
+   <apex:commandButton value="Save" onclick="selectedaccounts();return false;"/>
+   <apex:commandButton value="Cancel" onclick="window.location.href='/{!sRecordID}';return false;" />
+</apex:pageBlockButtons>  
+
+<apex:outputPanel id="blnkPnl" ></apex:outputPanel>
+                    
+<table id="idTable" cellspacing="0" cellpadding="4" style="border:0px solid red;">
+   <tr>
+    <td class="centerHeading bold">
+      Available Speciality Partner
+    </td>
+    <td >
+      &nbsp;
+    </td>
+    <td class="centerHeading bold">
+      Selected Speciality Partner    
+    </td>
+    <td >
+      &nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <select style="width: 200px; height: 350px;" size="13" multiple="multiple" id="sourceSelect"> 
+        </select>
+    </td>
+    <td class="centerHeading" style="vertical-align:middle;">
+      <div>
+        Add
+      </div>
+      <img title="Add" style="cursor:pointer;" class="rightArrowIcon" alt="Add" src="/s.gif" onclick="moveSrcToDesti();"/>
+      <div style="height:2px;">&nbsp;</div>
+          <img title="Remove" style="cursor:pointer;" class="leftArrowIcon" alt="Remove" src="/s.gif" onclick="moveDestiToSrc();"/>
+          <div>
+        Remove
+      </div>
+    </td>
+    <td>
+        <select style="width: 200px; height: 350px;" size="13" multiple="multiple" id="destiSelect"> 
+        </select>
+    </td>
+  </tr>
+</table>
+</apex:pageblock>
+</apex:form>
+
+
+</apex:page>

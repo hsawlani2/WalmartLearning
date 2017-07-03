@@ -1,0 +1,25 @@
+<apex:page showHeader="false" showChat="false" sidebar="false">
+
+  <!-- Stuff to put in the article
+      This is a Supplier Article.<br />
+      <br />
+      <b><span style="font-size: 14px;">Watch the video:</span></b><br />
+      <br />
+      <iframe allowfullscreen="true" frameborder="0" height="360" scrolling="No" src="https://marketplace.walmart.com/knowledgebase/apex/VideoTemplate?VideoID=5295897728001" width="640"></iframe><br />
+      <br />
+      <b><span style="font-size: 14px;">Read the Article: </span></b><br />
+      Instructions for joining the Marketplace.<br />
+      <br />
+      <a href="https://marketplace.walmart.com/knowledgebase/apex/VideoTemplate?VideoID=5295897728001" target="BrightCove">Video Link</a><br />
+      &nbsp;
+ -->
+
+  <iframe  allowfullscreen="true" mozallowfullscreen="true" width="640" height="360" src="https://players.brightcove.net/1922092287001/default_default/index.html?videoId={!$CurrentPage.parameters.VideoID}">
+
+  </iframe>
+<!-- 
+  <apex:iframe width="640" height="360" src="https://players.brightcove.net/1922092287001/default_default/index.html?videoId={!$CurrentPage.parameters.VideoID}">
+
+  </apex:iframe>
+ -->
+ </apex:page>

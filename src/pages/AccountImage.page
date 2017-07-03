@@ -1,0 +1,7 @@
+<apex:page controller="AccountImage_ext">
+<apex:form >
+  <apex:image url="/FAQ1/servlet/servlet.FileDownload?file=00P5B000000ccQT"/>
+  <apex:inputField value="{!App.Preferred_integration_General__c}"/>
+  <apex:outputField value="{!App.Logo__c}"/>
+</apex:form>
+</apex:page>

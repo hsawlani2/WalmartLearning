@@ -1,0 +1,844 @@
+<apex:page cache="false" standardStylesheets="false" showHeader="false" sidebar="false" controller="AccountContactsVerification" applyBodyTag="false" applyHtmlTag="false" docType="html-5.0">
+    <html>
+
+        <head>
+            <title>Walmart Contact</title>
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            
+            <!-- Custom styles for this template -->
+            <link rel="stylesheet" href="{!URLFOR($Resource.WalmatContactResource, 'css/bootstrap.min.css')}"/>
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0-rc.2/themes/smoothness/jquery-ui.css"/>
+            <link rel="stylesheet" href="{!URLFOR($Resource.jQueryMultiselect, 'jquery.multiselect.css')}"/>
+            
+            <c:custom_pkb_css />
+            
+            <!-- Latest compiled and minified JavaScript -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmatContactResource, 'js/jquery.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmatContactResource, 'js/jquery-ui.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.jQueryMultiselect, 'src/jquery.multiselect.js')}"/>
+            <apex:includeScript value="https://maps.google.com/maps/api/js?geometry=true&sensor=true&libraries=drawing,places"/>
+            
+            <style>
+                .logo-img{
+                    position: absolute;
+                    top: 3%;
+                    width: 250px;
+                    left: 3%;
+                }
+                
+                #about {
+                    background-color: #3d454c;
+                    color: #fff;
+                }
+                
+                #about h3 {
+                    color: #D7D7D7;
+                    margin: 0 0 10px;
+                    text-transform: none;
+                    border-bottom: 3px solid #D7D7D7;
+                    padding-bottom: 15px;
+                    font-size: 25px;
+                    text-align: center;
+                }
+                
+                .howItWorks {
+                    text-align: center;
+                    font-size: 38px;
+                    color: #d7d7d7;
+                    margin-bottom: 50px;
+                }
+                
+                .sec-title p {
+                    font-size: 25px;
+                    position: relative;
+                    text-transform: none;
+                    color: #333;
+                    line-height: 35px;
+                }
+                
+                #footer {
+                    background-color: #3d454c;
+                    padding: 10px 0;
+                    color: #fff;
+                }
+                
+                .web-to-lead{
+                    max-width: 90%;
+                    margin: 0 auto;
+                    float: none;
+                }
+                
+                .service-item h3 {
+                    line-height: 35px;
+                }
+                
+                .error{
+                    margin: 0 !important;
+                    color: #E04C4C !important;
+                    font-size: 20px !important;
+                }
+                
+                @media only screen and (max-width: 767px){
+                    .sec-title h2 {
+                        font-size: 30px;
+                    }
+                    .caption-content h2 {
+                        font-size: 35px;
+                    }
+                    .service-item {
+                        width: 100%;
+                        margin-top: 30px;
+                    }
+                    .caption-content .cch2 {
+                        font-size: 50px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 25px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 280px;
+                        padding-left: 3%;
+                    }
+                    .logo-img{
+                        width: 180px;
+                        position: absolute;
+                        top: 3%;
+                        left: 3%;
+                    }
+                }
+                
+                @media only screen and (max-width: 485px){
+                    .btn-add{
+                        margin-bottom: 10px;
+                        width: 80%;
+                    }
+                    .btn-add-default{
+                        margin-left: 0px !important;
+                    }
+                    .caption-content .cch2, .caption-content .cch3{
+                        text-align: left;
+                        padding-left: 5%;
+                    }
+                    .slide-caption .caption-content{
+                        text-align: center;
+                        padding-top: 280px;
+                        position: relative;
+                        padding-left: 3%;
+                    }
+                    .caption-content .cch2 {
+                        font-size: 42px;
+                    }
+                    .caption-content .cch3{
+                        font-size: 25px;
+                    }
+                }
+                
+                @media only screen and (min-width: 485px){
+                    .slide-caption .caption-content{
+                        text-align: left;
+                        //padding-top: 185px;
+                        position: relative;
+                        padding-left: 3%;
+                    }
+                }
+                
+                .caption-content h2 {
+                    color: #2480B8;
+                    font-weight: 400;
+                    margin-bottom: 25px;
+                    text-transform: normal;
+                }
+                
+                @media only screen and (min-width: 899px){
+                    .caption-content .cch2 {
+                        font-size: 85px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 48px;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        color : #177DC1;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 185px;
+                        padding-left: 3%;
+                    }
+                }
+                
+                @media only screen and (min-width: 768px) and (max-width: 899px){
+                    .caption-content .cch2 {
+                        font-size: 60px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 36px;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        color : #177DC1;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 185px;
+                        padding-left: 3%;
+                    }
+                }
+                
+                @media only screen and (min-width: 1440px){
+                    .container {
+                        width: 1440px;
+                    }
+                }
+                @media only screen and (max-width: 1439px){
+                    .container {
+                        width: 100%;
+                    }
+                }
+                .btn-add{
+                    font-size: 16px;
+                    height: 52px;
+                    border-radius: 4px;
+                }
+                .btn-add:hover{
+                    color: #fff;
+                }
+                .slide-caption{
+                    top: -65px;
+                }
+                .btn-add-default{
+                    color: #167EC7;
+                    background: rgba(244,238,235,0.95) !important;
+                    border: 1px solid #167EC7;
+                    margin-left: 10px;
+                    box-shadow: none;
+                }
+                .btn-add-default:hover{
+                    color: #167EC7;
+                    background: transparent;
+                    border: 1px solid #167EC7;
+                    margin-left: 10px;
+                }
+                #hom-slider {
+                    position: relative;
+                    padding: 0;
+                }
+                .btn-blue {
+                    background-color: transparent !important;
+                    border-color: #007BC4 !important;
+                    margin: 2px 0px;
+                    color: #007BC4;
+                    margin-left:10px;
+                }
+                .welcome-block p {
+                    color: #D6D6D6;
+                }
+                .arrow {
+                    width: 0;
+                    height: 0;
+                    border-left: 25px solid transparent;
+                    border-right: 25px solid transparent;
+                    border-top: 30px solid #3d454c;
+                    margin: 0 auto;
+                    position: relative;
+                    top: 100px;
+                }
+                .caption-content .cch2 {
+                    letter-spacing: -3px;
+                }
+                th {
+                    background: #DFE1E1;
+                    height: 30px !important;
+                    //width: 25% !important;
+                    font-weight: normal;
+                    color: #454544 !important;
+                    border: 1px solid #A4ACB0 !important;
+                    transition: all 0.2s !important;
+                    padding: 8px 0px !important
+                    text-align: left;
+                    vertical-align: middle !important;
+                    padding-left: 15px !important;
+                    font-size: 15px;
+                }
+                .sec-title h2 {
+                    font-size: 32px;
+                    color: #484848;
+                    font-weight: 500;
+                    margin: 0;
+                }
+                .form-control, select {
+                    line-height: 1.42857143;
+                    color: #555;
+                    background-color: #fff;
+                    background-image: none;
+                    border: 1px solid #ccc;
+                    border-radius: 0px !important;
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                    border: 1px solid #A4ACB0 !important;
+                    border-radius: 0;
+                    box-shadow: none;
+                    color: #454544;
+                    display: block;
+                    width: 100% !important;
+                    height: 27px !important;
+                    padding: 2px 12px;
+                    font-size : 14px;
+                }
+                span.form-control{
+                    border:none !important;
+                    background: transparent !important;
+                }
+                footer{
+                    position: fixed;
+                    width: 100%;
+                    bottom: 0;
+                }
+                .heavyTable {
+                    border: 1px solid #eee;
+                    animation: float 5s infinite;
+                    margin-top: 10px;
+                }
+                .errorM4, .errorM3{
+                    background-image: linear-gradient(45deg,rgba(0,0,0,.035) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.035) 50%,rgba(0,0,0,.035) 75%,transparent 75%,transparent);
+                    color: #fff;
+                    background-color: #c23934;
+                    background-size: 64px 64px;
+                    padding: 0px 20px 10px;
+                    border-radius: 4px;    
+                }
+                .errorM4 h4, .errorM3 h4{
+                    color : #fff;
+                    display : none;
+                }
+                .infoM3{
+                    background-image: linear-gradient(45deg,rgba(0,0,0,.035) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.035) 50%,rgba(0,0,0,.035) 75%,transparent 75%,transparent);
+                    color: #fff;
+                    background-color: green;
+                    background-size: 64px 64px;
+                    padding: 0px 20px 10px;
+                    border-radius: 4px;
+                }
+                label {
+                    color: #818181;
+                    font-weight: normal;
+                }
+                .err{
+                    border: 2px solid #BF4242 !important;
+                }
+                .table td {
+                    padding: 4px !important;
+                }
+                .btn {
+                    padding: 2px 15px;
+                }
+                .th{
+                    padding: 0px 0px 0px 5px;
+                    margin: 0;
+                }
+                body{
+                    font-size: 14px;
+                }
+                .ui-multiselect-header span.ui-icon {
+                    margin-top: 3px;
+                }
+                .ui-multiselect-header li.ui-multiselect-close {
+                    display: none;
+                }
+                .ui-icon-triangle-1-s {
+                    background-position: -65px -10px;
+                }
+                .ui-state-default{
+                    border: 1px solid #d3d3d3;
+                    font-weight: normal;
+                    color: #555555;
+                    background: #fff;
+                    border-radius: 0px !important;
+                }
+                .ui-multiselect-checkboxes label{
+                        padding: 0px 1px;
+                }
+                .container {
+                    width: 100%;
+                }
+                .req-span{
+                    color : #cc0000;
+                    font-size: 18px;
+                }
+                .ck{
+                    width: 20px;
+                    height: 20px;
+                }
+                .ctn {
+                    float: right;
+                    cursor: pointer;
+                }
+                .errorM4{
+                    padding: 5px 15px;
+                }
+                .errorM4Td{
+                    display: none;
+                }
+                .table-striped tbody tr:nth-of-type(odd) {
+                    background-color: #fff;
+                }
+                .table-striped tbody tr:nth-of-type(even) {
+                    background-color: #F3F4F4;
+                }
+                .table tbody tr td{
+                    border: 1px solid #E3E2E1;
+                }
+                .ui-multiselect{
+                    min-width : 420px !important;
+                }
+                .ui-widget {
+                    font-size: 13px;
+                    //height: 27px;
+                    //border: 1px solid #A4ACB0;
+                }
+                .icon{
+                    cursor: pointer;
+                    margin-top: 7px;
+                }
+                .btn-icon{
+                    float: left;
+                    width: 15px;
+                    margin-top: 3px;
+                }
+                .btn-span{
+                    float: left;
+                    margin-left: 5px;
+                }
+                /*.ui-helper-reset {
+                    margin: 0;
+                    padding: 0px 5px;
+                    border: 0;
+                    outline: 0;
+                    line-height: 1.3;
+                    text-decoration: none;
+                    font-size: 100%;
+                    list-style: none;
+                    background: #fff;
+                    border-left: 1px solid #ccc;
+                    border-bottom: 1px solid #ccc;
+                    border-right: 1px solid #ccc;
+                }*/
+                .messageCell{
+                    padding-top: 10px;
+                }
+            </style>
+            
+            <script>
+                $(function() {
+                    init();
+                });
+                
+                function init(){
+                    $(".select").multiselect({
+                        selectedList: 5
+                    });
+                    
+                    $('.required').unbind('change');
+                    $(".required").change(function(){
+                        var val = $(this).val();
+                        if(val.trim() != ''){
+                            $(this).removeClass('err');
+                        }else{
+                            $(this).addClass('err');
+                        }
+                    });
+                    
+                    $('.ctn').unbind('click');
+                    $('.ctn').click(function(){
+                        var currentTR = $(this).closest('tr');
+                        var prevTR = $(this).closest('tr').prev('tr');
+                    
+                        $(currentTR).find('.fname').val($(prevTR).find('.fname').val());
+                        $(currentTR).find('.lname').val($(prevTR).find('.lname').val());
+                        $(currentTR).find('.email').val($(prevTR).find('.email').val());
+                        $(currentTR).find('.phone').val($(prevTR).find('.phone').val());
+                        $(currentTR).find('.ck').prop('checked', $(prevTR).find('.ck').prop('checked'));
+                        
+                        var vl = $(prevTR).find('.select').attr('val');
+                        var vlArr = vl.split(';');
+                        
+                        /*$(currentTR).find('.select').find('option').each(function(){
+                            var found = $.inArray($(this).val(), vlArr) > -1;
+                            if(found)
+                                $(this).attr("selected", 1);
+                        });*/
+                    });
+                }
+                
+                function disableButtons(){
+                    $('.btn-blue').prop('disabled', true);
+                    $('.btn-blue').val('processing..');
+                    $('.btn-blue span').text('processing..');
+                }
+                
+                function checkEmail(obj){
+                    var val = $(obj).val();
+                    var tr = $(obj).closest('tr');
+                    
+                    if(val.trim() != ''){
+                        if(validateEmail(val)){
+                            $(obj).removeClass('err');
+                        }else
+                        {
+                            $(obj).addClass('err');
+                        }
+                    }
+                    
+                    var isValid = true;
+                    $(tr).find('.required').each(function(){
+                        if($(this).val().trim() == '')
+                            isValid = false;
+                    });
+                    
+                    if(isValid)
+                        $(tr).find('.ck').prop('checked', true);
+                }
+                
+                function checkPhone(obj){
+                    var val = $(obj).val();
+                    if(val.trim() != ''){
+                        if(validatePhone(val)){
+                            $(obj).removeClass('err');
+                        }else
+                        {
+                            $(obj).addClass('err');
+                        }
+                    }
+                }
+                
+                function checkRequired(obj){
+                    var val = $(obj).val();
+                    var tr = $(obj).closest('tr');
+                    
+                    if(val.trim() == ''){
+                        $(obj).addClass('err');
+                        $(obj).attr('placeHolder', 'Please enter a value');
+                    }else{
+                        $(obj).removeClass('err');
+                        $(obj).attr('placeHolder', '');
+                    }
+                    
+                    var isValid = true;
+                    $(tr).find('.required').each(function(){
+                        if($(this).val().trim() == '')
+                            isValid = false;
+                    });
+                    
+                    if(isValid)
+                        $(tr).find('.ck').prop('checked', true);
+                }
+                
+                function validateEmail(email) {
+                    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(email);
+                }
+                
+                function validatePhone(phone){
+                    var RE = /^[\d\.\-]+$/;
+                    if(!RE.test(phone) || phone.trim().length != 10)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                
+                function validateForm(){
+                    var isValid = true;
+                    $('.fname, .lname').each(function(){
+                        var val = $(this).val();
+                        if(val.trim() == ''){
+                            isValid = false;
+                            $(this).addClass('err');
+                            $(this).attr('placeHolder', 'Please enter a value');
+                        }else{
+                            $(this).removeClass('err');
+                            $(this).attr('placeHolder', '');
+                        }
+                    });
+                    
+                    $('.email').each(function(){
+                        var val = $(this).val();
+                        if(val.trim() != ''){
+                            if(validateEmail(val)){
+                                $(this).removeClass('err');
+                            }else
+                            {
+                                isValid = false;
+                                $(this).addClass('err');
+                            }
+                        }else{
+                            $(this).attr('placeHolder', 'Please enter a value');
+                            isValid = false;
+                            $(this).addClass('err');
+                        }
+                    });
+                    
+                    $('.phone').each(function(){
+                        var pval = $(this).val();
+                        if(pval.trim() != ''){
+                            if(validatePhone(pval)){
+                                $(this).removeClass('err');
+                            }else
+                            {
+                                isValid = false;
+                                $(this).addClass('err');
+                            }
+                        }
+                    });
+                    
+                    $(".required").each(function(){
+                        var rval = $(this).val();
+                        if(rval.trim() == ''){
+                            isValid = false;
+                            $(this).addClass('err');
+                        }else{
+                            $(this).removeClass('err');
+                        }
+                    });
+                    
+                    if(isValid){
+                        var address = $('.street').val()+', '+$('.city').val()+', '+$('[id$="state"]').val()+', '+$('.zip').val()+', '+$('.country').val();
+                        console.log(address);
+                        
+                        // Create a new Geocoder
+                        var geocoder = new google.maps.Geocoder();
+                        // Locate the address using the Geocoder.
+                        geocoder.geocode( { "address": address }, function(results, status) {
+                            // If the Geocoding was successful
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                console.log('result ' + results[0].geometry.location);
+                                $('.errorM4Td').hide();
+                            }else{
+                                $('.errorM4Td').show();
+                                isValid = false;
+                            }
+                        });
+                    }
+                    
+                    if(isValid){
+                        $('.select').each(function(){
+                            var vl = $(this).val();
+                            $(this).closest('td').find('input:hidden').val(vl);
+                        });
+                        disableButtons();
+                        callSave();
+                    }
+                }
+                
+                function calAdd(){
+                    $('.select').each(function(){
+                        var vl = $(this).val();
+                        $(this).closest('td').find('input:hidden').val(vl);
+                    });
+                    callAdd();
+                }
+                
+                function jsRemoveRw(vl){
+                    $('.select').each(function(){
+                        var vl = $(this).val();
+                        $(this).closest('td').find('input:hidden').val(vl);
+                    });
+                    jsRemoveRow(vl);
+                }
+            </script>
+        </head>
+    
+        <body class="home-1">
+            <header class="banner navbar navbar-static-top" role="banner">
+                <div class="container">
+                    <div class="navbar-header">
+                        <div class="navbar-brand">
+                            <a href="/walmart_pkb_home">
+                                <img src="{!$Site.prefix}/resource/1450198358000/WalmartWhiteLogo"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <apex:form id="frm">
+                <section id="contact">
+                    <br/>
+                    <div class="container">
+                        <div class="row">
+                            
+                            <div class="sec-title text-center wow animated fadeInDown">
+                                <h2 style="text-align:center;">Update Contact Information for {!accountName}</h2>
+                            </div>
+                            
+                            <div class="col-md-12 contact-form wow animated fadeInLeft web-to-lead">
+                                <div>
+                                    <span style="position: absolute; color: #fff; right: 22px; cursor: pointer; top: 2px;" onclick="$('.message').fadeOut(500);">X</span>
+                                    <apex:pageMessages ></apex:pageMessages>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-striped heavyTable" style="width:48%; float:left;">
+                                            <tr>
+                                                <th colspan="4" class="th">Legal Address</th>
+                                            </tr>
+                                            <tr class="errorM4Td">
+                                                <td colspan="4">
+                                                    <div class="errorM4">Address is not valid!</div>
+                                                </td>
+                                            </tr>                                        
+                                            <tr>
+                                                <td><label class="th">Street<span class="req-span">*</span></label></td>
+                                                <td colspan="3"><apex:inputField value="{!account.BillingStreet}" styleClass="form-control required street"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="20%"><label class="th">City<span class="req-span">*</span></label></td>
+                                                <td width="30%"><apex:inputField value="{!account.BillingCity}" styleClass="form-control required city"/></td>
+                                                <td width="20%"><label class="th">State<span class="req-span">*</span></label></td>
+                                                <td width="30%"><apex:inputField id="state" value="{!account.BillingStateCode}" styleClass="form-control required state"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="th">Zip<span class="req-span">*</span></label></td>
+                                                <td><apex:inputField value="{!account.BillingPostalCode}" styleClass="form-control required zip"/></td>
+                                                <td><label class="th">Country<span class="req-span">*</span></label></td>
+                                                <td><apex:inputField value="{!account.BillingCountryCode}" styleClass="form-control required country"/></td>
+                                            </tr>
+                                        </table> 
+                                        
+                                        <table class="table table-striped heavyTable" style="width:48%; float:right;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <label>Form Checklist</label>
+                                                    <ul style="list-style-type: decimal;">
+                                                        <li>Phone number, if entered, should be valid. But phone numbers are optional.</li>
+                                                        <li>Email should be valid AND mandatory. Each contact should have an email. Two contacts could share the same e-mail.</li>
+                                                        <li>There should be at least one contact for each type of mandatory contacts. The mandatory contacts are {!mendatoryContactTypes }.</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <apex:variable value="{!0}" var="x"/>
+                                <table class="table table-striped heavyTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Contact Type <span class="req-span">*</span></th>
+                                            <th>First Name <span class="req-span">*</span></th>
+                                            <th>Last Name <span class="req-span">*</span></th>
+                                            <th>Email <span class="req-span">*</span></th>
+                                            <th>Phone</th>
+                                            <th style="width:80px">Active</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:variable value="{!0}" var="x"/>
+                                        <apex:repeat value="{!contactWrapperList}" var="c">
+                                            <tr>
+                                                <td>
+                                                    <select multiple="true" val="{!c.type}" class="form-control select" style="width:200px">
+                                                        <apex:repeat value="{!contactTypeList}" var="op">
+                                                            <option value="{!op}">{!op}</option>
+                                                        </apex:repeat>
+                                                    </select>
+                                                    <apex:inputHidden value="{!c.type}" />
+                                                    
+                                                    <script>
+                                                        $('.select').each(function(){
+                                                            var vl = $(this).closest('td').find('input:hidden').val();
+                                                            var vlArr = (vl.indexOf(';') != -1 ? vl.split(';') : vl.split(','));
+                                                            
+                                                            $(this).find('option').each(function(){
+                                                                var found = $.inArray($(this).val(), vlArr) > -1;
+                                                                if(found)
+                                                                    $(this).attr("selected", 1);
+                                                            });
+                                                        });
+                                                    </script>
+                                                </td>
+                                                <td>
+                                                    <apex:inputText styleClass="form-control required fname" value="{!c.firstName}" onchange="checkRequired(this);"/>
+                                                </td>
+                                                <td>
+                                                    <apex:inputText styleClass="form-control required lname" value="{!c.lastName}" onchange="checkRequired(this);"/>
+                                                </td>
+                                                <td>
+                                                    <apex:inputText styleClass="form-control required email" value="{!c.email}" onchange="checkEmail(this);"/>
+                                                </td>
+                                                <td>
+                                                    <apex:inputText styleClass="form-control phone" value="{!c.phone}" onchange="checkPhone(this);"/>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <apex:inputCheckbox styleClass="ck" value="{!c.isActive}"/>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-blue ctn" style="width: 130px; display: {!IF(x == 0, 'none', '')};" onclick="return false;">
+                                                        <img class="btn-icon" src="{!URLFOR($Resource.WalmatContactResource, 'icons/copy.png')}"/>
+                                                        <span class="btn-span">copy-prev</span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <apex:outputPanel rendered="{!c.contactId == null}">
+                                                        <img src="{!URLFOR($Resource.WalmatContactResource, 'icons/delete.png')}" class="icon" onclick="disableButtons(); jsRemoveRw('{!x}');"/>
+                                                    </apex:outputPanel>
+                                                    <apex:variable value="{!x+1}" var="x"/>
+                                                </td>
+                                            </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: right; padding-bottom: 35px;">
+                                        <apex:commandButton styleClass="btn btn-blue" value="Save" style="margin-left: 10px; float: right;" onclick="validateForm(); return false;"/>
+                                        <button class="btn btn-blue ctn" style="width: 150px;" onclick="calAdd(); disableButtons(); return false;">
+                                            <img class="btn-icon" src="{!URLFOR($Resource.WalmatContactResource, 'icons/plus.png')}"/>
+                                            <span class="btn-span">Add Contact</span>
+                                        </button>
+                                        <!--<apex:commandButton image="{!URLFOR($Resource.WalmatContactResource, 'icons/plus.png')}" styleClass="btn btn-blue"  value="Add New Contact" action="{!addNewContact}" onclick="disableButtons();" reRender="frm" oncomplete="init();"/>
+                                        -->
+                                    </div> 
+                                </div>
+                            </div>        
+                        </div>
+                    </div>
+                    <br/><br/>
+                </section>
+                
+                <apex:actionFunction name="callAdd" action="{!addNewContact}" reRender="frm" oncomplete="init();"/>
+                <apex:actionFunction name="callSave" action="{!saveContacts}" reRender="frm" oncomplete="init();"/>
+                <apex:actionFunction name="jsRemoveRow" action="{!removeContact}" reRender="frm" oncomplete="init();">
+                    <apex:param assignTo="{!selectedIndex}" name="index" value=""/>
+                </apex:actionFunction>
+            </apex:form>
+            
+            <footer>
+                <div class="footer-info">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="copyright">© 2016 Walmart. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </body>
+    </html>
+</apex:page>

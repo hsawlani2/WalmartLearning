@@ -1,0 +1,247 @@
+<apex:component layout="none" id="q_page_1">  
+<apex:attribute name="qCon" type="QuestionnaireController" required="true" description="handle to QuestionnaireController" />
+
+<h6>Company Profile</h6>
+<fieldset id="q_fieldset_1">
+    
+    <h1 class="text-center">Seller Application</h1>
+    <p class="text-center text-light">Thank you for your interest in the Walmart eCommerce Global Marketplace.<br />Please complete this application completely and accurately in order for us review your application.<br /> We value your time and commitment in helping us better understand your business.</p>
+    
+    <apex:messages />
+    <div class="page_1_errors"></div>
+    
+    <h1 class="text-light"><apex:image url="{!URLFOR($Resource.FormPageIcons, 'form-page-icons/blue-1.svg') }" width="28px" height="28px" styleClass="number-circle" />Company Profile</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Registered / Legal Company Name<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Legal_Company_Name__c}"  html-autocomplete="off" styleClass="form-control required" html-placeholder="Acme Inc." id="compName" html-name="compName" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>DBA Name</label>
+                <apex:inputField value="{!qCon.application.DBA_Name__c}" styleClass="form-control" html-placeholder="DBA Name" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Other Business Name</label>
+                <apex:inputField value="{!qCon.application.Other_Business_Name__c}" styleClass="form-control"  />
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Company Website</label>
+                <apex:inputField id="compWebsite" 
+                                                                                    styleClass="form-control urlInput" 
+                                                                                    value="{!qCon.application.Website__c}" 
+                                                                                    html-placeholder="http://www.acme.co"  html-autocomplete="off"/>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Tax ID<span class="text-danger">*</span></label>
+                <apex:input value="{!qCon.taxID}" html-data-mask="99-9999999"  html-autocomplete="off" styleClass="form-control required" id="taxID" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Year Company Founded<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Year_Company_Founded__c}"  html-autocomplete="off" styleClass="form-control required numberInputNoComma" id="yearFounded" html-maxlength="4" />
+            </div>
+        </div>
+        
+        <div class="dependent-picklist" id="SIncorporation">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>State of Incorporation<span class="text-danger">*</span></label>
+                    <apex:inputField value="{!qCon.application.State_of_Incorporation__c}"  html-autocomplete="off" styleClass="select-fixed required" html-data-placeholder="Select State" id="state_inc" />
+                </div>
+            </div>
+        </div>    
+            
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Legal Address<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Legal_Address_Line_1__c}"  html-autocomplete="off" styleClass="form-control required" html-placeholder="Address Line 1" html-maxlength="250"  id="legalAddressLine1"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <apex:inputField value="{!qCon.application.Legal_Address_Line_2__c}"  html-autocomplete="off" styleClass="form-control" html-placeholder="Address Line 2" html-maxlength="250" id="legalAddressLine2"/>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>City/Town<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.City_Town__c}"  html-autocomplete="off" styleClass="form-control required" />
+            </div>
+        </div>
+        <div class="dependent-picklist" id="countryNode">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>State/Province/Region<span class="text-danger">*</span></label>
+                    <apex:inputField value="{!qCon.application.State_Province_Region__c}" styleClass="select-fixed required" html-data-placeholder="Select State" id="state_province" />
+                </div>
+            </div>
+       </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Postal/Zip Code<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Postal_Zip_Code__c}"  html-autocomplete="off" styleClass="form-control required zipInput" />
+            </div>
+        </div>
+        <div class="dependent-picklist" >
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Country<span class="text-danger">*</span></label>
+                    <apex:inputField value="{!qCon.application.Country__c}" required="true" styleClass="select required" html-data-placeholder="Select Country" id="country" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Primary Contact Name<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Primary_Contact_First_Name__c}"  html-autocomplete="off" styleClass="form-control required" html-placeholder="First name" id="first_name"/>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <apex:inputField value="{!qCon.application.Primary_Contact_Last_Name__c}"  html-autocomplete="off" styleClass="form-control required" html-placeholder="Last name" id="last_name"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Primary Contact Title<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Primary_Contact_Title__c}" styleClass="form-control required" />
+            </div>
+        </div>
+    </div>
+    <!-- Ashok -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Primary Contact Mobile<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Primary_Contact_Mobile_Phone__c}"  html-autocomplete="off" required="true" styleClass="form-control required"  html-data-mask="(999) 999-9999" id="mobilenumber" />
+            </div>
+        </div>
+    </div>
+    
+        <div class="row dependent-picklist" id="TextPermission">
+            <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Do you give us the permission to text you for special notifications if needed? <span class="text-danger">*</span></label>
+                   </div>
+                    <div class="col-md-3">
+                        <apex:inputField value="{!qCon.application.Do_you_give_us_permission_to_text__c}"  html-autocomplete="off" required="true" styleClass="select-fixed required" html-data-placeholder="Select One" id="permissiontotext" />
+                    </div>
+            </div>
+        </div>
+    
+    <!-- Ashok -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Primary Contact Phone<span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <apex:inputField value="{!qCon.application.Primary_Contact_Phone__c}"  html-autocomplete="off" styleClass="form-control required" html-data-mask="(999) 999-9999" id="phoneNumber"/>
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    <apex:inputField value="{!qCon.application.Primary_Contact_Phone_Extension__c}" styleClass="form-control" id="extensionNumber" style="margin-left:-2px" html-placeholder="Extension"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+     <div class="col-md-6">
+            <div class="form-group">
+                <label>Primary Contact Email<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Primary_Contact_Email__c}"  html-autocomplete="off" styleClass="form-control required" id="email"/>
+            </div>
+     </div>
+    </div>
+    
+     <!-- Ashok --> 
+     <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>What is your last 12 months total sales revenue?<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.X12months_sales_revenue_online_offline__c}"  html-autocomplete="off" styleClass="form-control required currencyInput" html-placeholder="$000,000.00" id="ytdTotalSalesRevenue" html-maxlength="20" />
+            </div>
+        </div>
+    </div>
+     <!-- Ashok -->
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>What is your last 12 months online sales revenue?<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.X12_mo_YTD_sales_revenue__c}"  html-autocomplete="off" styleClass="form-control required currencyInput" html-placeholder="$000,000.00" id="ytdSalesRevenue" html-maxlength="20" />
+            </div>
+        </div>
+    </div>
+    
+     <!--Ashok -->
+    <div class="row form-group dependent-picklist">
+            <div class="col-md-6">
+                <label>Are you an existing supplier to Walmart?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-6">
+                <apex:inputField value="{!qCon.application.Existing_supplier_to_Walmart__c}" required="true"  html-autocomplete="off" styleClass="select-fixed required" html-data-placeholder="None" id="existingsupplier" onchange="if($(this).val()=='Yes'){$('[id$=pnlNewEmail]').show();}else{$('[id$=pnlNewEmail]').hide();}"/>
+            </div>
+    </div>
+    
+    <apex:outputPanel id="pnlNewEmail" style="display:none;">
+    <div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                    <label>If Yes, Please provide a new primary contact email address that has not been previously used under an existing Walmart supplier relationship <span class="text-danger">*</span></label>
+                    <apex:inputField value="{!qCon.application.Contact_email_Id_previously_not_used__c}" styleClass="form-control required" id="newemail" />
+                </div>
+            </div>
+    </div>
+    </apex:outputPanel>
+
+    <!-- Ashok -->
+    
+    <div class="row">
+        <div class="dependent-picklist" id="WMNode">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>How did you hear about Walmart Marketplace?<span class="text-danger">*</span></label>
+                    <apex:inputField value="{!qCon.application.How_did_you_hear_about_Marketplace__c}" required="true" html-autocomplete="off" styleClass="select-fixed required" html-data-placeholder="Select one" onchange="/*enableAdditionalComments()*/" html-title="how-did-you-hear" id="marketPlace" />
+                </div>
+            </div>
+        </div>    
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Additional Comments</label>
+                <apex:inputField value="{!qCon.application.Additional_Comments__c}" styleClass="form-control additional-comments" id="additionalComments"/>
+            </div>
+        </div>
+    </div>
+
+</fieldset>
+
+</apex:component>

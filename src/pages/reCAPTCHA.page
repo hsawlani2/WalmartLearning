@@ -1,0 +1,91 @@
+<!--
+<apex:page controller="reCAPTCHA">
+
+<script type="text/javascript">
+        var RecaptchaOptions = {                                
+                     theme : 'clean' 
+                         };
+    </script>
+   <apex:pageBlock title="Bot or Not">
+    
+  <html>
+  <head>
+    <title>reCAPTCHA demo: Explicit render after an onload callback</title>
+    <script type="text/javascript">
+        var verifyCallback = function(response) {
+        if(response != null){
+            console.log(response);
+            alert(response);
+           // console.log(g-recaptcha-response);
+            
+        }else{
+            console.log("Captcha not validated");
+        }
+        
+       // alert(verifyCallback );
+      };
+    
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : '6LcBQRkUAAAAAFKlRtvfZoAm3J1DanM42MVJcBPy',
+          'callback' : verifyCallback
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <form action="g-recaptcha-response" method="POST">
+      <div id="html_element"></div>
+      <br/>
+      <button
+                    rendered="{!verified}">
+                        Submit
+                    </button>
+    </form>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit">
+    </script>
+  </body>
+</html> 
+  </apex:pageblock>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+ function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") {var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500); 
+</script>
+<form>
+  <div class="g-recaptcha" data-sitekey="6LcBQRkUAAAAAFKlRtvfZoAm3J1DanM42MVJcBPy"></div><br/>
+  </form>
+  
+</apex:page>
+-->
+
+
+<apex:page controller="ReCaptchaController" tabStyle="Contact" standardStylesheets="false" sidebar="false">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+<div class="jumborton">
+  <apex:pageBlock >
+  <apex:pageMessages />
+  <apex:form >
+  <apex:pageBlockSection columns="1" collapsible="true" title="No CAPTCHA reCAPTCHA">
+              <apex:pageBlockSectionItem >
+                <apex:outputLabel for="inputName" value="First Name"/>
+                <apex:inputText value="{!myfName}" id="inputName"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="inputName" value=" Last Name"/>
+                <apex:inputText value="{!mylName}" id="inputName"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="inputEmail" value="Email"/>
+                <apex:inputText value="{!myEmail}" id="inputEmail"/>
+            </apex:pageBlockSectionItem>
+
+        <div class="g-recaptcha" data-sitekey="{!sitekey}"></div>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <br/>               
+        <apex:commandButton value="Save!" action="{!doVerify}"/>
+    
+    </apex:pageBlockSection>
+    </apex:form>
+  </apex:pageBlock>
+  </div>
+</apex:page>

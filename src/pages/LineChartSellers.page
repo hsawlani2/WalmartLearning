@@ -1,0 +1,53 @@
+<apex:page controller="LineChartController">
+
+        <apex:pageBlock title="Actual vs Plan (All Sellers)">
+              <apex:chart height="400px" width="1200px" data="{!data3}">
+              <apex:axis type="Numeric" position="left" fields="actual,planned,revisedforecast" 
+              title="Number of Sellers" grid="true"/>
+              <apex:axis type="Category" position="bottom" fields="name" 
+              title="Week Number">
+              </apex:axis>
+                  <apex:lineSeries title="Actual" axis="left" fill="false" xField="name" yField="actual"
+                  strokeColor="#0000FF" strokeWidth="3" markerType="circle" markerSize="4"/>
+                  <apex:lineSeries title="Planned" axis="left" fill="false" xField="name" yField="planned"
+                  strokeColor="#51FF00" strokeWidth="3" markerType="circle" markerSize="4" />
+                  <apex:lineSeries title="Revised Forecast" axis="left"  fill="false" xField="name" yField="revisedforecast"
+                  strokeColor="#FF2D00" strokeWidth="3" markerType="circle" markerSize="4" />
+              <apex:legend position="right"/>  
+            </apex:chart>
+
+            </apex:pageBlock>
+         <apex:pageBlock title="Actual vs Forecast vs Plan (Direct Sellers)">
+              <apex:chart height="400px" width="1200px" data="{!data}">
+              <apex:axis type="Numeric" position="left" fields="actual,revisedforecast,planned" 
+              title="Number of Direct Sellers" grid="true"/>
+              <apex:axis type="Category" position="bottom" fields="name" 
+              title="Week Number">
+              </apex:axis>
+                  <apex:lineSeries title="Actual" axis="left" fill="false" xField="name" yField="actual"
+                  strokeColor="#0000FF" strokeWidth="3" markerType="circle" markerSize="4"/>
+                  <apex:lineSeries title="Revised Forecast" axis="left"  fill="false" xField="name" yField="revisedforecast"
+                  strokeColor="#FF2D00" strokeWidth="3" markerType="circle" markerSize="4" />
+                  <apex:lineSeries title="Planned" axis="left" fill="false" xField="name" yField="planned"
+                  strokeColor="#51FF00" strokeWidth="3" markerType="circle" markerSize="4" />
+              <apex:legend position="right"/>  
+            </apex:chart>
+            </apex:pageBlock>
+         <apex:pageBlock title="Actual vs Forecast vs Plan (Partner Sellers)">
+            <apex:chart height="400px" width="1200px" data="{!data2}">
+              <apex:axis type="Numeric" position="left" fields="actual,revisedforecast,planned" 
+              title="Number of Partner Sellers" grid="true"/>
+              <apex:axis type="Category" position="bottom" fields="name" 
+              title="Week Number">
+              </apex:axis>
+                <apex:lineSeries title="Actual" axis="left" fill="false" xField="name" yField="actual"
+                strokeColor="#0000FF" strokeWidth="3" markerType="circle" markerSize="4"/>
+                <apex:lineSeries title="Revised Forecast" axis="left"  fill="false" xField="name" yField="revisedforecast"
+                strokeColor="#FF2D00" strokeWidth="3" markerType="circle" markerSize="4" />
+                <apex:lineSeries title="Planned" axis="left" fill="false" xField="name" yField="planned"
+                strokeColor="#51FF00" strokeWidth="3" markerType="circle" markerSize="4" />
+            <apex:legend position="right"/>  
+          </apex:chart>
+         
+        </apex:pageBlock>     
+</apex:page>

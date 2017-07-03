@@ -1,0 +1,36 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="qCon" type="QuestionnaireController" required="true" description="handle to QuestionnaireController" />
+    
+    <h6>Provide Data</h6>
+    <fieldset>
+        
+        <p class="text-light">
+            Please provide the information in the table below.
+        </p>
+        
+        <br />
+        <div id="category-errorplacement"></div>
+        <br />
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-framed table-bordered category-table" id="categoryTable">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>% of Annual Sales</th>
+                        <th>Number of SKUs</th>
+                        <th>Number of SKUs <br/><span class="text-light">(To be sold on Walmart Marketplace)</span></th>
+                        <th>Number of Brands <br/><span class="text-light">(To be sold on Walmart Marketplace)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+            
+    </fieldset>
+    
+</apex:component>

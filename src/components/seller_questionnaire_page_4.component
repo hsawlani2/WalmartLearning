@@ -1,0 +1,276 @@
+<apex:component layout="none">
+    <style >
+      .percent{
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            width: 100%;
+            height: 36px;
+            padding: 7px 12px;
+            font-size: 18px;
+      }
+    </style>
+    <apex:attribute name="qCon" type="QuestionnaireController" required="true" description="handle to QuestionnaireController" />
+    
+    <h6>Operations</h6>
+    <fieldset>
+        
+        <div id="page4-errorplace" class="row"></div>
+        
+        <h1 class="text-light"><apex:image url="{!URLFOR($Resource.FormPageIcons, 'form-page-icons/blue-4.svg') }" width="28px" height="28px" styleClass="number-circle" />Operations and Customer Service</h1>
+        
+        <p ><label>Please provide the information on your company’s operations and customer service below.</label></p>
+        
+        <!-- <div id="page4-errorplace" class="row"></div> -->
+        <div style="display:none;">
+                                <span id="preferred_way">
+                                   
+                                       If you don’t find your partner in this list, please choose “Partner -> Other” and enter the name of the partner below. 
+                                      
+                  
+                  </span>
+                       <span id="speciality_partner">
+                                     If you don’t find your partner in this list, please leave this field  blank and enter the name of the partner below.
+                                     
+                        </span>
+                                <span id="new_partner">
+                                     Please note that if your partner is not in the above list, your onboarding may be delayed.<br/>
+                                     
+                                </span>
+                            </div>
+        <apex:actionRegion >
+        <div class="row form-group dependent-picklist" id="integrationsNode">
+            <div class="col-md-6">
+                <label class="display-block">What is your preferred way to integrate with the Walmart Marketplace?<span class="text-danger">*</span><span id="idpreferredTooltip" class="tooltip_tipster" data-tooltip-content="#preferred_way" style="display: inline-block; border-radius: 15px; font-weight: bold; height: 28px; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 125, 198); width: 28px; margin-left: 4px;">?</span></label>
+            </div>
+            <div class="col-md-3">
+                <apex:inputField value="{!qCon.application.Preferred_integration_General__c}" styleClass="select-fixed hideNone col-md-10">
+                <apex:actionSupport event="onchange" rerender="pnlIntegrationMethod"/>
+                </apex:inputField>
+            </div>
+            <div class="col-md-3">
+                <apex:outputPanel id="pnlIntegrationMethod">
+                     <apex:selectList disabled="true" size="1" value="{!qCon.application.Preferred_integration_Specific__c}" styleClass="select-fixed" rendered="{!ISNULL(qCon.application.Preferred_integration_General__c)}">
+                      <apex:selectOption itemValue="" itemLabel="--None--" />
+                     </apex:selectList>
+                     
+                     <apex:selectList size="1" value="{!qCon.application.Preferred_integration_Specific__c}" styleClass="select-fixed" rendered="{!qCon.application.Preferred_integration_General__c='Direct'}"> 
+                     <apex:selectOptions value="{!qCon.DirectIntegrationMethod}"/>
+                    </apex:selectlist>
+                    <apex:selectList size="1" value="{!qCon.application.Preferred_integration_Specific_Id__c}" styleClass="select-fixed" rendered="{!qCon.application.Preferred_integration_General__c='Partner'}">
+                     <apex:selectOptions value="{!qCon.IndirectIntegrationMethod}"/>
+                    </apex:selectlist>
+                    
+                    <script type="text/javascript">
+                     console.log('{qCon.application.Preferred_integration_General__c} --> {!qCon.application.Preferred_integration_General__c}');
+                     var oSelect = $('#integrationsNode select:eq(0)');
+                     if($(oSelect).val()=='Direct'){
+                        $('[id$=pnlStartOnboarding]').show();
+                     }
+                     else{
+                        $('[id$=pnlStartOnboarding]').hide();
+                     }
+                    </script>
+             </apex:outputPanel>
+<!--                 <apex:inputField value="{!qCon.application.Preferred_integration_Specific__c}" styleClass="select-fixed dependentPicklist hideNone" /> -->
+            </div>
+        </div>
+        </apex:actionRegion>
+<!--         <div class="row form-group integration-choices"> -->
+<!--             <div class="col-md-6"> -->
+<!--                 <label>If you chose a third party integration, list here (comma-delimited).</label> -->
+<!--                 <apex:inputField value="{!qCon.application.Third_Party_integration_specifics__c}" styleClass="form-control tags-input" id="thirdPartyIntegration" />    -->
+<!--             </div> -->
+<!--         </div> -->
+
+         <apex:outputPanel id="pnlStartOnboarding" style="display:none;">
+         <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label">If approved, how many days after approval will you be able to start onboarding/integration?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-1">
+                <apex:inputField value="{!qCon.application.No_of_days_you_will_start_integration__c}" styleClass="form-control required numberInput"  id="startOnboarding" />   
+            </div>
+        </div>
+        </apex:outputPanel>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label">Select any other partners whose services you would like to use (choose all that may apply). <span id="idspecialityTooltip" class="tooltip_tipster" data-tooltip-content="#speciality_partner" style="display: inline-block; border-radius: 15px; font-weight: bold; height: 28px; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 125, 198); width: 28px; margin-left: 4px;">?</span></label>
+            </div>
+            <div class="col-md-6">
+              <apex:selectList value="{!qCon.application.SpecialitypartnerIds__c}" html-multiple="multiple" styleClass="select" title="Select-Speciality-Partner" id="specialitypartner-select" multiselect="true">
+                                    <apex:selectOptions value="{!qCon.SpecialitypartnersList}"/>
+                                            </apex:selectList>   
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label">Please suggest any other partners you would like to use.<span id="idnewpartnerTooltip" class="tooltip_tipster" data-tooltip-content="#new_partner" style="display: inline-block; border-radius: 15px; font-weight: bold; height: 28px; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 125, 198); width: 28px; margin-left: 4px;">?</span></label>
+            </div>
+            <div class="col-md-6">
+              <apex:inputField value="{!qCon.application.SuggestedanewPartner__c}" styleClass="form-control"  id="idSuggestedanewPartner" />   
+            </div>
+        </div>
+        
+         <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label">How many business days does it take you to pick, pack and ship your orders?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-1">
+                <apex:inputField value="{!qCon.application.Business_days_to_pick_pack_ship__c}" styleClass="form-control numberInput" id="businessDays" />   
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label>Are you currently using Fulfillment by Amazon (FBA) to fulfill your online orders?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-6">
+                <apex:inputField value="{!qCon.application.Using_Fulfillment_by_Amazon_FBA__c}" required="true" styleClass="select-fixed" html-data-placeholder="Select one" id="fulfillmentbyamazon" onchange="if($(this).val()=='Yes'){$('[id$=pnlPercentageAmazon]').show();}else{$('[id$=pnlPercentageAmazon]').hide();}"/>
+            </div>
+        </div>
+        
+       <div class="row form-group">
+            <div class="col-md-6">
+                <label class="control-label">If yes, what percentage of your orders are fulfilled by Amazon FBA?</label>    
+            </div>
+            <div class="col-md-1">
+                <apex:outputPanel id="pnlPercentageAmazon" style="display:none;">
+                <apex:inputField value="{!qCon.application.Amazon_Fulfillment_Perc__c}" styleClass="form-control numberInput" html-maxlength="3" html-placeholder="%" id="percentageAmazon" />
+                </apex:outputPanel>   
+            </div>
+        </div>   
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label>Do you offer free shipping?</label>
+            </div>
+            <div class="col-md-6">
+                <apex:inputField value="{!qCon.application.Free_Shipping__c}" required="true" styleClass="select-fixed" html-data-placeholder="Select one" id="freeShippingSelect" />
+            </div>
+        </div>
+        
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label class="control-label">If yes, what percentage of your assortment has free shipping?</label>    
+            </div>
+            <div class="col-md-1">
+                <apex:inputField value="{!qCon.application.Perc_assortment_has_Free_Shipping__c}" styleClass="form-control numberInput" html-maxlength="3" html-placeholder="%" id="percentageFreeShipping" />   
+            </div>
+        </div>
+        
+        
+        <div class="form-group row">
+           <!-- <div class="col-md-6">
+                <label>Do you depend on 3rd party logistics service providers to fill your orders? &nbsp;</label>    
+            </div>
+            <div class="col-md-1">
+                <select id="fulfillment-options" class="select-fixed" data-placeholder="Select Option" onchange="updateFulfillmentVisiblity()">
+                    <option></option>
+                    <option value="Y" selected="selected">Yes</option>
+                    <option value="N">No</option>
+                </select>    
+            </div> -->
+        </div>
+        
+        <div class="row fulfillment-providers">
+            <div class="col-md-6 table-responsive">
+                <table class="table table-striped table-framed table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Fulfillment Service Provider </th>
+                            <th>Percentage of Total Orders Shipped</th>
+                            <th><button type="button" class="fulfillment-add-row btn btn-link" onclick="addFulfillmentRow()"><i class="fa fa-plus-circle fa-lg add-row-button"></i></button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr title="fulfillment-1">
+                            <td><apex:inputField value="{!qCon.application.Fulfillment_Service_Provider_1__c}" styleClass="form-control" html-placeholder="FBA" /></td>
+                            <td><apex:inputField value="{!qCon.application.Percentage_of_Total_Orders_Shipped_1__c}" styleClass="form-control text-right totalOrderPct numberInput" html-maxlength="3" html-placeholder="%" id="fulfillmentPercentage1" /></td>
+                        </tr>
+                        <tr title="fulfillment-2">
+                            <td><apex:inputField value="{!qCon.application.Fulfillment_Service_Provider_2__c}" styleClass="form-control" html-placeholder="FBA" /></td>
+                            <td><apex:inputField value="{!qCon.application.Percentage_of_Total_Orders_Shipped_2__c}" styleClass="form-control text-right totalOrderPct numberInput" html-maxlength="3" html-placeholder="%" id="fulfillmentPercentage2" /></td>
+                            <th><button type="button" class="btn btn-link" onclick="subtractFulfillmentRow(2)"><i class="fa fa-minus-circle fa-lg subtract-row-button"></i></button></th>
+                        </tr>
+                        <tr title="fulfillment-3">
+                            <td><apex:inputField value="{!qCon.application.Fulfillment_Service_Provider_3__c}" styleClass="form-control" html-placeholder="FBA" /></td>
+                            <td><apex:inputField value="{!qCon.application.Percentage_of_Total_Orders_Shipped_3__c}" styleClass="form-control text-right totalOrderPct numberInput" html-maxlength="3" html-placeholder="%" id="fulfillmentPercentage3" /></td>
+                            <th><button type="button" class="btn btn-link" onclick="subtractFulfillmentRow(3)"><i class="fa fa-minus-circle fa-lg subtract-row-button"></i></button></th>
+                        </tr>
+                        <tr title="fulfillment-4">
+                            <td><apex:inputField value="{!qCon.application.Fulfillment_Service_Provider_4__c}" styleClass="form-control" html-placeholder="FBA" /></td>
+                            <td><apex:inputField value="{!qCon.application.Percentage_of_Total_Orders_Shipped_4__c}" styleClass="form-control text-right totalOrderPct numberInput" html-maxlength="3" html-placeholder="%" id="fulfillmentPercentage4" /></td>
+                            <th><button type="button" class="btn btn-link" onclick="subtractFulfillmentRow(4)"><i class="fa fa-minus-circle fa-lg subtract-row-button"></i></button></th>
+                        </tr>
+                        <tr title="fulfillment-5">
+                            <td><apex:inputField value="{!qCon.application.Fulfillment_Service_Provider_5__c}" styleClass="form-control" html-placeholder="FBA" /></td>
+                            <td><apex:inputField value="{!qCon.application.Percentage_of_Total_Orders_Shipped_5__c}" styleClass="form-control text-right totalOrderPct numberInput" html-maxlength="3" html-placeholder="%" id="fulfillmentPercentage5" /></td>
+                            <th><button type="button" class="btn btn-link" onclick="subtractFulfillmentRow(5)"><i class="fa fa-minus-circle fa-lg subtract-row-button"></i></button></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+        
+        <div class="form-group row">
+            <div class="col-md-6 top-spacing">
+                <label class="control-label">What is your pre-fulfillment cancellation rate over the past 90 days?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-1 top-spacing">
+                <apex:inputField value="{!qCon.application.Pre_fulfillment_cancellation_rate__c}"  html-maxlength="5" html-placeholder="%" id="cancellationRate" styleClass="percent"/>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label">What percentage of your orders fall outside your promised shipping window?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-1">
+                <apex:inputField value="{!qCon.application.Percentage_orders_falling_out_window__c}"  html-maxlength="5" html-placeholder="%" id="ordersFallOutside" styleClass="percent"/>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label">What percentage of your orders are refunded?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-1">
+                <apex:inputField value="{!qCon.application.Percentage_of_orders_refunded__c}" html-maxlength="5"  html-placeholder="%" id="ordersRefunded" styleClass="percent"/>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label>What is your customer return policy?<span class="text-danger">*</span></label>
+                <apex:inputField value="{!qCon.application.Customer_return_policy__c}" styleClass="form-control" id="customerReturnPolicy" />
+            </div>
+        </div>
+        
+        <hr />
+        <!--
+        <h1>File Attachments</h1>
+        
+        <div class="row">
+            <apex:inputFile value="{!qCon.attachment.body}" filename="{!qCon.attachment.name}" id="attachments"  />
+            <span class="help-block">Important: 10 MB file limit. For multiple attachments, zip them first.</span>
+        </div>
+        -->
+        <p class="text-center text-bold text-italic">Any inaccurate information or misrepresentation of information submitted may result in termination of the agreement.</p>
+        
+    </fieldset>
+
+    <script>
+        $(document).ready(function() {
+            $('.tooltip_tipster').tooltipster({
+            contentAsHTML: true,
+            interactive: true,
+            maxWidth:250,
+            theme: 'tooltipster-light',
+            side: 'right'
+            });
+        });
+    </script>
+
+</apex:component>

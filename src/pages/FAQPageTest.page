@@ -1,0 +1,538 @@
+<apex:page sidebar="false" applyHtmlTag="false" applyBodyTag="false" showHeader="false" standardStylesheets="false">
+            <!-- Fontawesome Icon font -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/font-awesome.min.css')}"/>
+            <!-- bootstrap.min -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/bootstrap.min.css')}"/>
+             <!-- bootstrap.min -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign1, 'Walmart/css/bootstrap.min.css')}"/>
+             <!-- meta character set -->
+             <apex:stylesheet value="{!URLFOR($Resource.FAQImg, 'Walmart/css/bootstrap.min.css')}"/>
+            <meta charset="utf-8"/>
+            <!-- Always force latest IE rendering engine or request Chrome Frame -->
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            <title>FAQ Page</title>    
+            <!-- Meta Description -->
+            <meta name="description" content="It's easy to sell online with Walmart. Put your products in front of 80 million unique Walmart shoppers and increase your visibility."/>
+            <meta name="keywords" content="sell online, sell on Walmart, sell electronics, sell products online, sell items online, sell stuff online, online selling sites"/>
+            <meta name="author" content="Walmart"/>
+            <meta name="google-site-verification" content="64mV8ZKfoXsf0S6pY5tpQB7QYMpXF9AzwfeBIhopMCM" />
+            
+            <!-- Mobile Specific Meta -->
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+             <!-- CSS
+            ================================================== -->
+            
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'/>
+            
+            <style> 
+            
+           
+              
+                      .t1{
+                         font-size: 16px; 
+                         font-weight: normal; 
+                         margin-left: 8.5rem; 
+                         padding-right: 1rem; 
+                         font-style: normal; 
+                         font-stretch: normal; 
+                         margin-top: 0.5rem; 
+                         color: #4a4a4a; 
+                         margin-bottom: .5rem!important; 
+                         line-height: 1.3em; 
+                         height: 100px; 
+                         overflow: hidden; 
+                         position: absolute; 
+                        }
+               
+                       .h3{
+                       text-align:left;
+                       margin-left: 8.5rem;
+                       border-bottom:none;
+                       Padding-right: 200px;
+                       }
+                        #ge{
+                        text-align:left;
+                        Padding-left: 80px;
+                        }
+                        #margintop{
+                        margin-top:10rem;
+                        }
+                        
+                        .p1{
+                        margin-top : 3.9rem;
+                         }
+                          .h1{
+                             text-align:left;
+                             Padding-left: 78px;
+                             text-align: left; 
+                             PADDING-TOP: 5rem; 
+                             color: #666;
+                             text-size:42px;
+                             top-margin:80px;
+                             bottom-margin:5px;
+                             
+                             }         
+                           .img{
+                                width:100%; 
+                                height:22vw;
+                                }
+                           . walmartLogo{
+                                float:left;
+                                }   
+                                        
+                @media only screen and (max-width: 767px){
+                    
+                                .carousel-caption {
+                                 font-size: 1vw;
+                                 Padding-right:20%
+                                     }
+                                          #margintop{
+                                        margin-top: 0%;
+                                    }       
+                                                 
+                  .serviceimg{
+                   margin-top:5%;
+                   margin-left:3%;
+                   }   
+                   
+                   .h3{
+                         margin-top:-65px;
+                        font-size: 2vw;
+                        margin-left:10%;
+                    }    
+                  .divpara{
+                  font-size: 1.5vw;
+                  margin-left:10%;
+                  }
+                .divpart{
+                width:100%;
+                }
+                   #ge{
+                        text-align:left;
+                        
+                        }
+                  
+                    .q1{
+                        height : 55vw;
+                        position: relative; 
+                        margin-top:2rem;
+                        width :90%; 
+                        align=center;
+                        left: 2%;
+                    }
+                
+                }
+                .walmartlogo{
+                        height: 35px;
+                        width: 45%;
+                    }
+                
+                @media only screen and (max-width: 485px){
+                
+                 #ge{
+                        text-align:left;
+                        Padding-left: 20px;
+                        }
+                  
+                
+                    t1 {
+                    font-size: 16px;
+                    font-weight: normal;
+                    margin-left: 8.5rem;
+                    padding-right: 1rem;
+                    font-style: normal;
+                    font-stretch: normal;
+                    margin-top: 0.5rem;
+                    color: #4a4a4a;
+                    /* margin-bottom: .5rem!important; */
+                    /* line-height: 1.3em; */
+                    /* height: 100px; */
+                    overflow: hidden;
+                    position: absolute;
+                    }
+                 
+                    .q1{
+                        height : 25vw;
+                        position: relative; 
+                        width :38vw; 
+                        align=center;
+                        left: 25vw;
+                        margin-top:2rem;
+                    }
+                
+                    .main-text .col-md-12 .h1{
+                        font-size: 10px;
+                    }
+                    .walmartlogo{
+                        height: 25px;
+                        width: 29%;
+                    }
+                }
+                
+                @media only screen and (max-width: 320px){
+                    
+                    .q1{
+                        height : 25vw;
+                        position: relative; 
+                        width :38vw; 
+                        align=center;
+                        left: 25vw;
+                    }
+                 .walmartlogo{
+                        height: 10px;
+                        width: 35%;
+                    }
+                }
+                
+                
+                @media only screen and (min-width: 899px) and (max-width: 999px){
+                .walmartlogo{
+                        height: 60px;
+                        width: 80%;
+                    }
+                    .caption-content .cch2 {
+                        font-size: 85px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                     #ge{
+                        text-align:left;
+                        Padding-left: 60px;
+                        }
+                      .serviceimg{
+                       font-size: 5vw;
+                       margin-top:8%;
+                       margin-left:6%;
+                   }    
+                   .h3{
+                        margin-top:-65px;
+                        font-size: 2vw;
+                        margin-left:11%;
+                    }    
+                  .divpara{
+                  font-size: 1.5vw;
+                  margin-left:11%;
+                  }
+                  .divpart{
+                width:120%;
+                }
+                    
+                }
+                
+                @media only screen and (min-width: 768px) and (max-width: 899px){
+                .walmartlogo{
+                        height: 70px;
+                        width: 228px;
+                    }
+                   .container-fluid{
+                width:800px;
+                } 
+                    .carousel-caption p{
+                     font-size: 1.4vw;
+                    
+                  }
+                  .serviceimg{
+                   margin-top:5%;
+                   margin-left:3%;
+                   }    
+                   .h3{
+                         margin-top:-65px;
+                        font-size: 2vw;
+                        margin-left:8%;
+                    }    
+                  .divpara{
+                  font-size: 1.5vw;
+                  margin-left:8%;
+                  }
+                .divpart{
+                width:120%;
+                }
+                }
+                @media only screen and (min-width: 1124px) and  (max-width: 1680px){
+                 .walmartlogo{
+                        height: 70px;
+                        width: 228px;
+                    }
+                   .serviceimg{
+                   margin-top:5%;
+                   margin-left:5%;
+                   }    
+                   .h3{
+                        margin-top:-65px;
+                        font-size: 2vw;
+                        margin-left:11%;
+                    }    
+                  .divpara{
+                  margin-left:11%;
+                  }      
+                }
+                
+                 @media only screen and (min-width: 999px) and (max-width: 1124px){
+                    .walmartlogo{
+                        height: 70px;
+                        width: 228px;
+                    }
+                    .serviceimg{
+                   margin-top:5%;
+                   margin-left:6%;
+                   }    
+                   .h3{
+                        margin-top:-65px;
+                        font-size: 2vw;
+                        margin-left:13%;
+                    }    
+                  .divpara{
+                  margin-left:13%;
+                  }
+                    
+                    
+                }
+                
+            </style>  
+            
+              <body id="body">
+            
+            <main class="site-content" role="main">
+                <section id="home-slider">
+                                 <!-- NAVBAR
+                ================================================== -->
+                  
+                <div class="navbar-wrapper">
+                  <div class="container">
+                    <nav class="navbar navbar-inverse navbar-static-top" style="background: none;border:none ">
+                      <div class="container-fluid">
+                        <div class="navbar-header">
+                          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+                          <a class="navbar-brand" href="https://marketplace.walmart.com">
+                            <apex:image style="float:left;" id="theImage" url="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/logo2.svg')}" styleClass="walmartlogo"/>
+                         </a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse" style ="float:right">
+                          <ul class="nav navbar-nav" >
+                            <li ><a href="https://marketplace.walmart.com" class="p1" style="color:#007DC6;">Home</a></li>
+                            
+                            <li><a href="https://seller.walmart.com" class="p1" style="color:#007DC6;">Log in</a></li>
+                             <a class="btn btn-lg btn-Request btn-default "  role="button" style ="margin-top : 3vw;color:#007DC6; border:solid 2px #007DC6; border-radius: 0; font-color: #FFFFFF; font-size:100% " onclick="newWebLead()">Apply Now</a>
+                 
+                           <!-- <li><a class="btn btn-lg btn-Request"  role="button" style ="margin-top : 2rem; fill-background-color:None; color:None; border:solid 3px white;  text-transform: none; margin-left:26px fill:none;" onclick="newWebLead()">Request an invite</a></li>
+                          -->
+                          </ul>
+                        </div>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+            </section>
+            
+             <section>
+                <div style="text-align:center;">            
+                    <div class="">
+                         <img src="{!URLFOR($Resource.FAQImg,'')}" class="img" />
+                    </div>
+                </div> 
+        </section>
+        <section id="about" style="padding-bottom: 0vw;">
+                    <div class="container-fluid">
+                        <div class="row">
+                        <h1 class="h1"><b>General</b></h1>
+                         <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >
+                      <h3  class="h3">Why should my business partner with Walmart Marketplace?</h3>
+                       <p class="divpara" >Walmart Marketplace is an invitation-only, professional seller community that foster success. By partnering  with<br/>the largest retailer in the world, you have the opportunity to reach over 110 million unique visitors a month(and<br/>growing). You have a great deal of control over your business, including inventory, retail pricing, fulfilment and </p>                                  
+                      </div>
+                      <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">
+                      <h3 class="h3">Where will my items appear?</h3>
+                      <p class="divpara" >Your items will appear on Walmart.com,alongside all items being sold by Walmart and other MarketPlace Sellers. </p>
+                       </div>
+                     
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">
+                      <h3 class="h3">What seller qualities does Walmart MarketPlace look for?</h3>
+                      <p class="divpara">We are looking for realtionship with reputable retailers and brands that provide first-class customer service, a compelling<br/>product assortment, competitive pricing and fast, reliable fulfillment.</p>
+                                 
+                    </div> 
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">
+                     <h3 class="h3">How can my business be considered for Walmart Marketplace?</h3>
+                      <p class="divpara">Click "Apply Now" on the <a href="https://corporate.walmart.com/">Walmart Marketplace homepage</a> and complete the application. A dedicated Business Development<br/>Manager will help you through the verification process. If appreoved, youll acknowledge our Retailer Agreememnt and then<br/>start the onboarding process to get your product on Walmart.com</p>
+                     </div>
+                   
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">
+                      <h3 class="h3">How long before I can start selling on Walmart Marketplace?</h3>
+                       <p class="divpara">Start by completing the Seller Application, which should take about 10 minutes. The approval process takes around one week. If<br/>approved,onboarding and integration generally takes 2-4 weeks.</p>
+                     
+                    </div> 
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">
+                       <h3 class="h3">So, whats the catch?</h3>
+                       <p class="divpara">No catch. No set up, monthly or annual fees either. Referral fees are only deducted when your item sells.You<br/>can pause or resume selling on walmart Marketplace at any time with no financial penalties.</p>
+                     </div>
+                     </div>
+                  </div>
+              </section>
+              
+            <section id="add" style="padding-bottom: 0vw;">
+                    <div class="container-fluid">
+                        <div class="row">
+                        <h1 class="h1"><b>Add your items</b></h1>
+                        <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >
+                        <h3 class="h3">What types if items can I sell on Walmart Marketplace?</h3>
+                        <p class="divpara">You can sell just about anything on our site. However, we require all Sellers to follow the law and our policies, so please review this <a href="https://marketplace.walmart.com/knowledgebase/articles/Article/Prohibited-Products-Policy?c=&q=prohibited%20products%20policy&l=en_US&kb=">Prohibited  Products Policy.</a> </p>
+                    </div>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">
+                        <h3 class="h3">What about SKU minimums/maximums and limited-speciality inventory?</h3>
+                        <p class="divpara" >There are no SKU minimums or maximums, so list your entire caatlog of eligible items with us. Limited inventory can be managed by setting a fixed threshold.Items without inventoory are not avaliable for sale on Walmart.com  </p>
+                    </div>
+                     
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">                   
+                        <h3 class="h3">How are items priced?</h3>
+                        <p class="divpara" >You set the item price for your entire catalog </p>
+                    </div>
+                    
+                     <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">                   
+                        <h3 class="h3">How do I populate and manage my listing and promote my items? </h3>
+                        <p class="divpara" >You can manage your listings through tools in <a href="https://marketplace.walmart.com/knowledgebase/articles/Article/Setting-up-Items-Through-Excel">Seller Center,</a> the <a href="https://marketplace.walmart.com/knowledgebase/articles/Article_links/Integration-Methods-the-API"> API </a>or a third party <a href="https://marketplace.walmart.com/knowledgebase/articles/Article/Integration-Methods-Channel-Partner">Solution Provider</a>. A <a href=": https://marketplace.walmart.com/knowledgebase/articles/Article/Creating-And-Updating-Promotional-Pricing">Promotional Pricing</a> Spec is also avaliable so you can upload promotional pricing. </p>                     
+                    </div>
+                    
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">                   
+                        <h3 class="h3">What will my items look loke on the site?</h3>
+                        <p class="divpara" >They  will look like other items that are bieng sold on Walmart.com but include your company information, such as shipping, return policy and conatct information.</p>
+                    </div>
+                    
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">                   
+                        <h3 class="h3">How does item matching work?</h3>
+                        <p class="divpara" >Several attributes are used to match new items against existing items in the Walmart Catalog. The most important attributes for matching are gloabal indentifiers(e.g. UPC or GTIN) and manufacturer part numbers. When your item is matched with one or more items, the lisitngs will be presented together on Walmart.com</p>                    
+                     </div>
+                     </div>
+                  </div>
+              </section>
+                
+                <section id="fulfil" style="padding-bottom: 0vw;">
+                    <div class="container-fluid">
+                        <div class="row">
+                        <h1 class="h1"><b>Fulfill your customer orders</b></h1>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >
+                        <h3  class="h3">How do I check for and process orders?</h3>
+                        <p class="divpara" >You will receieve orders in Seller Center or through the API, and during you set business hours,you must frequently check your queues to ensure that orders are dealt with promptly.You can also set your own company business hours and days of service to address vacation and personal time off</p>
+                    </div>
+                    
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart"> 
+                        <h3 class="h3">What are the shipping requirements?</h3>
+                        <p class="divpara" >You can select the carriers,shipping price and shipping method when you set up your Seller profile in Seller.Center.We have five shipping methods available.Orders must be shipped in non-branded packaging and can't include materials from any company other than Walmart</p>
+                    </div>
+                    
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart">                                         
+                        <h3 class="h3">What about returns and customer service?</h3>
+                        <p class="divpara" >You control, specify and manage your return policy in Seller Center. Your customer service information (including customer service email address, hours of operation and customer service phone number) are clearly displayed with your item listings on Walmart.com. </p>
+                    </div>
+                 </div>
+                </div>
+            </section>
+                                        
+            <section id="paid" style="padding-bottom: 0vw;">
+                    <div class="container-fluid">
+                        <div class="row">
+                        <h1 class="h1"><b>Get paid</b></h1>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >        
+                        <h3 class="h3">If approved, what fees do I have to pay?</h3>
+                        <p class="divpara" >There are no setup, subscription or monthly fees. We simply deduct a reasonable referrrel fee once a sale occurs on our site. </p>
+                    </div>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >  
+                        <h3 class="h3">What is Walmart Marketplace's commission structure? </h3>
+                        <p class="divpara" >Our competitive <a href="https://marketplace.walmart.com/knowledgebase/articles/File_Download/Commission-Rates-For-Contract-Categories">referral fee</a> percentages vary by category. </p>
+                    </div>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >               
+                        <h3 class="h3">How are refunds handled?</h3>
+                        <p class="divpara" >You will manage refunds resulting from valid returns through Seller Center or the API.</p>
+                    </div>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >                 
+                        <h3 class="h3">Who pays the credit card fees?</h3>
+                        <p class="divpara" >Credit Card fees are already calculated into our competitive referral fees.</p>
+                    </div>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >                                          
+                        <h3 class="h3">What about fraud?</h3>
+                        <p class="divpara" >Before you receive a credit card order, our security system checks for fraud. We recommend requiring a signature for delivery of high-value orders</p>
+                    </div>
+                    <div class="">
+                        <img src="{!URLFOR($Resource.WalmartDesign1, '')}" class="serviceimg" style="width:5vw; height:60px;"/>
+                    </div>
+                    <div class="divpart" >                                                  
+                        <h3 class="h3">What about sales tax?</h3>
+                        <p class="divpara">You can request that we collect sales tax on your behalf so you can remit to the appropiate taxing authorites. We recommend you consult your tax professional to determine which setting is best.</p> 
+                    </div>
+                 </div>
+                </div>
+            </section>
+                
+            
+         </main>
+
+
+ 
+  
+</body>
+
+  
+</apex:page>

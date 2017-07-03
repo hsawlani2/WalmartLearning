@@ -1,0 +1,29 @@
+.THIS .navbar-brand {
+  height: 100px;
+}
+
+.THIS .nav >li >a {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: token(fontColor);
+}
+.THIS .navbar-toggle {
+  padding: 10px;
+  margin: 25px 15px 25px 0;
+}
+.THIS.navbar-inverse {
+    background-color: token(backgroundColor);
+    border-color: token(backgroundColor);
+}
+.THIS.navbar-inverse .navbar-toggle {
+    border-color: token(fontColor);
+}
+.THIS.navbar-inverse .navbar-toggle :hover {
+    background-color: token(fontColor);
+}
+.THIS.navbar-inverse .navbar-collapse,.THIS.navbar-inverse .navbar-form {
+    border-color: token(backgroundColor);
+}
+.THIS.navbar-inverse .navbar-nav>li>a {
+    color: token(fontColor);
+}

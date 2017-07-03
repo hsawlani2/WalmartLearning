@@ -1,0 +1,32 @@
+<!--
+ * Custom VF page to used as Home Page Component on Community
+ * to display the link to PKB
+ *
+ * @author      Cloud Sherpas
+ * @createddate 16-Mar-2016
+-->
+<apex:page label="Help" controller="HomePageVFComponentController" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" showHeader="false">
+    <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial,Helvetica,sans-serif;
+                    font-size: 12px;
+                }
+                a {
+                    text-decoration: none;
+                    color: #343434;
+                }
+                
+                a:hover {
+                    text-decoration: underline;
+                    color: #1468b6;
+                }
+            </style>
+        </head>
+        <body>
+           <a target="_blank" href="{!kbURL}">Knowledge Base</a>
+        </body>
+        
+    </html>
+</apex:page>

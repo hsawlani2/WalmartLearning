@@ -1,0 +1,21 @@
+<apex:page sidebar="false"
+    showHeader="false"
+    cache="false"
+    standardStylesheets="false"
+    docType="html-5.0" controller="Walmart_Unauthorized_Cntl">
+    <apex:composition template="walmart_pkb_template">
+        
+    </apex:composition>
+    <apex:form >
+        <apex:actionFunction name="redirecttoartcl" action="{!redirecttoarticle}" oncomplete="kblogin" />
+    </apex:form>
+    <script>
+            console.log(searchresultbody);
+            searchresultbody.innerHTML = '<div>You have opened a page that you are not authorized to view.</div><a onclick="redirect();">Login</a>';
+            
+            function redirect(){
+                alert('redirect clicked');
+                redirecttoartcl();
+            }
+        </script>
+</apex:page>

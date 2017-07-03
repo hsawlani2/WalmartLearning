@@ -1,0 +1,184 @@
+<apex:page id="mainPage"
+  standardStylesheets="false"
+  showHeader="false"
+  sidebar="false"
+  controller="QuestionnaireController"
+  applyBodyTag="false"
+  applyHtmlTag="false"
+  docType="html-5.0">
+    
+    <html>
+        <head>
+            
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Seller Questionnaire</title>
+            <link rel="apple-touch-icon" href="{!$Resource.SellerAppleTouchIcon}"></link>
+            <link rel="shortcut icon" type="image/x-icon" href="{!$Resource.SellerFavicon}" />
+            
+            <!-- Global stylesheets -->
+            <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/icons/icomoon/styles.css') }"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+            <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/bootstrap.min.css') }"/>
+            <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/core.min.css') }"/>
+            <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/components.min.css') }"/>
+            <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/colors.min.css') }"/>
+            <link rel="stylesheet" href="{!URLFOR($Resource.tooltipster, 'css/tooltipster.bundle.min.css') }" />
+            <link rel="stylesheet" href="{!URLFOR($Resource.tooltipster, 'css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light.min.css') }" />
+            <!-- Global stylesheets -->
+            
+            <!-- custom overrides -->
+            <c:questionnaire_css_overrides />
+            
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jquery.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/bootstrap.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/loaders/blockui.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/ui/drilldown.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/ui/nicescroll.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/loaders/pace.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/selects/select2.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/styling/uniform.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jasny_bootstrap.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/validation/validate.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jquery_ui/interactions.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/tags/tagsinput.min.js') }" />
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/uploaders/fileinput.min.js') }" />
+            
+            <script src="https://rawgit.com/leo-fcx/jquery-steps/master/build/jquery.steps.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+            
+            <script src="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/app.js') }" type="text/javascript"></script>
+            <script src="{!URLFOR($Resource.tooltipster, 'js/tooltipster.bundle.min.js') }" type="text/javascript"></script>
+
+            <c:embedded_wizard_js qCon="{!qCon}" />
+            <c:TriggerApplicationSave qCon="{!qCon}" />
+            
+        
+        </head>
+        
+        <body>
+            
+            <div class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/questionnaire">
+                        <apex:image url="{!URLFOR($Resource.WMPLogo)}" />
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Page container -->
+            <div class="page-container">
+        
+                <!-- Page content -->
+                <div class="page-content">
+        
+                    <!-- Main content -->
+                    <div class="content-wrapper">
+                    
+                        <!-- Basic setup -->
+                        <div>
+                            <!--
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Seller Questionnaire</h6>
+                            </div>
+                            -->
+        
+                            <apex:form id="app_form">
+                            
+                                <!--
+                                 <apex:outputPanel layout="block" id="debugBlock">
+                                    <apex:inputText value="{!qCon.application.Categories__c}" styleClass="form-control" html-placeholder="Acme Inc." />
+                                </apex:outputPanel>
+    
+                                -->
+                            
+                                <div class="steps-basic">
+                                
+                                    <c:seller_questionnaire_page_1 qCon="{!qCon}" id="comp_page_1" />
+                                    
+                                    <c:seller_questionnaire_page_2 qCon="{!qCon}" />
+                                    
+                                    <c:seller_questionnaire_page_3 qCon="{!qCon}" />
+                                    
+                                    <c:seller_questionnaire_page_4 qCon="{!qCon}" />
+                                    
+                                    <!-- Taking the hidden field approach here because actionFunction with params doesnt work without rerender!!! -->
+                                    <!-- We can't use rerender because its in conflict with inputFile!!!! -->
+                                    <!-- Hidden fields -->
+                                    <apex:inputHidden value="{!qCon.selectedCategories}" id="categoriesString" />
+                                    <apex:inputHidden value="{!qCon.selectedIntegrations}" id="integrationsString" />
+                                    <apex:inputHidden value="{!qCon.selectedMarketplaces}" id="marketplacesString" />
+                                    
+                                    <hr class="with-padding-100" />
+                                    
+                                    <div class="controls">
+                                        <div class="centered col-md-4">
+                                            <a id="prevBtn" class="btn bare-btn"><i class="fa fa-angle-left fa-lg"></i>&nbsp;Back</a>
+                                        </div>
+                                        <div class="centered col-md-4">
+                                            <a id="nextBtn" class="btn">Save and Continue</a>
+                                            <!-- Function found on TriggerApplicationSave -->
+                                            <a id="finishBtn" class="btn">Finish!</a>
+                                        </div>
+                                        <div class="col-md-4" />
+                                    </div>
+                                
+                                </div>
+                                
+                                <div class="loadingStatus" style="display:none;">
+                                    <div class="popupBackground" />
+                                    <div class="PopupPanel">
+                                        <table width="100%" height="100%">
+                                            <tr><td><i class="fa fa-spinner fa-pulse loading-icon fa-2x text-center" style="display: inline-block; width: 100%"></i></td></tr>
+                                            <tr><td><h4 class="loading-icon text-center">Saving...</h4></td></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="successPanel" style="display:none;">
+                                    <div class="popupBackground" />
+                                    <div class="success-panel">
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">Success!</h6>
+                                            </div>
+                        
+                                            <div class="panel-body">
+                                                {!$Label.ApplicationCompletedMessage}
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="blockedPanel" style="display:none;">
+                                    <div class="popupBackground" />
+                                    <div class="success-panel">
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">{!$Label.ApplicationBlockedTitle}</h6>
+                                            </div>
+                                            <div class="panel-body">
+                                                {!$Label.ApplicationBlockedMessage}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            <!--  rerender="dummy" oncomplete="showSuccessPanel()" -->
+                                <apex:actionFunction name="saveApplicationForm" action="{!saveApplicationData}"></apex:actionFunction>
+        
+                            </apex:form>
+                        </div>
+                        <!-- /basic setup -->
+                    </div>
+                </div>
+            </div>
+            
+        </body>
+        
+    </html>
+    
+    
+</apex:page>

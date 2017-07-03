@@ -1,0 +1,29 @@
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+
+<apex:outputText rendered="{!pkbCon.hasHeadLines}">
+    <div id="alerts" class="container">
+        <div class="row">
+            <div class="hero-box autoplay">
+                <apex:repeat var="a" value="{!pkbCon.headlineKads}">
+                <c:walmart_alert_item pkbCon="{!pkbCon}" 
+                aid="{!a.id}"
+                title="{!a.title}"
+                summary="{!a.summary}"
+                urlName="{!a.urlName}"
+                articleTypeName="{!a.articleTypeName}"
+                articleTypeLabel="{!a.articleTypeLabel}"
+                lastModifiedDate="{!a.lastModifiedDate}"
+                firstPublishedDate="{!a.firstPublishedDate}"
+                lastPublishedDate="{!a.lastPublishedDate}"
+                articleNumber="{!a.articleNumber}"
+                messageType="{!a.messageType}"
+                />
+            
+    </apex:repeat>
+            </div>
+        </div>
+    </div>
+</apex:outputText>
+
+</apex:component>

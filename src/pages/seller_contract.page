@@ -1,0 +1,220 @@
+<apex:page standardStylesheets="false"
+    controller="ContractController"
+    showHeader="false"
+    sidebar="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    docType="html-5.0">
+    
+    <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Seller Contract</title>
+            <link rel="apple-touch-icon" href="{!$Resource.SellerAppleTouchIcon}"></link>
+            <link rel="shortcut icon" type="image/x-icon" href="{!$Resource.SellerFavicon}" />
+        
+            <!-- Global stylesheets -->
+        	<apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/icons/icomoon/styles.css') }"/>
+        	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+        	<apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/bootstrap.min.css') }"/>
+        	<apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/core.min.css') }"/>
+        	<apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/components.min.css') }"/>
+        	<apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/colors.min.css') }"/>
+        	<!-- /global stylesheets -->
+        	
+        	<!-- Core JS files -->
+        	<apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/loaders/pace.min.js') }"/>
+        	<apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jquery.min.js') }"/>
+        	<apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/bootstrap.min.js') }"/>
+        	<apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/loaders/blockui.min.js') }"/>
+        	<apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/ui/nicescroll.min.js') }"/>
+        	<apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/ui/drilldown.js') }"/>
+        	<!-- /core JS files -->
+        	
+        	<!-- Theme JS files -->
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/styling/uniform.min.js') }"/>
+            <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/app.js') }"/>
+        	<!-- /theme JS files -->
+        	
+        	<!-- custom overrides -->
+        	<c:questionnaire_css_overrides />
+        	<script>
+        	    $(function() {
+            	    // Default initialization
+            	    $(".styled, .multiselect-container input").uniform({
+                        radioClass: 'choice'
+                    });
+                    
+                    checkboxOnChange();
+                    
+        	    });
+        	    
+        	    function checkboxOnChange() {
+        	        var saveButton = $('[id$=nextBtn]')
+        	        if($("#agree-checkbox").is(':checked')) {
+        	            saveButton.attr('class', 'btn')
+        	        }
+        	        else {
+        	            saveButton.attr('class', 'btn disabled')
+        	        }
+        	    }
+        	    
+        	    function showSuccessPanel() {
+                    $(".successPanel").css("display","inline")
+                }
+                
+                function showBlockedPanel() {
+                    $(".blockedPanel").css("display","inline")
+                }
+                
+                $( document ).ready(function() {
+                    // Show the success dialog box if application is completed
+                    if ({!cCon.isApplicationCompleted}) {
+                        showSuccessPanel();
+                    }
+                    if ({!cCon.isApplicationBlocked}) {
+                        showBlockedPanel();
+                    }
+                });
+            
+        	</script>
+        
+        </head>
+        
+        <body>
+            
+            <div class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/questionnaire">
+                        <apex:image url="{!URLFOR($Resource.WMPLogo)}" />
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Page container -->
+        	<div class="page-container indented-page">
+        
+        		<!-- Page content -->
+        		<div class="page-content">
+        
+        			<!-- Main content -->
+        			<div class="content-wrapper">
+        			    
+        			    <apex:form >
+            			    
+            			    <h1 class="text-light">Sign Agreement</h1>
+            			    
+            			    <label class="text-light">Please read and accept the terms of the retailer agreement.</label>
+            			    
+            			    <br /><br />
+            
+                            <!--
+                            <div style="text-align:right;">
+                                <a id="getpdf"><i class="fa fa-file-o" /><span>Download PDF</span></a>			    
+                            </div>
+                            -->
+                            
+            			    <div id="agreement-text" class="scrollable-div contract-well">
+            			        <object data="{!$Resource.SellerAgreementDoc}" type="application/pdf" width="100%" height="100%">
+                                    <p>It appears you don't have Adobe Reader or PDF support in this web browser. <a href="{!$Resource.SellerAgreementDoc}">Click here to download the PDF</a>. Or <a href="http://get.adobe.com/reader/" target="_blank">click here to install Adobe Reader</a>.</p>
+                                    <embed src="{!$Resource.SellerAgreementDoc}" type="application/pdf" />
+                                </object>
+            			    </div>
+            			    
+            			    <br />
+            			    
+            			    <div style="padding:0px 30px;">
+            			        <p class="terms">By checking “I AGREE” located below or by offering any Products for sale on the Walmart.com Marketplace, using any of the Walmart.com Services, or using any of the Walmart.com Tools, you agree to be bound by all terms and conditions of this Agreement (including the Retailer Policies), as this Agreement (or the Retailer Policies) may be updated from time to time in accordance with this Agreement.  You further represent and warrant that you are registering with the Walmart.com Marketplace on behalf of an entity and that you have the requisite right, power, and authority to enter into this Agreement on behalf of the entity you register with the Walmart.com Marketplace.</p>
+            			        <br />
+            			        <div class="row">
+                			        <div class="col-md-6">
+                    			        <p class="terms"><strong>{!cCon.companyName}</strong></p>
+                    			        <p class="terms">Name: {!cCon.contactName}</p>
+                    			        <p class="terms">Title: {!cCon.contactTitle}</p>
+                    			        <p class="terms">Phone: {!cCon.contactPhone}</p>
+                    			        <p class="terms">Email: {!cCon.contactEmail}</p>
+                    			    </div>
+                			    </div>
+            			        <br/>
+            			        <div class="row">
+                			        <div class="checkbox">
+            			                <label style="font-weight:300;">
+            			                    <input type="checkbox" class="styled" id="agree-checkbox" onchange="checkboxOnChange()"/>
+            			                    I Agree.
+        			                    </label>
+        	                        </div>
+        	                        
+    	                        </div>
+    	                        <div class="row">
+    	                            <p class="terms text-center">Agreement will be effective as of the date Retailer clicks “SUBMIT” below.</p>
+    	                            <hr/> 
+    	                        </div>
+    			            </div>
+    			            <div class="row">
+        			            <div class="controls" style="text-align:right;">
+        			                <apex:commandLink id="nextBtn" styleClass="btn disabled" action="{!cCon.saveContract}">Submit</apex:commandLink>
+    			                </div>
+			                </div>
+			                
+			                <apex:actionStatus id="loading" stopText="">
+                                    <apex:facet name="start">
+                                        <div>
+                                            <div class="popupBackground" />
+                                            <div class="PopupPanel">
+                                                <table width="100%" height="100%">
+                                                    <tr><td><i class="fa fa-spinner fa-pulse loading-icon fa-2x text-center" style="display: inline-block; width: 100%"></i></td></tr>
+                                                    <tr><td><h4 class="loading-icon text-center">Saving...</h4></td></tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </apex:facet>
+                                </apex:actionStatus>
+			                
+			                <div class="successPanel" style="display:none;">
+                                    <div class="popupBackground" />
+                                    <div class="success-panel">
+                                        <div class="panel panel-success">
+                        					<div class="panel-heading">
+                        						<h6 class="panel-title">{$Label.ApplicationCompleteTitle}</h6>
+                        					</div>
+                        
+                        					<div class="panel-body">
+                        						{$Label.ContractSuccessMessage}
+                        					</div>
+                        					
+                        				</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="blockedPanel" style="display:none;">
+                                    <div class="popupBackground" />
+                                    <div class="success-panel">
+                                        <div class="panel panel-success">
+                        					<div class="panel-heading">
+                        						<h6 class="panel-title">{!$Label.ContractBlockedTitle}</h6>
+                        					</div>
+                        
+                        					<div class="panel-body">
+                        					    {!$Label.ApplicationBlockedMessage}
+                        					</div>
+                        					
+                        				</div>
+                                    </div>
+                                </div>
+		                </apex:form>
+        			    
+    			    </div>
+			    </div>
+		    </div>
+		    
+		    
+            
+        </body>
+        
+    </html>
+    
+    
+
+</apex:page>

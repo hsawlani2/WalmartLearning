@@ -1,0 +1,123 @@
+<apex:component allowDML="true" controller="WalmartPkbSearchController" id="Search_Result_Container">
+    
+    <apex:variable var="showSorter" value="{!displayKnowledgeBase||browsingCategories}" />
+    
+    <style>
+        .messageTable{
+            background-color:aliceblue;
+            border: solid 1px;
+            padding-left : 10px;
+            padding-right : 10px;
+        }
+    </style>
+ 
+    <div class="main col-sm-9" role="main" id="search_outer_shell">
+            <apex:outputPanel id="results_body" layout="block">
+                <apex:form rendered="{!IF($Profile.Name == 'Walmart Partner Knowledge Base Profile',true,false)}">
+                    <div class="messageTable"><br/>
+                     To see more articles in the Knowledge Base, please &nbsp; <apex:commandLink action="{!logintoknowledgebase}" value="Login" rerender="results_body" status="loadingStatus"/> &nbsp; using {!Customertype} password.&nbsp;Please  &nbsp; <apex:commandLink value="click here" rerender="results_body" status="loadingStatus"/> &nbsp; to login if you are a Walmart Solution Provider
+                    </div>
+                </apex:form> 
+                <br/>
+                <apex:form >
+                    <apex:outputPanel layout="block" id="sortPicker" styleClass="dropdown2" style="text-align: right;" rendered="{!showSorter}">
+                        <apex:actionStatus id="sortingStatus">
+                            <apex:facet name="start"><i class="fa fa-spinner fa-pulse fa-lg" /></apex:facet>
+                            <apex:facet name="stop"></apex:facet>
+                        </apex:actionStatus>
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {!sortingLabel}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                            <li class="dropdown-header">Sort by</li>
+                            <li><apex:commandLink action="{!sortByTitle}" reRender="sortPicker,results_list" value="Title"  status="sortingStatus"/></li>
+                            <li><apex:commandLink action="{!sortByLastUpdated}" reRender="sortPicker,results_list" value="Recently Updated"  status="sortingStatus"/></li>
+                        </ul>
+                    </apex:outputPanel>
+                </apex:form>
+                
+<!--                 <apex:outputText rendered="{!NOT(displayKnowledgeBase)}">
+                    <h2 class="section">{!$Label.PKB2_Search_Results}</h2>
+                    <h4>
+                        <apex:outputText escape="false" rendered="{!NOT(ISBLANK(urlSearchQuery))}">{!$Label.PKB2_You_Searched_For}: <i>{!urlSearchQuery}</i><br/></apex:outputText>
+                        <apex:outputText escape="false" rendered="{!NOT(ISBLANK(selectedCategory))}">{!$Label.PKB2_Within_Category}: <i>{!selectedCategoryLabel}</i></apex:outputText>
+                    </h4>
+                </apex:outputText>
+ -->                
+                <apex:outputText rendered="{!NOT(displaySearchResultHeader)}" id="SR_Header">
+                    <h2 class="section" id="SR_Header_Section">{!$Label.PKB2_Search_Results}</h2>
+                    <apex:outputText id="SR_Header_Subsection">
+                        <h4 id="SR_Header_Subsection_H4">
+                        <apex:outputText escape="false" rendered="{!NOT(ISBLANK(urlSearchQuery))}">{!$Label.PKB2_You_Searched_For}: <i>{!urlSearchQuery}</i><br/></apex:outputText>
+                        <apex:outputText escape="false" rendered="{!NOT(ISBLANK(selectedCategory))}">{!$Label.PKB2_Within_Category}: <i>{!pickedCategoryLabel}</i></apex:outputText>
+                        </h4>
+                    </apex:outputText>
+                </apex:outputText>
+                <apex:form id="results_list">
+                    <apex:repeat var="kav" value="{!results}">
+                        <c:walmart_results_item myController="{!myController}" 
+                            articleTypeName="{!kav.ArticleType}"
+                            firstPublishedDate="{!kav.FirstPublishedDate}"
+                            summary="{!kav.Summary}"
+                            title="{!kav.Title}"
+                            urlName="{!kav.UrlName}"
+                        />
+                    </apex:repeat>
+                    
+                    <!-- Pagination -->
+                    <apex:outputPanel layout="block" style="height: 20px; margin-top: 10px;" styleClass="resultsPaginationLinks">
+                        <div style="float: left; margin-bottom: 10px;">
+                            <apex:commandLink action="{!previous}" rerender="results_list" rendered="{!hasPrevious}" status="prevStatus">&lt; {!$Label.PKB2_Previous_Link}</apex:commandLink>
+                            &nbsp; 
+                            <apex:actionStatus id="prevStatus">
+                                <apex:facet name="start"><apex:image value="{!$Resource.pkb_loadingdots}" /></apex:facet>
+                                <apex:facet name="stop"></apex:facet>
+                            </apex:actionStatus>
+                        </div>
+                        
+                        <div class="pagination pagination-lg" style="float: right; margin-bottom: 10px;">
+                            <span id="nextLink">
+                                <apex:actionStatus id="nextStatus">
+                                    <apex:facet name="start"><apex:image value="{!$Resource.pkb_loadingdots}" /></apex:facet>
+                                    <apex:facet name="stop"></apex:facet>
+                                </apex:actionStatus>
+                                &nbsp;
+                                <apex:commandLink action="{!next}" rerender="results_list" status="nextStatus" rendered="{!hasNext}">{!$Label.PKB2_Next_Link} &gt;</apex:commandLink>
+                            </span>
+                        </div>
+                    </apex:outputPanel>
+                    
+                </apex:form>
+                
+                <!-- no results found! -->
+                <apex:outputText rendered="{!resultSize == 0 && hasLoadedInitially}">No results found. Try searching for a different term.</apex:outputText>
+                
+            </apex:outputPanel>
+        
+        
+        <apex:actionStatus id="loadingStatus">
+            <apex:facet name="start">
+                <i class="fa fa-spinner fa-pulse fa-lg" />&nbsp;Loading...
+            </apex:facet>
+            <apex:facet name="stop">
+            </apex:facet>
+        </apex:actionStatus>
+    </div>
+    <script>var searchresultbody = document.getElementById('search_outer_shell'); console.log(searchresultbody);</script>                
+    
+    <apex:form >
+        <!-- Define the JavaScript function performSearch -->
+        <apex:actionFunction name="performSearch" action="{!performSearch}" rerender="results_body" status="loadingStatus" />
+    </apex:form>
+    
+    <script type="text/javascript">
+        
+        var $$ = jQuery.noConflict();
+        
+        $$(document).ready(function($) {
+            performSearch() // already defined from the action function
+        })
+   </script>
+
+</apex:component>

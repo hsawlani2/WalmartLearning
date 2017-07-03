@@ -1,0 +1,425 @@
+<apex:component allowDML="true" id="Home_Container">
+    
+    <apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+    
+    <c:walmart_alerts pkbCon="{!pkbCon}" />
+
+    <!-- Hero Section -->
+    <div id="hero" class="hero-image">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>{!$Label.Banner_Title}</h1>
+            <p class="subtitle">
+              <apex:outputText value="{!$Label.Banner_Subtitle}" id="Subtitle">
+                <apex:param value="{!pkbCon.prettyCategory}"/>
+              </apex:outputText>
+            </p>
+          </div>
+        </div>  
+
+        <div class="row">
+          <div class="hero-box col-sm-8 col-sm-offset-2">
+            <form role="search" method="get" id="searchform" class="form-search" action="#">
+              <div class="input-group">
+                <input type="text" name="s" id="searchAskInput" class="form-control input-lg" autocomplete="off" 
+                value="{!$Label.Search_Placeholder}"
+                onfocus="if(this.value=='{!$Label.Search_Placeholder}'){this.value='';} clearPrompt(this);" 
+                onblur="if(this.value==''){this.value='{!$Label.Search_Placeholder}';} restorePrompt(this); buildSearchHref();"
+                onkeypress="checkForEnter(event, this);"
+                tabindex="200" 
+                />
+                <span class="input-group-btn">
+                  <input type="submit" id="searchAskButton" value="Search" class="btn" onclick="searchButtonClicked(); return false;"/>
+                </span>
+              </div>
+            </form>
+          </div>   
+        </div>  
+
+      </div>
+    </div><!-- /#hero -->
+
+    <!-- Boxes Section -->
+    <div class="container">
+      <div id="boxes">
+        <div class="home-title">
+          <!-- <h2>{!$Label.Home_Main_Title}</h2> -->
+          <h2>
+            <apex:outputText value="{!$Label.Home_Main_Title}" id="Home-Title-Output">
+              <apex:param value="{!pkbCon.prettyCategory}"/>
+            </apex:outputText>
+          </h2>
+          <p>{!$Label.Home_Main_Subtitle}</p>       
+        </div>
+            <div class="row">
+                <table class="table-equal" >
+                    <tbody>
+                        <tr>
+                            <td> 
+                                <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                                  <apex:image url="{!$Resource.knowledgebase_svg}" width="100px" height="100px" />
+                                  <apex:param name="{!pkbCon.knowledgeBaseParam}" value="{!pkbCon.contactUsValue}" />
+                                </apex:outputLink>
+                            </td>
+                            <td> 
+                                <apex:outputLink value="{!pkbCon.faqUrl}">
+                                    <apex:image url="{!$Resource.faq_svg}" width="100px" height="100px" />
+                                </apex:outputLink>
+                            </td>
+                            <td> 
+                                 <a href="{!pkbCon.contactUsUrl}">
+                                    <apex:image url="{!$Resource.contact_svg}" width="100px" height="100px" />      
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top"> 
+                                <article class="box box-left">
+                                 <h3>
+                                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                                        Knowledge Base
+                                        <apex:param name="{!pkbCon.knowledgeBaseParam}" value="{!pkbCon.contactUsValue}" />
+                                    </apex:outputLink>
+                                </h3>
+                                <p>{!$Label.Knowledge_Base_Text}</p>
+                                </article>
+                            </td>
+                            <td valign="top"> 
+                                <article class="box box-middle">
+                                  <h3>
+                                    <apex:outputLink value="{!pkbCon.faqUrl}">
+                                      FAQ
+                                    </apex:outputLink>
+                                  </h3>
+                                  <p>{!$Label.FAQ_Text}</p>
+                                </article>
+                            </td>
+                            <td valign="top"> 
+                                <article class="box box-right">
+                                      <!-- Link to Contact Us <apex:outputLink value="{!pkbCon.currentSiteUrl}">    
+                                        <apex:param name="{!pkbCon.contactUsParam}" value="{!pkbCon.contactUsValue}" />
+                                        <apex:param name="{!pkbCon.feedbackSourceParam}" value="{!pkbCon.feedbackContactUs}" />
+                                        <apex:param name="{!pkbCon.languageParam}" value="{!pkbCon.selectedLanguage}" /> </apex:outputLink> -->
+                                    <h3>
+                                      <apex:outputLink value="{!pkbCon.contactUsUrl}">
+                                        Contact
+                                      </apex:outputLink>
+                                    </h3>
+                                    <p>
+                                      <apex:outputText value="{!$Label.Contact_Text}" id="Contact_Text">
+                                        <apex:param value="{!pkbCon.prettyCategory}"/>
+                                      </apex:outputText>
+                                    </p>
+                                </article>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td> 
+                               <article class="box box-left">
+                                    <apex:outputLink value="{!pkbCon.currentSiteUrl}" styleClass="btn" >
+                                        Continue
+                                        <apex:param name="{!pkbCon.knowledgeBaseParam}" value="{!pkbCon.contactUsValue}" />
+                                    </apex:outputLink>
+                                 </article>
+                            </td>
+                            <td> 
+                                <article class="box box-middle">
+                                    <apex:outputLink value="{!pkbCon.faqUrl}" styleClass="btn">
+                                         Continue
+                                    </apex:outputLink>
+                                 </article>
+                            </td>
+                            <td> 
+                                <article class="box box-right">
+                                    <a href="{!pkbCon.contactUsUrl}" class="btn">Continue</a>
+                                </article>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+      </div>
+    </div>
+
+    <!-- Featured Articles Section -->
+    <apex:variable value="NotUsed" var="NotUsed" rendered="{!pkbCon.displayHomeFeaturedArticle}">
+    <div id="home-featured">
+      <div class="container">
+        <div class="home-title">
+          <h2>Browse by Topic</h2> 
+        </div>
+        <div class="row recent-posts">
+        
+          <div class="col-sm-4">
+            <article style="text-align: center;">
+                <div class="entry-media">
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        <apex:image url="{!$Resource.NewToWalmartIcon}" width="100" height="100" />
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3ANew_to_Walmart" /> 
+                    </apex:outputLink>
+              </div>
+              <header>
+                <h4 class="entry-title">
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        {!$Label.New_To_Walmart_Title}
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3ANew_to_Walmart" /> 
+                    </apex:outputLink>
+                </h4>
+              </header>
+              <div class="entry-content">
+                <p>{!$Label.Featured_Article1}&nbsp;
+                <apex:outputLink value="{!pkbCon.currentSiteUrl}" styleClass="blog-more">
+                        Read more...
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3ANew_to_Walmart" /> 
+                </apex:outputLink>
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-4">
+            <article style="text-align: center;">
+                <div class="entry-media">
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        <apex:image url="{!$Resource.ReadOnboardIcon}" width="120" height="120" />
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3AIntegrating_with_Walmart" /> 
+                    </apex:outputLink>
+                </div>
+              <header>
+                <h4 class="entry-title">
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        {!$Label.Ready_to_Onboard}
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3AIntegrating_with_Walmart" /> 
+                    </apex:outputLink>
+                </h4>
+              </header>
+                <div class="entry-content">
+                  <p>{!$Label.Featured_Article2}&nbsp;
+                  <apex:outputLink value="{!pkbCon.currentSiteUrl}" styleClass="blog-more">
+                        Read more...
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3AIntegrating_with_Walmart" /> 
+                </apex:outputLink>
+                  </p>
+                </div>
+            </article>
+          </div>
+          
+          <div class="col-sm-4">
+            <article style="text-align: center;">
+                <div class="entry-media">
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        <apex:image url="{!$Resource.OptimizingSalesIcon}" width="100" height="100" />
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3AOptimization_and_Ongoing_Operations" /> 
+                    </apex:outputLink>
+                </div>
+              <header>
+                <h4 class="entry-title">
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        {!$Label.Optimizing_Sales_Title}
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3AOptimization_and_Ongoing_Operations" /> 
+                    </apex:outputLink>
+                    </h4>
+              </header>
+                <div class="entry-content">
+                  <p>{!$Label.Featured_Article3}&nbsp;
+                  <apex:outputLink value="{!pkbCon.currentSiteUrl}" styleClass="blog-more">
+                        Read more...
+                        <apex:param name="{!pkbCon.categoryParam}" value="LifeCycle%3AOptimization_and_Ongoing_Operations" /> 
+                </apex:outputLink>
+                  </p>
+                </div>
+            </article>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    </apex:variable>
+
+    <!-- Video Section - Modified 20161118 to hide the home-video div-->
+    <!-- <div id="home-video"> -->
+    <div id="home-video" hidden="true">
+      <div class="container">
+        <div class="home-title">
+          <h2>Get Started - Walmart Seller Portal</h2>          
+          <p>Use the portal to help manage and optimize your business</p>        
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="box-video">
+                <!-- Video link -->
+                <!-- Change link here to change displayed video. Make sure that other attributes are kept -->
+                <iframe src="https://player.vimeo.com/video/129152864?title=0&byline=0&portrait=0" width="704" height="390" frameborder="0" webkitallowfullscreen="1" mozallowfullscreen="1" allowfullscreen="1"></iframe>
+            </div>
+          </div>
+          
+          <div class="col-sm-4">
+            <div class="box-video-list">
+              <h3>Video Tutorials</h3>
+              <ul>            
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Video Post Format</a></h4></li>
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Multiple Ship to Addresses</a></h4></li>
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Theme Installation</a></h4></li>
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Plugin Installation</a></h4></li>
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Warnings and errors</a></h4></li>
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Rewrite configuration</a></h4></li>
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Using Custom Fields</a></h4></li>
+                <li><h4><i class="fa-film fa fa-fw"></i> <a href="#">Customizing Forms</a></h4></li>
+              </ul>
+              <a class="btn-videos" href="#" title="">View all videos <i class="icon-chevron-right"></i></a>          
+            </div>  
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer Widgets -->
+    
+    <!--
+    
+      <div class="footer-widgets">
+        <div class="container">
+          <div class="row">
+
+            <section class="col-sm-3">
+              <div>
+                <h3>Recent Articles</h3>
+                <ul>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Standard Post Format">Standard Post Format</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Disabled Comments">Disabled Comments</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Theme Set Up">Theme Set Up</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Video Post Format">Video Post Format</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Follow up Emails">Follow up Emails</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-picture-o"></i> <a href="#" rel="bookmark" title="Permanent link to Fully Responsive Design">Fully Responsive Design</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Unlimited Colors">Unlimited Colors</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Well Documented">Well Documented</a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="col-sm-3">
+              <div>
+                <h3>Popular Articles</h3>
+                <ul>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Unlimited Colors">Unlimited Colors</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Multiple installs on one domain">Multiple installs on one domain</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Import and Export Extension">Import and Export Extension</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Plugin Installation">Plugin Installation</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Local Server Setup">Local Server Setup</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Theme Installation">Theme Installation</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Multiple Ship to Addresses">Multiple Ship to Addresses</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Well Documented">Well Documented</a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="col-sm-3">
+              <div>
+                <h3>Recent Articles</h3>
+                <ul>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Standard Post Format">Standard Post Format</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Disabled Comments">Disabled Comments</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Theme Set Up">Theme Set Up</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Video Post Format">Video Post Format</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Follow up Emails">Follow up Emails</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-picture-o"></i> <a href="#" rel="bookmark" title="Permanent link to Fully Responsive Design">Fully Responsive Design</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Unlimited Colors">Unlimited Colors</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Well Documented">Well Documented</a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="col-sm-3">
+              <div>
+                <h3>Popular Articles</h3>
+                <ul>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Unlimited Colors">Unlimited Colors</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Multiple installs on one domain">Multiple installs on one domain</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Import and Export Extension">Import and Export Extension</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Plugin Installation">Plugin Installation</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Local Server Setup">Local Server Setup</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Theme Installation">Theme Installation</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-film"></i> <a href="#" rel="bookmark" title="Permanent link to Multiple Ship to Addresses">Multiple Ship to Addresses</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-fw fa-file-text-o"></i> <a href="#" rel="bookmark" title="Permanent link to Well Documented">Well Documented</a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+      
+      -->
+      
+      
+</apex:component>

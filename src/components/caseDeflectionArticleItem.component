@@ -1,0 +1,51 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="token" type="String" required="true" description="Token for passing user authentication to the PKB" />
+    <apex:attribute name="baseUrl" type="String" required="true" description="base URL of the knowledge base" />
+    <apex:attribute name="kavExt" type="String" required="true" description="extension of KAV records" />
+    <apex:attribute name="title" type="String" required="true" description="Title of the article" />
+    <apex:attribute name="urlName" type="String" required="true" description="URL name of the article" />
+    <apex:attribute name="articleTypeName" type="String" required="true" description="type of the article" />
+    <apex:attribute name="firstPublishedDate" type="Date" required="true" description="First published date of the article" />
+    <apex:attribute name="summary" type="String" required="true" description="summary of the article" />
+    <apex:attribute name="kbType" type="String" description="Category of Articel" />
+
+    <apex:variable var="typeName" value="{!SUBSTITUTE(articleTypeName, kavExt, '')}" />
+    <apex:variable var="articleURL" value="{!baseUrl}/articles/{!typeName}/{!urlName}/?token={!token}&c={!kbType}" />
+    
+    <style>
+        .articleItem {
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .detailRowTop {
+            margin-top: 0px;
+            margin-bottom: 4px;
+        }
+        
+        .detailRow {
+            margin-top: 2px;
+            margin-bottom: 0px;
+            font-size: 11px;
+        }
+        
+        .articleLink {
+            color: #137FC3;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+    </style>
+    
+    <div class="articleItem">
+        <p class="detailRowTop"><a href="#" class="articleLink" onclick="openAndSaveLink('{!articleURL}')">{!title}</a> </p>
+        <p class="detailRow">{!summary}</p>
+        <p class="detailRow">
+            <apex:outputText value="{0,date,MMMMM' 'd', 'yyyy}">
+                <apex:param value="{!firstPublishedDate}" />
+            </apex:outputText>
+        </p>
+        
+    </div>
+</apex:component>

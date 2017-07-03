@@ -1,0 +1,83 @@
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+
+<apex:variable var="typeName" value="{!SUBSTITUTE(pkbCon.theKad.articleTypeName, pkbCon.kavExtension, '')}" />
+<apex:variable var="articleURL" value="{!$Site.CurrentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!pkbCon.theKad.urlName}" />
+
+<!--  FEEDBACK YES NO BUTTONS -->
+<apex:form id="feedbackYesNoForm">
+<apex:outputPanel layout="block" id="feedbackYesNoContainer">
+
+  <apex:actionFunction name="refreshYesNo" rerender="feedbackYesNoContainer" status="feedbackYesNoStatus" />
+
+  <h2 class="section" style="margin-top: 30px;">{!$Label.PKB2_Feedback}</h2>
+  <div style="height: 5px;">&nbsp;</div>
+
+  <div id="feedback">
+      <apex:outputText rendered="{!NOT(pkbCon.feedbackRecorded)}">
+        <h3>{!$Label.PKB2_Was_Helpful}</h3>
+        <apex:commandButton id="feedbackYesButton" styleClass="btn btn-primary" style="width: 4em;" value="Yes" onclick="toggleFeedbackYesNoButtons();" action="{!pkbCon.deferred}" rerender="feedbackYesNoContainer" status="feedbackYesNoStatus" />
+        &nbsp;
+        <button id="feedbackNoButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackDialog">No</button>
+        &nbsp;
+      </apex:outputText>
+    
+      <apex:outputPanel layout="block" rendered="{!pkbCon.feedbackRecorded}">
+        {!$Label.PKB2_Thanks_For_Feedback}<br/>
+      </apex:outputPanel>
+
+    <apex:actionStatus id="feedbackYesNoStatus">
+      <apex:facet name="start"><apex:image value="{!$Resource.pkb_loadingdots}" /></apex:facet>
+      <apex:facet name="stop"></apex:facet>
+    </apex:actionStatus>          
+  </div>
+
+</apex:outputPanel>
+</apex:form>
+
+<!-- Modal -->
+<apex:form id="feedbackForm">
+    <apex:inputHidden value="{!pkbCon.feedbackComments}" id="feedbackComments" />
+    <div class="modal fade" id="feedbackDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <apex:outputPanel id="feedbackResponse" styleClass="modal-content" layout="block">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">{!$Label.PKB2_Feedback_Appreciated}</h4>
+          </div>
+          <div class="modal-body">
+    
+            <apex:outputPanel rendered="{!NOT(pkbCon.feedbackRecorded)}" layout="block">            
+                <p>{!$Label.PKB2_More_Useful}</p>
+                <textarea id="feedbackTextArea" onkeydown="return countChars(event, this);" onblur="copyComments();"></textarea>
+                {!$Label.PKB2_Feedback_Characters_Remaining}: <span id="charsRemaining">255</span><br/><br/>
+                <apex:actionStatus id="feedbackStatus">
+                    <apex:facet name="start"><apex:image value="{!$Resource.pkb_loadingdots}" /></apex:facet>
+                    <apex:facet name="stop"></apex:facet>
+                </apex:actionStatus>
+            </apex:outputPanel>
+            
+            <apex:outputText rendered="{!pkbCon.feedbackRecorded}" escape="false">
+                <p>{!$Label.PKB2_Thanks_For_Feedback}</p>
+            </apex:outputText>
+            
+          </div>
+          <div class="modal-footer">
+              <apex:outputPanel rendered="{!NOT(pkbCon.feedbackRecorded)}" layout="block">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <apex:commandButton styleClass="btn btn-primary" action="{!pkbCon.recordArticleFeedback}" value="{!$Label.PKB2_Submit}" onclick="copyComments();" rerender="feedbackResponse" status="feedbackStatus" />
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!pkbCon.feedbackRecorded}" layout="block">
+                <a href="#" onclick="toggleFeedbackYesNoButtons(false); refreshYesNo(); closeModal(); return false;">{!$Label.PKB2_Close_Window}</a>
+            </apex:outputPanel>
+        </div>
+        </apex:outputPanel>
+      </div>
+    </div>
+</apex:form>
+
+
+
+
+</apex:component>

@@ -1,0 +1,30 @@
+<aura:component controller="SupplierApplication">
+    <aura:attribute type="smartApp_Wrapper.FieldSetMember[]" name="FieldList"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<!-- Main Body start from here -->
+	<fieldset class="slds-form--compound">
+		<div class="slds-form-element__group">
+		<aura:iteration items="{!v.FieldList}" var="item"> 
+		<!-- Blank Row -->
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-2">
+					<label class="slds-form-element__label" for="input-03"></label>
+				</div>
+			</div>
+		<!-- First Name -->
+			<div class="slds-form-element__row">
+				<div class="slds-size--6-of-12" style="{!'display:' + if(item.fieldsdisplay.length > 1,'inherit','')}">
+				<aura:iteration items="{!item.fieldsdisplay}" var="fielditem"> 
+					<div class="{!fielditem.Classtype}">
+						<label class="slds-form-element__label" >{!fielditem.FieldLabel} <span>*</span></label>
+						<div class="slds-form-element__control">
+							<input type="text" class="slds-input" />
+						</div>
+					</div>
+				</aura:iteration>
+				</div>
+			</div>
+		</aura:iteration>
+		</div>
+	</fieldset>
+</aura:component>

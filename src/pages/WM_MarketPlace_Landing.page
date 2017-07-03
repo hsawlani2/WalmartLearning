@@ -1,0 +1,1121 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false">
+<style>
+.fontclass{
+    font-size:32px;
+    font-family:MyriadPro-SemiBold;
+}
+.home-slider{
+    position:relative;
+}
+#navbar{
+    float:right;
+    border-top: 0px; 
+    box-shadow: none;
+}
+.navbar-wrapper
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+}
+    
+.container{
+    width : auto;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+    
+.container-fluid{
+    padding-right : 4.68%;
+    padding-left : 4.68%;
+    padding-top : 29px;
+}
+.navbar-brand{
+    height : 17.81%;
+    width : 228px;
+}
+
+.navbar-toggle{
+    margin-top: 16px;
+}
+
+.navbar-inverse .navbar-nav li a{
+    font-family: myriad-pro;
+    font-style: normal;
+    font-weight: 300;
+    font-size:18px;
+    margin-top : 1rem;
+    line-height : 23px;
+    padding-left: 30px;
+}
+.navbar-inverse .navbar-nav > li > a{
+    text-transform : none;
+}
+.walmartlogo{
+        width : calc(100%);
+    }
+.Howsitwork-image{
+    max-width: 100%;
+    max-height: 100%;
+}
+.howsitworkimage{
+    text-align : center;
+}
+.carousel-caption {
+    width: calc(30%);
+    left: 55px;
+    top: 50% !important;
+    transform: translateY(-50%);
+    text-align: left;
+    bottom: initial;
+    height: calc(40%);
+}
+
+.homepage1{
+    color:white;
+}
+
+.carouselAction{
+    display:inline-block;
+}
+
+.navbutton{
+	color: white;
+}
+
+.setupfees{
+	color:white;
+}
+
+#about{
+	background: #007dc6;
+    padding-bottom: 30px;    
+    padding-top: 0px;
+}
+ 
+#sellBetter{
+	padding-top: 0px;    
+    padding-bottom: 40px;
+}
+    
+#sellerInfo{
+	background: #00395a;
+    padding-top: 0px;
+    padding-bottom: 50px;
+}
+    
+#getStarted{
+	padding-top: 0px;
+    padding-bottom: 50px;
+}
+
+#footer{
+	padding-top: 0px;
+    padding-bottom: 25px;   
+}
+    
+#footer p{
+ 	font-size: 11px   
+}
+.footerText a{
+	color: white;    
+}
+.marketplace p{
+    color:#337ab7;
+}
+    
+@media only screen and (max-width: 364px)
+{
+    h1{
+    	font-size: 20px;
+    }
+    h2{
+    	font-size: 20px;
+    }
+    h3{
+    	font-size: 18px;
+    }
+    p{
+    	font-size: 12px;
+    }
+    .container{
+    	padding-right: 5px;
+    	padding-left: 5px;
+    }
+    .carousel-indicators{
+    	bottom: -12px;
+    }
+    .carousel-indicators li{
+    	width: 6px;
+    	height: 6px;
+    }
+    .carousel-indicators .active{
+    	width: 8px;
+    	height: 8px;
+    }
+    .carousel-caption {
+    	top: 45% !important;
+        left: 20px;
+        width: calc(50%);
+    }
+    .walmartlogo{
+        width: calc(50%);
+    }
+    .navbar-wrapper{
+    	margin-top: -5px;
+    }
+    .navbar-toggle{
+    	padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+    .navbar-toggle .icon-bar{
+    	width: 12px;
+    	height: 1px;
+    }
+    .navbar-inverse .navbar-nav > li > a{
+        font-size: 13px;
+        margin-top : 0rem;
+        padding-top: 0px;
+        padding-bottom: 2px;
+        padding-right: 8px;
+    }
+    .navbar-header{
+    	margin-bottom: -15px;
+    }
+    .container-fluid {
+        padding-top: 5px;
+    	padding-bottom: 5px;
+    }
+    .homepage1{
+        font-size:14px;
+        line-height:14px;
+    }
+    .setupfees{
+        line-height: 14px;
+    	font-size: 11px;
+    }
+    .homepage2{
+        font-size:14px;
+    }
+    .homepage3{
+        font-size:14px;
+    }
+    .buttonClass{
+        font-size:12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    #about h3 {
+        font-size: 18px;
+        margin: 0 0 5px 0px !important;
+    }
+    #sellBetter {
+        padding-top: 0px;
+        padding-bottom: 20px;
+    }
+    #sellerInfo{
+        padding-bottom: 0px;
+    }
+    #getStarted {
+        padding-bottom: 0px;
+    }
+    #footer {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+    
+@media only screen and (min-width: 365px) and (max-width: 475px)
+{
+    h1{
+    	font-size: 24px;
+    }
+    h2{
+    	font-size: 22px;
+    }
+    h3{
+    	font-size: 20px;
+    }
+    p{
+    	font-size: 12px;
+    }
+    .container{
+   		padding-right: 15px;
+    	padding-left: 15px;
+    }
+    .carousel-indicators{
+    	bottom: -10px;
+    }
+    .carousel-indicators li{
+    	width: 6px;
+    	height: 6px;
+    }
+    .carousel-indicators .active{
+    	width: 8px;
+    	height: 8px;
+    }
+    .carousel-caption {
+        left: 30px;
+        width: calc(50%);
+    }
+    .walmartlogo{
+        width: calc(60%);
+    }
+    .navbar-toggle{
+    }
+    .navbar-toggle .icon-bar{
+    	width: 16px;
+    	height: 1px;
+	}
+    .navbar-inverse .navbar-nav > li > a{
+        text-transform : none;
+        font-size: 14px;
+        margin-top : 0rem;
+        padding-top: 0px;
+        padding-bottom: 5px;
+    }
+    .container-fluid {
+        padding-top: 5px;
+    	padding-bottom: 5px;
+    }
+    .homepage1{
+        font-size:14px;
+        line-height:15px;
+    }
+    .setupfees{
+        line-height:15px;
+    	font-size: 12px;
+    }
+    .homepage2{
+        font-size:14px;
+    }
+    .homepage3{
+        font-size:14px;
+    }
+    .buttonClass{
+        font-size:14px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    #about h3 {
+        font-size: 20px;
+        margin: 0 0 5px !important;
+    }
+    #sellBetter {
+        padding-top: 0px;
+        padding-bottom: 20px;
+    }
+    #sellerInfo{
+        padding-bottom: 20px;
+    }
+    #getStarted {
+        padding-bottom: 20px;
+    }
+    #footer {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+    
+@media only screen and (min-width: 476px) and (max-width: 767px)
+{
+    h1{
+    	font-size: 28px;
+    }
+    h2{
+    	font-size: 24px;
+    }
+    h3{
+    	font-size: 22px;
+    }
+    p{
+    	font-size: 13px;
+    }
+    .container{
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .carousel-indicators{
+    	bottom: -9px;
+    }
+    .carousel-indicators li{
+    	width: 8px;
+    	height: 8px;
+    }
+    .carousel-indicators .active{
+    	width: 10px;
+    	height: 10px;
+    }
+    .carousel-caption {
+        left: 35px;
+        width: calc(35%);
+    }
+       
+    .walmartlogo{
+        width: calc(70%);
+    }
+    
+    .navbar-toggle{
+    	
+    }
+    .navbar-toggle .icon-bar{
+    	width: 18px;
+    	height: 2px;
+    }
+    
+    .navbar-inverse .navbar-nav > li > a{
+        text-transform : none;
+        font-size: 15px;
+        margin-top : 0rem;
+        padding-top: 0px;
+        padding-bottom: 12px;
+    }
+    .container-fluid {
+        padding-top: 10px;
+    }
+    .homepage1{
+        font-size:20px;
+        line-height:20px;
+    }
+    .setupfees{
+        line-height:15px;
+    }
+    .homepage2{
+        font-size:20px;
+        line-height:20px;
+    }
+    .homepage3{
+        font-size:20px;
+        line-height:20px;
+    }
+    .buttonClass{
+        font-size: 17px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+    #about h3 {
+        font-size: 22px;
+    	margin: 0 0 10px !important;
+    }
+    #sellBetter {
+        padding-top: 0px;
+        padding-bottom: 30px;
+    }
+    #sellerInfo{
+        padding-bottom: 30px;
+    }
+    #getStarted {
+        padding-bottom: 30px;
+    }
+    #footer {
+        padding-top: 5px;
+        padding-bottom: 20px;
+    }
+}
+@media only screen and (min-width: 767px) and (max-width: 867px)
+{
+    h1{
+    	font-size: 31px;
+    }
+    h2{
+    	font-size: 27px;
+    }
+    h3{
+    	font-size: 22px;
+    }
+    p{
+    	font-size: 13px;
+    }
+    .container{
+    	padding-right: 30px;
+    	padding-left: 30px;
+    }
+    .walmartlogo{
+        width: calc(80%);
+    }
+    .carousel-caption {
+        left: 45px;
+    }
+    .container-fluid {
+        padding-top: 20px;
+    }
+    .homepage1{
+        font-size:30px;
+        line-height:30px;
+    }
+    .setupfees{
+        line-height:20px;
+    }
+    .homepage2{
+        font-size:30px;
+        line-height:30px;
+    }
+    .homepage3{
+        font-size:30px;
+        line-height:30px;
+    }
+    .buttonClass{
+        font-size: 18px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:18px;
+    }
+    #about h3 {
+        font-size: 22px;
+    	margin: 0 0 10px !important;
+    }
+    #sellBetter {
+        padding-top: 0px;
+        padding-bottom: 35px;
+    }
+    #sellerInfo{
+        padding-bottom: 35px;
+    }
+    #getStarted {
+        padding-bottom: 35px;
+    }
+}
+@media only screen and (min-width: 867px) and (max-width: 1000px)
+{
+    .walmartlogo{
+        width: calc(80%);
+    }
+    .homepage1{
+        font-size:35px;
+        line-height:35px;
+    }
+    .setupfees{
+        line-height:22px;
+    }
+    .homepage2{
+        font-size:35px;
+        line-height:35px;
+    }
+    .homepage3{
+        font-size:35px;
+        line-height:35px;
+    }
+    .buttonClass{
+        font-size: 19px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:18px;
+    }
+}
+@media only screen and (min-width: 1000px) and (max-width: 1100px)
+{
+    .walmartlogo{
+        width: calc(80%);
+    }
+    .homepage1{
+        font-size:40px;
+        line-height:40px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:20px;
+    }
+}
+@media only screen and (min-width: 1100px) and (max-width: 1242px)
+{
+    .walmartlogo{
+        width: calc(90%);
+    }
+    .homepage1{
+        font-size:50px;
+        line-height:50px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:20px;
+    }
+}
+@media only screen and (min-width: 1242px) and (max-width: 1342px)
+{
+    .walmartlogo{
+        width: calc(100%);
+    }
+    .homepage1{
+        font-size:60px;
+        line-height:60px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:20px;
+    }
+}
+
+@media only screen and (min-width: 1342px) and (max-width: 1440px)
+{
+    .walmartlogo{
+        width: calc(110%);
+    }
+    .homepage1{
+        font-size:60px;
+        line-height: 65px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:20px;
+    }
+}
+@media only screen and (min-width: 1440px) and (max-width: 1680px)
+{
+    h1{
+    	font-size: 42px;
+    }
+    h2{
+    	font-size: 36px;
+    }
+    h3{
+    	font-size: 32px;
+    }
+    p{
+    	font-size: 20px;
+    }
+    .container{
+    	padding-right: 50px;
+    	padding-left: 50px;
+    }
+    .carousel-caption {
+    	top: 55% !important;
+        left: 65px;
+        width: calc(30%);
+    }
+    .walmartlogo{
+        width: calc(130%);
+    }
+    .navbar-wrapper{
+    	margin-top: 10px;
+    }
+    .navbar-toggle .icon-bar{
+    	width: 12px;
+    	height: 1px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:24px;
+    }
+    .homepage1{
+        font-size:70px;
+        line-height: 70px;
+    }
+    .buttonClass{
+        font-size:23px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    #about h3 {
+        font-size: 32px;
+        margin: 0 0 15px 0px !important;
+    }
+    #howitwork .row{
+    	padding-bottom: 30px;
+    }
+    #footer p{
+    	font-size: 15px   
+    }
+    #getStarted a{
+    	padding: 15px 25px;
+    }
+}
+@media only screen and (min-width: 1681px) and (max-width: 1920px)
+{
+    h1{
+    	font-size: 45px;
+    }
+    h2{
+    	font-size: 38px;
+    }
+    h3{
+    	font-size: 34px;
+    }
+    p{
+    	font-size: 21px;
+    }
+    .container{
+    	padding-right: 55px;
+    	padding-left: 55px;
+    }
+    .carousel-caption {
+    	top: 55% !important;
+        left: 70px;
+        width: calc(30%);
+    }
+    .walmartlogo{
+        width: calc(140%);
+    }
+    .navbar-wrapper{
+    	margin-top: 15px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:26px;
+    	margin-left: 25px;
+    }
+    .homepage1{
+        font-size:75px;
+        line-height:75px;
+    }
+    .buttonClass{
+        font-size:25px;
+        padding-top: 17px;
+        padding-bottom: 17px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    #about h3 {
+        font-size: 34px;
+        margin: 0 0 20px 0px !important;
+    }
+    #howitwork .row{
+    	padding-bottom: 40px;
+    }
+    #footer p{
+    	font-size: 16px   
+    }
+    #getStarted a{
+    	padding: 20px 30px;
+    }
+}
+@media only screen and (min-width: 1921px) and (max-width: 2048px)
+{
+    h1{
+    	font-size: 50px;
+    }
+    h2{
+    	font-size: 44px;
+    }
+    h3{
+    	font-size: 38px;
+    }
+    p{
+    	font-size: 23px;
+    }
+    .container{
+    	padding-right: 65px;
+    	padding-left: 65px;
+    }
+    .carousel-caption {
+    	top: 50% !important;
+        left: 80px;
+        width: calc(30%);
+    }
+    .walmartlogo{
+        width: calc(160%);
+    }
+    .navbar-wrapper{
+    	margin-top: 20px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:28px;
+    	margin-left: 35px;
+    }
+    .homepage1{
+        font-size:85px;
+        line-height:85px;
+    }
+    .buttonClass{
+        font-size:27px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+    #about h3 {
+        font-size: 36px;
+        margin: 0 0 25px 0px !important;
+    }
+    #howitwork .row{
+    	padding-bottom: 50px;
+    }
+    #footer p{
+    	font-size: 18px   
+    }
+    #getStarted a{
+    	padding: 25px 40px;
+    	font-size: 25px;
+    }
+}
+@media only screen and (min-width: 2049px)
+{
+    h1{
+    	font-size: 55px;
+    }
+    h2{
+    	font-size: 48px;
+    }
+    h3{
+    	font-size: 42px;
+    }
+    p{
+    	font-size: 24px;
+    }
+    .container{
+    	padding-right: 70px;
+    	padding-left: 70px;
+    }
+    .carousel-caption {
+    	top: 50% !important;
+        left: 85px;
+        width: calc(30%);
+    }
+    .walmartlogo{
+        width: calc(170%);
+    }
+    .navbar-wrapper{
+    	margin-top: 30px;
+    }
+    .navbar-inverse .navbar-nav li a{
+    	font-size:30px;
+    	margin-left: 40px;
+    }
+    .homepage1{
+        font-size:90px;
+        line-height:90px;
+    }
+    .buttonClass{
+        font-size:28px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+    #about h3 {
+        font-size: 42px;
+        margin: 0 0 30px 0px !important;
+    }
+    #howitwork .row{
+    	padding-bottom: 60px;
+    }
+    #footer p{
+    	font-size: 20px   
+    }
+    #getStarted a{
+    	padding: 25px 40px;
+    	font-size: 30px;
+    }
+}
+</style>
+  <apex:composition template="WM_MainComponent">
+      <!-- Header -->
+      <apex:define name="Header">
+            
+                <section id="home-slider">
+                <!-- NAVBAR================================================== -->
+
+                <div class="navbar-wrapper">
+                    <div class="container">
+                        <div class="navbar navbar-inverse navbar-static-top" style="background: none;border:none ">
+                            <div>
+                                <div class="navbar-header">
+                                    <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                      <span class="icon-bar"></span>
+                                      <span class="icon-bar"></span>
+                                      <span class="icon-bar"></span>
+                                    </a>
+                                    <a class="navbar-brand" href="https://marketplace.walmart.com">
+                                        <img id="theImage" src="{!URLFOR($Resource.BDImages, 'SVG/logowhitesvg.svg')}" class="walmartlogo" />
+                                    </a>
+                                </div>
+                                <!-- Right Handside corner with Navigation Links -->
+                                <div id="navbar" class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav" >
+                                        <li><a class="navbutton"  href="https://marketplace.walmart.com" >Home</a></li>
+                                        <li><a class="navbutton" href="https://marketplace.walmart.com/FAQ" >FAQ</a></li>
+                                        <li><a class="navbutton" href="https://seller.walmart.com" >Log in</a></li>
+                                        <!--<li><a class="btn btn-lg btn-Request"  role="button" style ="margin-top : 2rem; fill-background-color:None; color:None; border:solid 3px white;  text-transform: none; margin-left:26px fill:none;" onclick="newWebLead()">Request an invite</a></li>
+                                        -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel
+    ================================================== -->
+    
+                
+                <!-- image slider section -->
+                <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#homeCarousel" data-slide-to="1"></li>
+                        <li data-target="#homeCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" id="carousel-inner" role="listbox">
+                        <div class="item active">
+                          <img  src="{!URLFOR($Resource.HeroMan)}" alt="First slide" style="opacity: 69;width:200%"/>
+                            <div class="carousel-caption" id="HeroMan" >
+                                <p class="homepage1" ><b>Present your products to millions</b></p>
+                                <div class="carouselAction">
+                                    <p ><a id="button1" class="btn btn-lg btn-Request btn-default buttonClass" style="font-weight: bold;" role="button"   href="https://marketplace.walmart.com/applynow">Apply now</a></p>
+                                    <p class="setupfees"> No monthly or setup fees</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="item">
+                            <img  src="{!URLFOR($Resource.HeroWomen)}" alt="First slide" style="opacity: 69;width:200%"/>
+                            <div class="carousel-caption" id="HeroWomen">
+                                <p style="color:white;" class="homepage1"><b> Broaden your brand reach</b></p>
+                                <div style="carouselAction">
+                                    <p ><a id="button1" class="btn btn-lg btn-Request btn-default buttonClass"  role="button" style="font-weight: bold;"   href="https://marketplace.walmart.com/applynow">Apply now</a></p>
+                                    <p class="setupfees"> No monthly or setup fees</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img  src="{!URLFOR($Resource.test)}" alt="First slide" style="opacity: 69;width:200%"/>
+                            <div class="carousel-caption" id="test" >
+                                <p style="color:white;" class="homepage1"><b> Extend your retail reach and sell more</b></p>
+                                <div style="carouselAction">
+                                    <p ><a id="button1" class="btn btn-lg btn-Request btn-default buttonClass"  role="button" style="font-weight: bold;"   href="https://marketplace.walmart.com/applynow">Apply now</a></p>
+                                    <p class="setupfees"> No monthly or setup fees</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+      </apex:define>
+        <apex:define name="Content">
+             <!-- Service Section -->
+             <section id="sellBetter">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center"> 
+                            <h1 >Sell better with Walmart Marketplace</h1>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-center wow animated zoomIn" >
+                            <div id="Sec1">
+                                <div class="">
+                                    <img src="{!URLFOR($Resource.BDImages, 'SVG/partnership_icon.svg')}" class="service-img"/>
+                                    <!--<img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/Expandyouraudience.png')}" class="service-img"/>-->
+                                </div>
+                                <h3  id="sec2" style="color: #3D454C;">Sell with confidence</h3>
+                                <p >Our exclusive, invitation-only marketplace for select sellers promotes a professional community and experience.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
+                            <div id="Sec2">
+                                <div class="">
+                                    <img src="{!URLFOR($Resource.BDImages, 'SVG/sales_boost_icon.svg')}" class="service-img"/>
+                                </div>
+                                <h3 id="sec2" style="color: #3D454C;">Boost your sales</h3>
+                                <p>Our tools and resources help you optimize sales while interacting with associates who care.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
+                            <div >
+                                <div class="">
+                                    <img src="{!URLFOR($Resource.BDImages, 'SVG/fortune_1_icon.svg')}" class="service-img"/>
+                                </div>
+                                <h3 id="sec2" style="color: #3D454C;">Partner with #1</h3>
+                                <p>Leverage the power of the world’s largest retailer while keeping your unique identity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- How It Works Section -->
+            <section id="about">
+                <div class="container-fluid">
+                    <div class="row" >
+                        <h1 style="text-align:center;color:white;">How it Works</h1>
+                        <p style="text-align:center;color:white;padding-bottom: 15px;"> What you can do once approved as a Walmart Marketplace Seller:</p>
+                        <div class="col-xs-12 col-sm-5 col-md-6 " style="margin-top:3rem;">
+                            <div>
+                                <div class="" >
+                                    <img src="{!URLFOR($Resource.BDImages, 'IMG/work.png')}" class="Howsitwork-image"/> <!-- class="iMac"  -->
+                                </div>
+                            </div>
+                            <div>&nbsp;</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-1 col-md-1 " style="margin-top:3rem;">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-5 " id="howitwork">
+                            <!--<div class="row" >
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="">
+                                                <br/>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-8">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-3 col-xs-4">
+                                    <br/>
+                                    <div class="howsitworkimage">
+                                        <img src="{!URLFOR($Resource.BDImages, 'SVG/add_your_items_icon.svg')}" class="serviceimg"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-xs-8" >
+                                    <br/>
+                                    <h3 style="text-align:left;border-bottom:none;">Add your items</h3>
+                                    <p style="color:white;">
+                                        Build your catalog, control inventory and set prices using one of our integration methods.
+                                        <br/>
+                                        <a href="https://marketplace.walmart.com/FAQ#add" style="color: white;text-decoration: underline;">
+                                            <b>Learn more</b>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-xs-4">
+                                    <br/>
+                                    <div class="howsitworkimage">
+                                        <img src="{!URLFOR($Resource.BDImages, 'SVG/fulfill_customer_orders_icon.svg')}" class="serviceimg"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-xs-8">
+                                    <br/>
+                                    <h3 style="text-align:left;border-bottom:none;">Fulfill your orders</h3>
+                                    <p style="color:white;">
+                                        Manage orders and shipping methods, ship items directly to the customer and handle customer care.
+                                        <br/>
+                                        <a href="https://marketplace.walmart.com/FAQ#fulfil" style="color: white;text-decoration: underline;">
+                                            <b>Learn more</b>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-xs-4">
+                                    <br/>
+                                    <div class="howsitworkimage">
+                                        <img src="{!URLFOR($Resource.BDImages, 'SVG/get_paid_icon.svg')}" class="serviceimg"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-xs-8">
+                                    <br/>
+                                    <h3 style="text-align:left;border-bottom:none;">Get paid</h3>
+                                    <p style="color:white;">
+                                        No monthly or setup fees! We simply take a reasonable referral fee and you receive prompt payment for the items you sell on Walmart.com
+                                        <br/>
+                                        <a href="https://marketplace.walmart.com/FAQ#paid" style="color: white;text-decoration: underline;">
+                                            <b>Learn more</b>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Walmart seller nfo Sectio -->
+            <section id="sellerInfo" style="">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2 col-xs-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-8 col-xs-10">
+                            <div class="marketplace" style="text-align:center;">
+                                <h2 id="marketplace" style="color:white;">"Walmart’s online marketplace picks up sellers and momentum."</h2>
+                                <p>Internet Retailer, July 2016</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-1">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Get Started -->
+            <section id="getStarted">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-4 col-xs-10">
+                            <div style="text-align:center;">
+                                <h2>Let's get started</h2>
+                                <p>Reach over 110 million unique visitors looking for items like yours.</p>
+                                <a class="btn btn-lg btn-Request btn-primary"  role="button" style ="margin-top : 1.8vw;color:#ffffff; "  href="https://marketplace.walmart.com/applynow">Apply now</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-1">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </apex:define>
+      <apex:define name="Footer">
+      <section>
+        <div id="footer"> 
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-sm-12 col-md-2">
+                        <div class="row text-center">
+                            <div>
+                                <p style="color:rgba(255,255,255,1);">&copy; 2017 Walmart. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-sm-12 col-md-5">
+                        <div class="row text-center">
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-sm-12 col-md-1" >
+                        <div class="row text-center">
+                            <div >
+                                <p class="footerText"><a  href="https://www.walmart.com/">Shop Walmart.com </a></p> 
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="col-sm-12 col-sm-12 col-md-2">
+                        <div class="row text-center">
+                            <div >
+                                <p class="footerText"><a href="https://help.walmart.com/app/answers/detail/a_id/6/session/L2F2LzEvdGltZS8xNDg0MDg4MDE4L3NpZC9pYUdSem04bg%3D%3D">About Walmart.com </a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-sm-12 col-md-1">
+                        <div class="row text-center">
+                            <div >
+                                <p class="footerText"><a href="https://corporate.walmart.com/">Corporate </a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-sm-12 col-md-1">
+                        <div class="row text-center">
+                            <div>
+                                <p class="footerText"> <a href="http://www.walmartlabs.com/">@WalmartLabs</a> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+         </div>
+        </section>
+      </apex:define>
+  </apex:composition>
+</apex:page>

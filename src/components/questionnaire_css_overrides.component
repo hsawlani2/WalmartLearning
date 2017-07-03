@@ -1,0 +1,339 @@
+<apex:component layout="none">
+    
+<style>
+
+body {
+    background-color: #FFF;
+    font-family: "myriad pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.navbar-inverse {
+    background-color: #137fc3;
+}
+
+.navbar-brand {
+    height: 50px;
+    padding: 0px 20px;
+}
+
+.navbar-brand > img {
+    height: 46px;
+}
+
+.page-container {
+    padding: 0px 0px 0px;
+}
+
+.indented-page {
+    padding: 0px 120px;
+}
+
+h1 {
+    font-size: 34px;
+}
+
+p {
+    font-size: 16px;
+}
+
+.validation-error-label {
+    font-size: 14px;
+}
+
+label, .form-control, .bootstrap-tagsinput input, .bootstrap-tagsinput .tag {
+    font-size: 18px;
+}
+
+.label-info {
+    background-color: #007dc6;
+}
+
+.controls {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    display: block;
+}
+
+.centered {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.controls .btn {
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: #007DC6;
+    border-radius: 5px;
+}
+
+.controls a {
+    color: #FFF;
+}
+
+.btn {
+    padding: 10px 16px;
+    font-size: 19px;
+    font-weight: 300;
+}
+
+.controls .btn:hover {
+    color: #FFF;
+}
+
+.controls a:hover {
+    opacity: 0.8;
+}
+
+.controls a:hover {
+    text-decoration: none;
+}
+
+.controls .bare-btn {
+    color: #999;
+    padding: 10px 16px;
+    background-color: #FFF;
+}
+
+.controls .bare-btn:hover {
+    color: #AAA;
+}
+
+#finishBtn {
+    background-color: #76c143;
+}
+
+.wizard > .steps > ul {
+    font-size: 16px;
+}
+
+.steps-basic > .steps > ul > li.current:after,
+.steps-basic > .steps > ul > li.current ~ li:before,
+.steps-basic > .steps > ul > li.current ~ li:after {
+  background-color: #f5f5f5;
+}
+
+.steps-basic > .steps > ul > li:before,
+.steps-basic > .steps > ul > li:after {
+  background-color: #f5f5f5;
+}
+
+.steps-basic > .steps > ul > li {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #d2d2d2;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #d2d2d2;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #d2d2d2;
+    background-color: #f5f5f5;
+}
+
+.steps-basic > .steps > ul > li.current .number {
+  border-color: #007dc6;
+  color: #FFF;
+  background-color: #007dc6;
+}
+
+.steps-basic > .steps > ul > li .number {
+    font-size: 22px;
+    border-color: #969696;
+    color: #aaaaaa;
+    background-color: #f5f5f5;
+}
+
+.steps-basic > .steps > ul > li.done .number {
+  border-color: #76c143;
+  color: #76c143;
+  background-color: #f5f5f5;
+}
+
+.embedded_wizard > .steps > ul > li.current:after,
+.embedded_wizard > .steps > ul > li.current ~ li:before,
+.embedded_wizard > .steps > ul > li.current ~ li:after {
+  background-color: #d2d2d2;
+}
+
+.embedded_wizard > .steps > ul > li:before,
+.embedded_wizard > .steps > ul > li:after {
+  background-color: #007dc6;
+}
+
+.embedded_wizard > .steps > ul > li.current .number {
+  border-color: #007dc6;
+  color: #FFF;
+  background-color: #007dc6;
+}
+
+.embedded_wizard > .steps > ul > li .number {
+    font-size: 22px;
+    border-color: #969696;
+    color: #aaaaaa;
+    background-color: #FFF;
+}
+
+.embedded_wizard > .steps > ul > li.done .number {
+  border-color: #007dc6;
+  color: #007dc6;
+  background-color: #FFF;
+}
+
+.content {
+    margin-top: 30px;
+}
+
+.select2-drop, .select2-chosen {
+    font-size: 18px;
+}
+
+.number-circle {
+    margin-right: 8px;
+}
+
+.steps-basic > .content > .body {
+    padding: 0px 100px;
+}
+
+.with-padding-100 {
+    margin-top: 80px;
+    padding: 0px 100px;
+}
+
+thead {
+    background-color: #ebeef2;
+}
+
+th {
+    font-size: 16px;
+    text-align: center;
+}
+
+td {
+    font-size: 16px;
+}
+
+.top-spacing {
+    margin-top: 20px;
+}
+
+.add-row-button {
+    color: #4caf50;
+}
+
+.subtract-row-button {
+    color: #f44336;
+}
+
+
+.popupBackground {
+    /* Background color */
+    background-color:black;
+    opacity: 0.7;
+    filter: alpha(opacity = 70);
+
+    /* Dimensions */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    position: fixed;
+    
+    /* Mouse */
+    cursor:wait;
+}
+
+.PopupPanel {
+    /* Dimensions */
+    width: 200px;
+    margin-left: -100px;
+    height: 50px;
+    margin-top: -25px;
+    left: 50%;
+    top: 50%;
+    z-index: 999;
+    position: fixed;
+    
+    /* Mouse */
+    cursor:pointer;
+}
+
+.success-panel {
+    /* Dimensions */
+    width: 300px;
+    margin-left: -150px;
+    height: 50px;
+    margin-top: -25px;
+    left: 50%;
+    top: 50%;
+    z-index: 999;
+    position: fixed;
+    
+    /* Mouse */
+    cursor:pointer;
+}
+
+/* This is for the message DIV */
+.loading-icon {
+    color: #fff;
+}
+
+.btn-close {
+    font-size: 13px;
+    padding: 0px 8px;
+    margin: 8px 0px 8px 0px;
+}
+
+.btn-close:hover {
+    background-color: #4caf50;
+    color: #FFF;
+    border-radius: 2px;
+    box-shadow: none;
+}
+
+<!-- Contact page styling -->
+
+.scrollable-div {
+    overflow: scroll;
+    width: 100%;
+    height: 600px;
+}
+
+.contract-well {
+    border: 1px solid #DDD;
+    border-radius: 3px;
+}
+
+.terms p, .terms {
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0px 0px 007dc6px;
+}
+
+#getpdf {
+    background-color: #FFF;
+    border: none;
+    font-weight: 300;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #8d8d8d;
+}
+
+#getpdf span {
+    margin-left: 8px;
+    color: #2B9ADA;
+}
+
+[role=alert], .errorMsg {
+    color: #f45036;
+    font-size: 14px;
+}
+
+.message-page-body {
+    padding: 0px 20px;
+}
+        
+</style>
+    
+</apex:component>

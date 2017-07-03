@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event used for navigation">
+<aura:attribute name="currentScreen" type="String"/>
+    
+</aura:event>

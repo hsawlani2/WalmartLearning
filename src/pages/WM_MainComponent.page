@@ -1,0 +1,55 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false">
+<!-- Static Resources -->
+            <!-- bootstrap.min -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/bootstrap.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/animate.css')}"/>
+            <!-- Fontawesome Icon font -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/font-awesome.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/jquery.fancybox.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/jquery.fs.boxer.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/lightview.css')}"/>  
+            <!-- Main Stylesheet -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/main.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/owl.carousel.css')}"/>
+             <!-- bootstrap.min -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/slit-slider.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/superslides.css')}"/>          
+            
+            <!-- Scripts -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery-1.11.1.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/bootstrap.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.ba-cond.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.easing.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.fancybox.pack.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.parallax-1.1.3.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.singlePageNav.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.slitslider.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/wow.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/main.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/modernizr-2.6.2.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/owl.carousel.min.js')}"/>
+
+
+ <!-- Defining Meta Data -->
+             <!-- meta character set -->
+            <meta charset="utf-8"/>
+            <!-- Always force latest IE rendering engine or request Chrome Frame -->
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            <title>Sell on Walmart.com Marketplace</title>      
+            <!-- Meta Description -->
+            <meta name="description" content="It's easy to sell online with Walmart. Put your products in front of 80 million unique Walmart shoppers and increase your visibility."/>
+            <meta name="keywords" content="sell online, sell on Walmart, sell electronics, sell products online, sell items online, sell stuff online, online selling sites"/>
+            <meta name="author" content="Walmart"/>
+            <meta name="google-site-verification" content="64mV8ZKfoXsf0S6pY5tpQB7QYMpXF9AzwfeBIhopMCM" />
+            
+ 
+  <apex:form >
+      <body id="body">
+          <main class="site-content" role="main" style="margin:0;">
+              <apex:insert name="Header" />
+              <apex:insert name="Content" />
+          </main>
+          <apex:insert name="Footer" />
+      </body>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,252 @@
+<apex:component allowDML="true">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+        .faul, .fa-caret-down{
+            display:none;
+        }
+        .fa-caret-right, .fa-caret-down{
+            width: auto;
+            cursor: pointer;
+        }
+        .sidebar .widget {
+            margin-bottom: 0px;
+            //background: #f3f3f3;
+            padding: 10px;
+            padding-bottom: 5px;
+            //border-bottom: 1px solid #dfdfdf;
+        }
+        .sidebar .widget h3{
+            margin-bottom: 5px;
+        }
+        .sidebar ul > li {
+            margin-bottom: 1px;
+        }
+    </style>
+    
+    <script>
+        var parameters = '{!$CurrentPage.parameters.c}';
+        var categories = parameters.split(":");
+        var elementid = categories[1] + 'abc';
+        $(window).bind("load", function() {
+           var elem = document.getElementById(elementid);
+            $('#' + elementid).click();
+        });
+        $(document).ready(function(){
+            $('.fa-caret-right').click(function(){
+                if($(this).attr('class').indexOf('first') != -1){
+                    $('.first').parent().find('.faul').hide();
+                    $('.first').parent().next('.faul').hide();
+                    $('.first').parent().find('.fa-caret-right').show();
+                    $('.first').parent().find('.fa-caret-down').hide();
+                    $('.second').parent().find('.faul').hide();
+                    $('.second').parent().next('.faul').hide();
+                    $('.second').parent().find('.fa-caret-right').show();
+                    $('.second').parent().find('.fa-caret-down').hide();
+                }
+                
+                if($(this).attr('class').indexOf('second') != -1){
+                    $('.second').parent().find('.faul').hide();
+                    $('.second').parent().next('.faul').hide();
+                    $('.second').parent().find('.fa-caret-right').show();
+                    $('.second').parent().find('.fa-caret-down').hide();
+                }
+                
+                if($(this).attr('class').indexOf('third') != -1){
+                    $('.third').parent().find('.faul').hide();
+                    $('.third').parent().next('.faul').hide();
+                    $('.third').parent().find('.fa-caret-right').show();
+                    $('.third').parent().find('.fa-caret-down').hide();
+                }
+                
+                $(this).parent().find('.fa-caret-down:first').show();
+                $(this).hide();
+                $(this).parent().next('.faul:first').slideToggle();
+                $(this).parent().find('.faul:first').slideToggle();
+            });
+            $('.fa-caret-down').click(function(){
+                $(this).parent().find('.fa-caret-right:first').show();
+                $(this).hide();
+                $(this).parent().next('.faul').slideToggle();
+                $(this).parent().find('.faul').slideToggle();
+            });
+            
+            initSecond();
+        });
+        
+        function initSecond(){
+            $('.second, .third').each(function(){
+                var lngth = $(this).parent().find('.faul li').length;
+                if(lngth === 0){
+                    $(this).remove();
+                }
+            });
+            
+            var aid = '{!JSINHTMLENCODE($CurrentPage.parameters.aid)}';
+            
+            if(aid.trim() != ''){
+                $('#'+aid).show();
+                var cls = parseInt($('#'+aid).attr('class'));
+                cls = (cls - 1);
+                $('#'+aid).closest('.'+cls).find('.fa-caret-down').show();
+                $('#'+aid).closest('.'+cls).find('.fa-caret-right:first').hide();
+                $('#'+aid).closest('.faul').show();
+                $('#'+aid).closest('.faul').parent('.fa-caret-down').show();
+                $('#'+aid).closest('.faul').prev('.fa-caret-right').hide();
+                $('#'+aid).css('font-weight', '600');
+            }
+            else{
+                aid = '{!JSINHTMLENCODE($CurrentPage.parameters.c)}';
+                aid = aid.split(':');
+                aid = aid[1];
+                $('#'+aid).show();
+                var cls = parseInt($('#'+aid).attr('class'));
+                cls = (cls - 1);
+                
+                $('#'+aid).closest('.'+cls).find('.fa-caret-down:first').show();
+                $('#'+aid).closest('.'+cls).find('.fa-caret-right:first').hide();
+                $('#'+aid).closest('.'+cls).find('.faul:first').show();
+                
+                cls = (cls - 1);
+                $('#'+aid).closest('.'+cls).find('.fa-caret-down:first').show();
+                $('#'+aid).closest('.'+cls).find('.fa-caret-right:first').hide();
+                $('#'+aid).closest('.'+cls).find('.faul:first').show();
+                
+                $('#'+aid).closest('.faul').show();
+                $('#KnowledgeBase').closest('.faul').show();
+                $('.'+aid).css('font-weight', '600');
+            }
+        }
+    </script>
+    
+    <apex:variable var="category" value="{!pkbCon.selectedCategory}" />
+    <apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+    <apex:variable var="atLeastOne" value="false" />
+    
+    <!--
+HELPFUL DEBUG DATA
+
+SITE ADMIN: {!pkbCon.siteAdmin.Email}, {!pkbCon.siteAdmin.Name}<br/>
+ALL PARAMS: {!allSearchParams}<br/>
+SITE/PAGE URL: {!pkbCon.currentSiteUrl}<br/>
+FEEDBACK? : {!displayFeedback}<br/>
+SESSION: {!$Api.Session_ID}<br/>
+RSS URL: {!$Page.pkb_RSS}<br/>
+CATEGORIES: {!selectedCategory}<br/>
+KNOWLEDGE ARTICLE ID: {!theKad.Id}<br/>
+KNOWLEDGE ARTICLE ID (FROM CONTROLLER): {!KnowledgeArticle.Id}<br/>
+-->
+    
+    <!-- Sidebar -->
+        <aside class="sidebar col-sm-3" role="complementary">
+            
+            <section class="widget">
+            <div id="featuredArticles">
+              <h3>
+                  <!--<i class="fa first fa-fw fa-caret-right" style="display:none;"></i>
+                  <i class="fa first fa-fw fa-caret-down" style="display:initial;"></i>-->
+                  {!$Label.PKB2_Featured_Articles}
+              </h3>
+              <ul class="fau">
+                  <apex:repeat var="a" value="{!pkbCon.featuredKads}">
+                      <apex:outputText escape="false" value="</span>" />
+                      <li id="1{!a.id}">
+                          <i class="fa fa-fw fa-file-text-o"></i>
+                          <c:walmart_simple_article_list_item pkbCon="{!pkbCon}" 
+                                                          aid="1{!a.id}"
+                                                          title="{!a.title}"
+                                                          summary="{!a.summary}"
+                                                          urlName="{!a.urlName}"
+                                                          articleTypeName="{!a.articleTypeName}"
+                                                          articleTypeLabel="{!a.articleTypeLabel}"
+                                                          lastModifiedDate="{!a.lastModifiedDate}"
+                                                          firstPublishedDate="{!a.firstPublishedDate}"
+                                                          lastPublishedDate="{!a.lastPublishedDate}" />
+                      </li>
+                      <apex:variable var="atLeastOne" value="true" />
+
+                      <script type="text/javascript">atLeastOneFeatured = {!atLeastOne};</script>
+                      <apex:outputText escape="false" value="<span>" />
+                  </apex:repeat>
+              </ul>
+            </div>
+          </section>
+            
+            <section class="widget nav_menu-2 widget_nav_menu">
+                <div>
+                    <h3>
+                        <!--<i class="fa fa-fw first fa-caret-right" style="display:none;"></i>
+                        <i class="fa fa-fw first fa-caret-down" style="display:initial;"></i>-->
+                        Knowledge Base
+                    </h3>
+                    <!-- 2016/11/7  Changed the rootCategory attribute from {!pkbCon.rootCategory1} to {!pkbCon.chosenCategory} to make the left nav rendering based on chosenCategory -->
+                    <ul class="fau" id="KnowledgeBase">
+                    <knowledge:categoryList categoryVar="c" categoryGroup="{!pkbCon.categoryGroup1}" rootCategory="{!pkbCon.chosenCategory}">
+                    <apex:outputText escape="false" value="</span>" />
+                        <li id="{!c.Name}" class="2">
+                            <i class="fa fa-fw second fa-caret-right" id="{!c.Name}abc"></i>
+                            <i class="fa fa-fw second fa-caret-down"></i>
+                            <a href="javascript:void(0);" class="{!c.Name}" onclick="setCategory('{!pkbCon.categoryGroup1}:{!c.Name}');$('#{!c.Name}abc').click();">{!c.Label}</a>
+                           <ul class="child-item faul">
+                            <knowledge:categoryList categoryVar="sc" categoryGroup="{!pkbCon.categoryGroup1}" rootCategory="{!c.Name}">
+                                <li id="{!sc.Name}" class="3">
+                                    <i class="fa fa-fw third fa-caret-right" id="{!sc.Name}abc"></i>
+                                    <i class="fa fa-fw third fa-caret-down"></i>
+                                    <a href="javascript:void(0);" class="{!sc.Name}" onclick="setCategory('{!pkbCon.categoryGroup1}:{!sc.Name}')">{!sc.Label}</a>
+                                    <ul class="child-item faul">
+                                        <knowledge:categoryList categoryVar="scc" categoryGroup="{!pkbCon.categoryGroup1}" rootCategory="{!sc.Name}">
+                                            <li id="{!scc.Name}" class="4">
+                                                <a href="javascript:void(0);" class="{!scc.Name}" onclick="setCategory('{!pkbCon.categoryGroup1}:{!scc.Name}')">{!scc.Label}</a>
+                                            </li>
+                                        </knowledge:categoryList>
+                                    </ul>
+                                    
+                                </li>
+                            </knowledge:categoryList>
+                            </ul>
+                        </li>
+                    <apex:outputText escape="false" value="<span>" />
+                </knowledge:categoryList>
+                    </ul>
+                </div>
+            </section>
+            
+            
+          <section class="widget">
+            <div hidden="1">
+              <h3>
+                  <!--<i class="fa fa-fw first fa-caret-right" style="display:none;"></i>
+                  <i class="fa fa-fw first fa-caret-down" style="display:initial;"></i>-->
+                  Popular Articles
+              </h3>
+              <ul class="fau">
+              <knowledge:articleList articleVar="a"
+                language="{!pkbCon.selectedLanguage}"
+                sortBy="mostViewed" 
+                pageSize="{!pkbCon.popularArticles}"
+                categories="{!category}"
+                pageNumber="1">
+                  <apex:outputText escape="false" value="</span>" />
+                  <li id="3{!a.id}">
+                      <i class="fa fa-fw fa-file-text-o"></i>
+                      <c:walmart_simple_article_list_item pkbCon="{!pkbCon}" 
+                          aid="3{!a.id}"
+                          title="{!a.title}"
+                          summary="{!a.summary}"
+                          urlName="{!a.urlName}"
+                          articleTypeName="{!a.articleTypeName}"
+                          articleTypeLabel="{!a.articleTypeLabel}"
+                          lastModifiedDate="{!a.lastModifiedDate}"
+                          firstPublishedDate="{!a.firstPublishedDate}"
+                          lastPublishedDate="{!a.lastPublishedDate}" 
+                      />
+                  </li>
+                  <apex:outputText escape="false" value="<span>" />
+              </knowledge:articleList>
+              </ul>
+            </div>
+          </section>
+          
+        </aside><!-- /.sidebar -->
+        
+        <script type="text/javascript">hideFeatured();</script> 
+</apex:component>

@@ -1,0 +1,803 @@
+<apex:component allowDML="true">
+    <apex:attribute name="bdCon" type="BD2Controller" required="true" description="handle to QuestionnaireController" />
+    <!--     <apex:stylesheet value="{!URLFOR($Resource.jQueryValidation, 'jquery-ui.css')}"/> -->
+    <!--     <apex:includeScript value="{!URLFOR($Resource.jQueryValidation, 'jquery-ui.js')}"/> -->
+    <!--     <apex:includeScript value="{!URLFOR($Resource.jQueryValidation, 'jquery.validate.min.js')}"/> -->
+        <!--  required static resource
+        <apex:stylesheet value="{!URLFOR($Resource.Jquery,'/css/jquery-ui.css')}" />
+        <apex:includeScript value="{!URLFOR($Resource.Jquery,'/js/jquery-1.10.2.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.Jquery,'/js/jquery-ui.js')}" />
+    -->
+    <style>
+        .cSelect>select{
+            height:40px;
+        }
+        
+        .success-panel {
+            width: 300px;
+            margin-left: -150px;
+            height: 'auto';
+            margin-top: -25px;
+            left: 50%;
+            top: 50%;
+            z-index: 999;
+            position: fixed;
+            cursor:pointer;
+            background: white;
+            text-align: center;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        .popupBackground {
+            background-color:black;
+            opacity: 0.7;
+            filter: alpha(opacity = 70);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 998;
+            position: fixed;
+            cursor:wait;
+        }
+        
+    </style>
+
+
+    <script type="text/javascript">
+        
+        //jQuery.noConflict();
+        /*jQuery(document).ready(function() {
+        alert('jQuery ready');
+        var toValidate = jQuery("[id$='firstName'],[id$='lastName'],[id$='title'],[id$='Email'],[id$='Emailconfirm'],[id$='phone'],[id$='MobilePhone'],[id$='company'],[id$='Website']"),
+        valid = false;
+        toValidate.keyup(function () {
+        bPrimaryContactChanged = true;
+        if (jQuery(this).val().length > 0) {
+           
+            jQuery(this).data('valid', true);
+        } else {
+            jQuery(this).data('valid', false);
+        }
+        toValidate.each(function () {
+            if (jQuery(this).data('valid') == true) {
+                // alert(jQuery(this).val().length);
+                valid = true;
+            } else {
+                valid = false;
+            }
+        });
+        if (valid === true) {
+        
+           jQuery("[id$='theButton']").removeAttr("disabled");
+        } else {
+        
+        }
+        });
+        
+        /*
+          jQuery("input[id$='firstName']").keyup(function(){
+             
+             if (jQuery("input[id$='firstName']").val().length   >   0 ){
+                 alert(jQuery("input[id$='firstName']").val().length);
+                 jQuery("[id$='Save']").removeAttr("disabled");
+             }
+         });   * /
+         
+         //});*/
+        function ShowHideDiv() {
+            var sell1value = $('[id$=LeadSource]').val();     
+            if(sell1value == undefined){
+                sell1value = $('[id$=LeadSourcedisabled]').val();
+            }
+            console.log(sell1value);
+            //var channel1 = document.getElementById("channel1");
+            //var channel12 = document.getElementById("channel12");
+            //if(sell1value =="Article or Blog"||sell1value =="Channel Partner"||sell1value =="Jason and Scot Show Podcast"||sell1value =="LinkedIn"||sell1value =="Seller Referral"||sell1value =="Trade Show"||sell1value =="Walmart Referral"||sell1value =="Walmart.com")
+            //if(sell1value == "Channel Partner")
+            if(sell1value == "Solution Providers")
+            {
+                $('[id$=channel1]').show();
+                $('[id$=channel12]').hide();
+                  // channel1.style.display ="block";
+                  // channel12.style.display ="none";
+              }
+              else if (sell1value == "Other"){
+                //channel1.style.display ="none";
+                //channel12.style.display ="block";
+                $('[id$=channel1]').hide();
+                $('[id$=channel12]').show();
+              }else{
+                $('[id$=channel1]').hide();
+                $('[id$=channel12]').hide();
+              }
+        }   
+        $(function(){
+            $('#groups').on('change', function(){
+                var val = $(this).val();
+                var sub = $('#subgroup');
+                $('option', sub).filter(function(){
+                    if (
+                        $(this).attr('data-group') === val 
+                        || $(this).attr('data-group') === 'SHOW'
+                        ) {
+                        $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                });
+            });
+            $('#groups').trigger('change');
+        });
+
+        function addeventhandler(){
+            jQuery("[id$='firstName'],[id$='ChannelPartnerCompany'],[id$='lastName'],[id$='title'],[id$='Email'],[id$='Emailconfirm'],[id$='phone'],[id$='MobilePhone'],[id$='company'],[id$='AnnualRevenue'],[id$='TimeZone'],[id$='ext'],[id$='idpermission'],[id$='Website'],[id$='Category'],[id$='LeadSource'],[id$='Channel'],[id$='subgroup'],[id$='SkuOwned']").change(function( event ){
+                bPrimaryContactChanged = true;
+                });
+        }
+
+        function validateprimarycontact(){
+            var bError = false;
+            //bError = emailvalidation();
+            return bError;
+            }
+            /*function validateemail(errormessageid){
+                var bError = false;
+                bError = emailvalidation();
+                if(bError){
+                    $("[id$='"+errormessageid+"']").show();
+                }
+                else{
+                    $("[id$='"+errormessageid+"']").hide();
+                }
+                return bError;
+            }
+            function emailvalidation(){
+                var bError = false;
+                var email = $('[id$=Email]').val();
+             var emailconfirm = $('[id$=Emailconfirm]').val();
+             if(email!=emailconfirm){
+                 //bError = true;
+             }
+             return bError;
+         }*/
+
+           /*$(document).ready(function() {
+            $('[id$=frmPrimaryTab]').validate();             
+
+            $('[id$=firstName]').rules("add",{
+                required: true,
+                
+            });     
+            
+            $('[id$=lastName]').rules("add",{
+                required: true,
+                
+            }); 
+
+            $('[id$=title]').rules("add",{
+                required: true,
+                
+            }); 
+            
+            $('[id$=Email]').rules("add",{
+                required: true,
+               
+            }); 
+            
+            $('[id$=Emailconfirm]').rules("add",{
+                required: true,
+                equalTo: '[id$=Email]'
+            }); 
+            
+            $('[id$=phone]').rules("add",{
+                required: true,
+                
+            });    
+            
+            $('[id$=MobilePhone]').rules("add",{
+                required: true,
+                
+            }); 
+            
+            $('[id$=Industy]').rules("add",{
+                required: true,
+                
+            }); 
+            
+            $('[id$=company]').rules("add",{
+                required: true,
+                
+            }); 
+
+          /*  $('[id$=Website]').rules("add",{
+                required: true,
+
+            });
+            
+            $('[id$=Category]').rules("add",{
+                required: true,
+                
+            });
+            
+            $('[id$=Channel]').rules("add",{
+                required: true,
+                
+            });* /
+            
+            
+            /* Customised the messages * /
+           // jQuery.validator.messages.required = "You better have entered a value.. or else!"; 
+           // jQuery.validator.messages.equalTo = "You're supposed to type the same set of characters AGAIN.";                                                
+       });*/
+
+        $.validator.addMethod(
+        "money", 
+        function(value, element) {
+                    //var isValidMoney = /^((\d{1,3}\,)*\d{3}|\d{1,3})\.\d{2}$|^((\d{1,3}\.)*\d{3}|\d{1,3})\,\d{2}$/.test(value);                    
+                    
+                    //Ashok start
+                    /*
+                    var isValidMoney = /^\\$((\d{1,3}\,)*\d{3}|\d{1,3})\.\d{2}$|^((\d{1,3}\.)*\d{3}|\d{1,3})\,\d{2}$/.test(value);
+                    */
+                    //var isValidMoney = /^\\$((\d{1,3}\,)*\d{3}|\d{1,3})(\.(\d){1,})*$/.test(value);
+                    var isValidMoney = /^\\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(\.[0-9][0-9])?$/.test(value);
+                    //Ashok End
+                    
+                    return this.optional(element) || isValidMoney;
+                }, 
+                "Please specify a valid amount. You must use this format: $000,000.00"
+                );
+       
+       $.validator.addMethod(
+        "percentageValue", 
+        function(value, element) {
+            var isValidPercentage = /^(\d{0,2}(\.\d{0,2})?|100(\.00?)?)$/.test(value);
+            return this.optional(element) || isValidPercentage;
+        }, 
+        "Please specify a valid percentage value. You must use this format XX.XX"
+        );
+       
+
+       $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },          
+        "Please check your input. You must use this format: XX-XXXXXXX"
+        );
+       
+       $.validator.addMethod(
+        "compWebsite",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },          
+        "Please check your input. You must enter correct URL"
+        );
+       
+       $.validator.addMethod(
+        "mobilenumber",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },          
+        "Please check your input. You must use this format: (999) 999-9999"
+        );
+       
+       $.validator.addMethod(
+        "notFuture",
+        function(value, element) {
+            return parseInt(value) <= parseInt(new Date().getFullYear())
+        },
+        "Should be on or before the current year."
+        );
+
+       $.validator.addMethod(
+        "validFirstName", 
+        function(value, element) {
+            var isValidFirstName = /^[^<>;]*$/.test(value);
+            return this.optional(element) || isValidFirstName;
+        }, 
+        "First Name should not contain the following characters: \">\", \"<\", \";\" "
+        );
+       $.validator.addMethod(
+        "validLastName", 
+        function(value, element) {
+            var isValidLastName = /^[^<>;]*$/.test(value);
+            return this.optional(element) || isValidLastName;
+        }, 
+        "Last Name should not contain the following characters: \">\", \"<\", \";\" "
+        );
+       $.validator.addMethod(
+        "validAddressLine1", 
+        function(value, element) {
+            var isValidAddressLine1 = /^[^<>;]*$/.test(value);
+            return this.optional(element) || isValidAddressLine1;
+        }, 
+        "Address Line 1 should not contain the following characters: \">\", \"<\", \";\" "
+        );
+
+       $.validator.addMethod(
+        "validAddressLine2", 
+        function(value, element) {
+            var isValidAddressLine2 = /^[^<>;]*$/.test(value);
+            return this.optional(element) || isValidAddressLine2;
+        }, 
+        "Address Line 2 should not contain the following characters: \">\", \"<\", \";\" "
+        );
+       $.validator.addMethod(
+        "validCompanyName", 
+        function(value, element) {
+            var isValidCompanyName = /^[^<>;]*$/.test(value);
+            return this.optional(element) || isValidCompanyName;
+        }, 
+        "Company Name should not contain the following characters: \">\", \"<\", \";\" "
+        ); 
+
+       $.validator.addMethod(
+        "compareWithemail", 
+        function(value, element,otherEmail) {
+            var otheremailvalue = $("[id$='"+otherEmail+"']").val();
+            return value == otheremailvalue ? true:false;
+        },
+        "Confirm email should match."
+        ); 
+       
+       $.validator.addMethod(
+        "validateOtherSource", 
+        function(value, element,otherField) {
+            console.log('element-->'+element);
+            var otherFieldvalue = $("[id$='"+otherField+"']").val();
+            var retVal = true;
+            if(otherFieldvalue == 'Other'){
+                if(value == undefined || value == ''){
+                    retVal = false;
+                }
+            }
+                // return value == otheremailvalue ? true:false;
+                return retVal;
+            },
+            "can't be empty."
+        );  
+       
+        /*$('[id$=frmPrimaryTab]').submit(function( event ) {
+            if($('[id$=frmPrimaryTab]').valid()){
+                event.preventDefault();
+                saveprimarycontact();
+            }
+        });*/
+        
+        function createNewLead(){
+            var tempValid = $('[id$=frmPrimaryTab]').valid();
+            if(tempValid){
+                userLeadValidate();
+            }
+            var inputHiddenFieldValue = $('[id$=EmailHiddenInput]').val();
+            console.log('inputHiddenFieldValue-->'+inputHiddenFieldValue);
+            if(tempValid && inputHiddenFieldValue == 'false'){
+                ShowEmailValidationUserError(userErrorMessage);
+            }
+            if(tempValid && inputHiddenFieldValue != 'false'){
+                var bNewLead = checkExistingLead();
+                if(!bNewLead){
+                    console.log('sLeadErrorMessage-->:'+sLeadErrorMessage);
+                    $(document.getElementById('idLeadError')).html(sLeadErrorMessage);
+                    $(document.getElementById('idLeadExist')).show();
+                    /*var bConfirm = confirm(sLeadErrorMessage);
+                    if(!bConfirm){
+                        bNewLead = true;
+                    }
+                    else{
+                        sendoldappemailJS();
+                    }*/
+                }
+            }
+            if(tempValid && inputHiddenFieldValue != 'false' && bNewLead){
+                saveprimarycontact();
+            }
+        }
+        
+        function sendoldappemailJS(){
+            var email = $('[id$=Email]').val();
+            $(document.getElementById('idLeadExist')).hide();
+            sendoldappemail(email,sOldApplicationUrl,sOldLeadId);
+        }
+    </script>   
+
+    <apex:form id="frmPrimaryTab">
+        <apex:actionFunction name="saveprimarycontact" action="{!bdCon.createNewLead}" rerender="pnlMain" status="processingStatus" />
+        <apex:actionFunction name="sendoldappemail" action="{!bdCon.sendOldApplicationLink}" rerender="pnlMain" status="processingStatus" >
+            <apex:param name="sOldLeadEmail" assignTo="{!bdCon.sOldLeadEmail}" value="" />
+            <apex:param name="sOldApplicationlink" assignTo="{!bdCon.sOldApplicationlink}" value="" />
+            <apex:param name="sOldLeadId" assignTo="{!bdCon.sOldLeadId}" value="" />
+        </apex:actionFunction>
+        <apex:actionFunction name="ShowEmailValidationUserError"  action="{!bdCon.ShowEmailValidationUserError}" rerender="pnlMain" status="processingStatus">
+            <apex:param name="userErrorMessage" assignTo="{!bdCon.userErrorMessage}" value="" />
+        </apex:actionFunction>
+        <div style="display:none;">
+            <span id="requiredinformation" class="tooltipbackground">
+                please provide the required information to save the application.
+            </span>
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label class="dropdown" for="inputdefault"  data-tooltip-content="#requiredinformation" >First Name</label>
+                    <apex:inputField value="{!bdCon.oLead.firstName}" styleClass="aside form-control" id="firstName" rendered="{!bdCon.isApplicationCreated != true}" html-maxlength="25" required="true"/>
+                    <apex:inputText value="{!bdCon.oLead.firstName}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label class="dropdown" for="inputdefault">Last Name</label>
+                    <apex:inputField value="{!bdCon.oLead.lastName}" id="lastName"  styleClass="aside form-control" rendered="{!bdCon.isApplicationCreated != true}" html-maxlength="25" required="true"/>
+                    <apex:inputText value="{!bdCon.oLead.lastName}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>  
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">  
+                    <label class="dropdown" for="inputdefault">Job Title</label>
+                    <apex:inputField value="{!bdCon.oLead.title}" id="title" styleClass="aside form-control"  rendered="{!bdCon.isApplicationCreated != true}" required="true"/>
+                    <apex:inputText value="{!bdCon.oLead.title}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+        </div> 
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group"> 
+                    <label class="dropdown" for="inputdefault">Email Address</label>
+                    <apex:outputpanel rendered="{!bdCon.isApplicationCreated != true}">
+                        <apex:inputField value="{!bdCon.oLead.Email}" id="Email" styleClass="aside form-control"   required="true"/>
+                        <label style="color:red;display:none" id="idemailerror">Should match with confirm email.</label>
+                        <label style="color:red;display:none" id="idUserValidationError"></label>
+                        <apex:inputHidden value="{!bdCon.bUserAndLeadValidated}" id="EmailHiddenInput"/>
+                    </apex:outputpanel> 
+                    <apex:inputText value="{!bdCon.oLead.Email}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+            <apex:outputPanel rendered="{!bdCon.isApplicationCreated != true}" layout="none">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" >               
+                    <div class="form-group">
+                        <label class="dropdown" for="inputdefault">Confirm Email Address</label> 
+                        <apex:inputField value="{!bdCon.oLead.Email}" id="Emailconfirm"  styleClass="aside" rendered="{!bdCon.isApplicationCreated != true}" required="true"/>
+                        <label style="color:red;display:none" id="idemailconfirmerror">Should match with confirm email.</label>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" >
+                <div class="form-group">
+                    <label class="dropdown" for="inputdefault">Your Primary Time Zone</label>
+                    <apex:inputField value="{!bdCon.oLead.TimeZone__c}" id="TimeZone" styleClass="aside form-control" rendered="{!bdCon.isApplicationCreated != true}" required="true"/>
+                    <apex:inputText value="{!bdCon.oLead.TimeZone__c}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>       
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">     
+                    <label class="dropdown" for="inputdefault">Phone</label>
+                    <!--  <input class="form-control" id="inputdefault" type="tel" pattern="[1-9]{3}-[0-9]{3}-[0-9]{4}"  placeholder="999-999-9999" data-error="Phone is required." required="true" /> -->
+                    <apex:inputField value="{!bdCon.oLead.Phone}" id="phone" styleClass="aside form-control" html-data-mask="(999)999-9999" html-placeholder="(xxx)xxx-xxx" rendered="{!bdCon.isApplicationCreated != true}" required="true"/>
+                    <!-- <apex:outputText value="{!bdCon.oLead.Phone}" styleClass="aside " rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <apex:inputText value="{!bdCon.oLead.Phone}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3"> 
+                <div class="form-group">
+                    <label class="dropdown" for="inputdefault">Ext.</label><span class="text-muted"> Optional</span>
+                    <apex:inputField value="{!bdCon.oLead.Extension__c}" styleClass="aside form-control" html-placeholder="xxx" id="ext" rendered="{!bdCon.isApplicationCreated != true}" />
+                    <!-- <apex:outputText value="{!bdCon.oLead.Extension__c}" styleClass="aside" rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <apex:inputText value="{!bdCon.oLead.Extension__c}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label class="dropdown" for="inputdefault">Mobile</label><span class="text-muted"> Optional</span>
+                    <!-- <input class="form-control" id="inputdefault" type="tel" pattern="[1-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="999-999-9999" data-error="Mobile is required." required="true" /> -->
+                    <apex:inputField value="{!bdCon.oLead.MobilePhone}" id="MobilePhone"  styleClass="aside form-control" rendered="{!bdCon.isApplicationCreated != true}" html-data-mask="(999)999-9999" html-placeholder="(xxx)xxx-xxxx"/>
+                    <!-- <apex:outputText value="{!bdCon.oLead.MobilePhone}" styleClass="aside" rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <apex:inputText value="{!bdCon.oLead.MobilePhone}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">  
+                    <label></label>
+                    <label style="padding-top: 30px;" class="dropdown"><!-- <input type="checkbox" value="" checked="checked" /> -->
+                        <apex:inputCheckbox value="{!bdCon.oLead.et4ae5__HasOptedOutOfMobile__c}" selected="true" rendered="{!bdCon.isApplicationCreated != true}" id="idpermission"/>
+                    </label>
+                    <label style="padding-top: 30px;" class="dropdown">
+                        <apex:outputField value="{!bdCon.oLead.et4ae5__HasOptedOutOfMobile__c}" rendered="{!bdCon.isApplicationCreated = true}"/>
+                        Permission to Text</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <div class="form-group">     
+                    <label class="dropdown" for="AccountLegalName">Legal Company Name</label>
+                    <!--  <input class="form-control" id="inputdefault" type="text" data-error="Legal Company Name is required." required="true" /> -->
+                    <apex:inputField value="{!bdCon.oLead.Account_Legal_Name__c}" id="company" styleClass="aside form-control" rendered="{!bdCon.isApplicationCreated != true}" html-maxlength="50" required="true"/>
+                    <!-- <apex:outputText value="{!bdCon.oLead.Account_Legal_Name__c}" styleClass="aside" rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <apex:inputText value="{!bdCon.oLead.Account_Legal_Name__c}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                    
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <div class="form-group"> 
+                    <label class="dropdown" for="inputdefault">Company Website</label><span class="text-muted"> Optional</span>
+                    <!--  <input class="form-control" id="inputdefault" type="url" data-error="Company Website is required." required="true" /> -->
+                    <apex:inputField value="{!bdCon.oLead.Website}" id="Website" styleClass="aside form-control"  rendered="{!bdCon.isApplicationCreated != true}" required="false"/>
+                    <!-- <apex:outputText value="{!bdCon.oLead.Website}" styleClass="aside" rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <apex:inputText value="{!bdCon.oLead.Website}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label class="dropdown" for="AnnualRevenue">Annual Online U.S. Sales Revenue (USD)</label>
+                    <apex:inputField value="{!bdCon.oLead.AnnualRevenue}" styleClass="aside currencyWithPrefix form-control cAnnualSales" html-placeholder="$x,xxx,xxx" id="AnnualRevenue" rendered="{!bdCon.isApplicationCreated != true}" required="true"/>
+                    <!-- <apex:outputText value="{!bdCon.oLead.AnnualRevenue}" styleClass="aside" rendered="{!bdCon.isApplicationCreated == true}"/> -->  
+                    <apex:inputText value="{!bdCon.oLead.AnnualRevenue}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <div class="form-group"> 
+                    <label class="dropdown" for="inputdefault">Primary Category Based On Sales</label>
+                    <apex:inputField value="{!bdCon.oLead.Category__c}" id="Category" styleClass="aside form-control" rendered="{!bdCon.isApplicationCreated != true}" required="true"/>
+                    <!-- <apex:outputText value="{!bdCon.oLead.Category__c}" styleClass="dropdown" rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <apex:inputText value="{!bdCon.oLead.Category__c}" styleClass="disabledBackgroundColor aside form-control"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+                <div class="form-group cSelect">
+                    <label class="dropdown" id="groups" for="LeadSource">How Did You Hear About Walmart Marketplace?</label>
+                    <apex:selectList size="1" value="{!bdCon.oLead.LeadSource}" rendered="{!IF(bdCon.isPartner == true,false,IF(bdCon.isApplicationCreated != true,true,false))}" styleclass="aside form-control" id="LeadSource" required="true" onchange="ShowHideDiv()">
+                        <apex:selectOptions value="{!bdCon.lstLeadSource }"/>
+                    </apex:selectList>
+                    <apex:selectList size="1" value="{!bdCon.oLead.LeadSource}" rendered="{!IF(bdCon.isPartner == true,true,IF(bdCon.isApplicationCreated == true,true,false))}" styleclass="aside form-control" id="LeadSourcedisabled" disabled="true">
+                        <apex:selectOptions value="{!bdCon.lstLeadSource }"/>
+                    </apex:selectList> 
+                </div>
+            </div>
+                
+            <div id="channel1" class="col-xs-12 col-sm-6 col-md-3 col-lg-3 " style="display: none">
+                <div class="form-group cSelect"> 
+                    <label class="dropdown" id="subgroup" for="Channel__c">Channel partner company name</label>
+                    <!--                 <apex:inputField value="{!bdCon.oLead.Channel__c}" id="Channel" styleClass="aside" rendered="{!bdCon.isApplicationCreated != true}" required="true"/> -->
+                    <!-- <apex:outputText value="{!bdCon.oLead.Channel__c}" styleClass="dropdown" rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <!--                 <apex:inputText value="{!bdCon.oLead.Channel__c}" styleClass="disabledBackgroundColor aside"   disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/> -->
+                    <apex:selectList size="1" value="{!bdCon.oLead.Channel_Partner__c}" rendered="{!IF(bdCon.isPartner == true,false,IF(bdCon.isApplicationCreated != true,true,false))}" styleclass="aside form-control" id="Channel" >
+                        <apex:selectOptions value="{!bdCon.lstChannelPartner }"/>
+                    </apex:selectList>
+                    <apex:selectList size="1" value="{!bdCon.oLead.Channel_Partner__c}" rendered="{!IF(bdCon.isPartner == true,true,IF(bdCon.isApplicationCreated == true,true,false))}" styleclass="aside form-control" disabled="true">
+                        <apex:selectOptions value="{!bdCon.lstChannelPartner }"/>
+                    </apex:selectList>
+                </div>
+            </div>
+            <div id="channel12" class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="display: none" >
+                <div class="form-group"> 
+                    <label class="dropdown" id="subgroup1" for="inputdefault">Please Specify How You Heard About Walmart ?</label>
+                    <apex:inputField value="{!bdCon.oLead.Other_Lead_Source__c}" id="ChannelPartnerCompany" styleClass="aside form-control" rendered="{!bdCon.isApplicationCreated != true}"  />
+                    <apex:inputText value="{!bdCon.oLead.Other_Lead_Source__c}" styleClass="disabledBackgroundColor aside form-control"  disabled="true" rendered="{!bdCon.isApplicationCreated == true}"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="btn-group-sm pull-right"> -->
+        <!--     <div class="row"> -->
+        <!--    <!-- <button id="Save" class="btn btn-primary " action="{!InsertLead.createNewLead}">Save</button> - -> -->
+        <!--     <apex:commandButton styleClass="btn btn-primary btn-size" action="createNewLead();" value="Save"  id="theButton"/> -->
+
+        <!--     <button id="Apply" class="btn btn-success btn-size" disabled="true">Apply Now</button> -->
+
+        <!--     </div> -->
+        <!-- </div> -->
+        <!-- </form> -->
+
+        <div style="display:none" id="idLeadExist">
+            <div class="popupBackground" />
+            <div class="success-panel" style="border-radius: 6px; padding: 20px;">
+                <label id="idLeadError" style="text-align:left; font-size: 14px; font-weight: normal; margin-bottom: 10px; text-align: left;"  ></label><br/>
+                <input type="button" value="Resume" class="btn" onclick="sendoldappemailJS();"/>
+                <input type="button" value="Start New Application" class="btn" onclick="hideleadmessage();"/>
+            </div>
+            
+        </div>
+    </apex:form>
+    <script>
+        addeventhandler();
+        ShowHideDiv();
+        var tempErrorMessage='';
+        var sOldApplicationUrl ='';
+        var sOldLeadId ='';
+        var sLeadErrorMessage ='';
+        var userErrorMessage ='';
+
+        function userLeadValidate(){
+            var email = $('[id$=Email]').val();
+            var resultData = sforce.apex.execute("WebServiceHelper","checkUser",{emailAddress:email});
+            resultData += ''; 
+            var sResult = resultData.split('|');
+            console.log('resultData'+'-->' + resultData);
+            console.log('sResult'+'-->' + sResult);
+            if(sResult[0] != 'OK.  We found no duplicates.'){ 
+                tempErrorMessage = sResult[0];
+                userErrorMessage = sResult[0];
+                console.log('userErrorMessage -->' + userErrorMessage);
+                // tempErrorMessage = sResult[1];
+                // $("#idUserValidationError").text(sResult[1]);
+                $("#idUserValidationError").text(sResult[0]);
+                //$("#idUserValidationError").show();
+                $('[id$=EmailHiddenInput]').val(false);
+            }else{
+                //sforce.apex.execute("WebServiceHelper","checkLead",{emailAddress:email})
+                tempErrorMessage = '';
+                //$("#idUserValidationError").hide();
+                $('[id$=EmailHiddenInput]').val(true);
+            }
+        }
+
+        function hideleadmessage(){
+            $(document.getElementById('idLeadExist')).hide();
+            saveprimarycontact();
+        }
+
+        function checkExistingLead(){
+            var email = $('[id$=Email]').val();
+            var resultData = sforce.apex.execute("WebServiceHelper","checkLead",{emailAddress:email});
+            var ret = false;
+            resultData += ''; 
+            var sResult = resultData.split('|');
+            console.log('resultData'+'-->' + resultData);
+            console.log('sResult'+'-->' + sResult);
+            if(sResult[0] == 'false'){ 
+                console.log('sResult[1]-->' + sResult[1]);
+                sLeadErrorMessage = sResult[1];
+                sOldApplicationUrl = sResult[2];
+                sOldLeadId = sResult[3];
+                console.log('sOldApplicationUrl-->'+sOldApplicationUrl);
+                console.log('sOldLeadId-->'+sOldLeadId);
+                //here show div
+            }else{
+                sLeadErrorMessage = '';
+                ret = true;
+            }
+            return ret;
+        }
+
+        //jQuery document ready event scope.
+        $(document).ready(function() {  
+            $("[id$=frmPrimaryTab]").validate({
+                ignore: 'input[type=hidden], .select2-input',
+                errorClass: 'validation-error-label',
+                successClass: 'validation-valid-label',
+                highlight: function(element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                unhighlight: function(element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                errorPlacement: function(error, element) {
+                    if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                        if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                            error.appendTo( element.parent().parent().parent().parent() );
+                        }
+                        else {
+                            error.appendTo( element.parent().parent().parent().parent().parent() );
+                        }
+                    }
+                    else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                        error.appendTo( element.parent().parent().parent() );
+                    }
+                    else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                        error.appendTo( element.parent().parent() );
+                    }
+                    else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                        error.appendTo( element.parent().parent() );
+                    }
+                    else {
+                        error.insertAfter(element);
+                    }
+                },
+            }); 
+            //var vId = $("[id$='idcurrentstep']").val();
+            //console.log('primary contact idcurrentstep : '+vId);
+            if($('[id$=firstName]').length>0){
+                $('[id$=firstName]').rules("add",{
+                    required: true,
+                    validFirstName: true,
+                    maxlength: 25
+                });     
+
+                $('[id$=lastName]').rules("add",{
+                    required: true,
+                    validLastName: true,
+                    maxlength: 25
+                }); 
+                
+                $('[id$=title]').rules("add",{
+                    required: true,
+
+                }); 
+                
+                $('[id$=Email]').rules("add",{
+                    email: true,
+                    required: true
+                });
+
+                $('[id$=Emailconfirm]').rules("add",{
+                    required: true,
+                    email: true,
+                    compareWithemail:'Email'
+                });
+                
+                $('[id$=AnnualRevenue]').rules("add",{
+                    required: true,
+                });
+                
+                $('[id$=ext]').rules("add",{
+                    number: true
+                });
+                
+                $('[id$=phone]').rules("add",{
+                    required: true,
+                    
+                });    
+                
+                $('[id$=MobilePhone]').rules("add",{
+                    //required: true,
+                    
+                });
+
+                $('[id$=LeadSource]').rules("add",{
+                    required: true,
+                    
+                });
+                
+                $('[id$=Website]').rules("add",{
+                    compWebsite:/^((http|https):\/\/)[-a-zA-Z0-9:%_\+~#=]{1,256}[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9:%_\+.~#?&\/\/=]*)|^(www\.)[-a-zA-Z0-9:%_\+~#=]{2,256}[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9:%_\+.~#?&\/\/=]*)|^([-a-zA-Z0-9:%_\+~#=]{2,256}[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9:%_\+.~#?&\/\/=]*))/        
+                });   
+                $('[id$=company]').rules("add",{
+                    required: true,
+                    validCompanyName: true,
+                    ValidateDba: true,  
+                    maxlength: 50     
+                    
+                });
+                $('[id$=Category]').rules("add",{
+                    required: true,     
+                });
+                $('[id$=TimeZone]').rules("add",{
+                    required: true,     
+                });
+                $('[id$=ChannelPartnerCompany]').rules("add",{
+                    validateOtherSource: 'LeadSource',
+                });
+                
+                
+                //$('.currencyNoDecimal').maskMoney({ prefix:'$', precision:'0', thousands:',',  allowZero:true });
+                $('.currencyNoDecimal').maskMoney({ precision:'0', thousands:',',  allowZero:true });
+            }
+        });
+
+    </script>
+    <script src="{!URLFOR($Resource.SFDC_MainJS)}"></script>
+    <script>
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+        UserContext.initialize({"userId":"{!$User.Id}","siteUrlPrefix":"{!$Site.prefix}"});
+    </script>
+    <script src="/soap/ajax/30.0/connection.js" type="text/javascript"></script>
+    <script src="/soap/ajax/30.0/apex.js" type="text/javascript"></script>
+</apex:component>

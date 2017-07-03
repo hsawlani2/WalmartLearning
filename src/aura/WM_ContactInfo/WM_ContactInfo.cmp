@@ -1,0 +1,24 @@
+<aura:component controller="SupplierApplication">
+    <aura:attribute type="String[]" name="Childtabs"/>
+    <aura:attribute type="smartApp_Wrapper.progressBar" name="parentChildList"/>
+    <aura:attribute type="String" name="ActiveChildTab"/>
+    <aura:attribute type="Lead" name="currentRec" default="{ 'sobjectType': 'Lead'}"/>
+    <aura:attribute type="Aura.Component[]" name="TabBody" />
+    <aura:handler event="c:WM_ProgressBarToChildTab" action="{!c.BuildChildTabDetails}"/>
+    <lightning:tabset >
+          <aura:iteration items="{!v.Childtabs}" var="item"> 
+            <lightning:tab >
+                <aura:set attribute="label">
+                   {!item}
+                </aura:set>
+                <aura:set attribute="body">
+					<!-- The body for the tab, the form that will be dynamically created -->
+					<div>
+						<!-- {!v.TabBody} -->
+                        <c:WM_Form_1 />
+					</div>
+                </aura:set>
+            </lightning:tab>
+         </aura:iteration>
+    </lightning:tabset>
+</aura:component>

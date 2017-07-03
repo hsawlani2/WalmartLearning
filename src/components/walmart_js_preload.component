@@ -1,0 +1,46 @@
+<apex:component allowDML="true">
+    
+<apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+<script type="text/javascript">
+
+var NEXT_LINK_ID = 'nextLink';
+var RSS_RESULTS_LINK_ID = 'resultsRssLink';
+var IMMEDIATE_HELP_ID = 'immediateHelp';
+var FEATURED_ARTICLES_ID = 'featuredArticles';
+    
+// hides the "next" article link if there are no more articles
+// the more var is set in the VF "articles" component each time the articleList tag iterates
+var moreResults = false;
+function hideNext() {
+  e = document.getElementById(NEXT_LINK_ID);
+  if (!e) return;
+  if (!moreResults) e.style.display = 'none';
+}
+
+var noResultsFound = true;
+function hideResultsRss() { 
+  e = document.getElementById(RSS_RESULTS_LINK_ID);
+  if (!e) return;
+  e.style.display = 'none'
+  // regardless, hide the rss
+  // if (noResultsFound);
+}
+
+function hideImmediateHelp(noResults) {
+  if (noResults) {
+    var o = $$('#' +IMMEDIATE_HELP_ID);
+    if (o.length) o[0].style.display = 'none';
+  }
+}
+
+var atLeastOneFeatured = false;
+function hideFeatured() {
+  var e = document.getElementById(FEATURED_ARTICLES_ID);
+  if (!e) return;
+  if (!atLeastOneFeatured) e.style.display = 'none';
+}
+
+</script>
+
+
+</apex:component>

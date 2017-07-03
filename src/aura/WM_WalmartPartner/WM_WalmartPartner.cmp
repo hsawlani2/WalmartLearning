@@ -1,0 +1,20 @@
+<aura:component controller="SupplierApplication">
+    
+    <ltng:require styles="/resource/imagepickerstyle"/>
+    
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="attachementsId" type="string[]"/>
+   
+    <ul class="thumbnails image_picker_selector">
+    <aura:iteration aura:id="iterId" items="{!v.attachementsId}" var="attach" indexVar="index">
+    	<li>
+		<div aura:id="{!attach}" onclick="{!c.selectedPartner}" data-record = "{!attach}" style="max-width: 60%;" class="">
+        
+		<img class="image_picker_image"  src="{!'/servlet/servlet.FileDownload?file='+attach}"/>
+		</div>
+        </li>
+            
+    </aura:iteration>
+    </ul>
+</aura:component>

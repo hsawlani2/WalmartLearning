@@ -1,0 +1,56 @@
+<apex:page controller="CasetoknowledgeController" title="Pie Chart" docType="html-5.0">
+<apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+<apex:includescript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" />
+<script>
+jQuery.noConflict();
+function callChartData(){
+    PopulateChartData();
+}
+jQuery(document).ready(function(){
+    PopulateChartData();
+});
+function renderChartTip(kclass,item) {
+   var m = item.storeItem;
+    //this.setTitle(m.get('name'));
+    this.setTitle(''
+            + '<table>'
+            + '<tr><td><b>Category</b>&nbsp;</td><td>' + m.get('name') + '</td></tr>'
+            + '<tr><td><b>Case Count</b>&nbsp;</td><td>' + m.get('data') + '</td></tr>'
+            + '<tr><td><b>Percentage</b>&nbsp;</td><td>' + m.get('data1') +'%'+ '</td></tr>'
+            + '</table>'
+            );
+}
+
+</script>
+    <apex:form id="frm">
+            <style type="text/css">
+                .pbTitle {
+                white-space: nowrap
+                }
+            </style>
+        <apex:PageBlock title="Case to Knowledge Base Article Deflection" >
+            <apex:pageBlockSection >
+                <apex:input label="Start Date" value="{!sDate}" type="auto" style="width:80%;" />
+        
+                <apex:input label="End Date" value="{!eDate}" type="auto" style="width:80%;"/>
+                
+                <apex:actionStatus id="actionStatusDisplay"
+                    startText="loading..." stopText=""/>
+                <!-- <apex:CommandButton value="Go" status="actionStatusDisplay" reRender="pChart" action="{!dummyfunction}"/> -->
+                <input type="button" onclick="callChartData()" value="GO"/>
+
+            </apex:pageBlockSection>
+             
+            <apex:outputPanel id="pChart" >
+                <apex:chart height="400" width="350" data="{!pieData}" id="piechart">
+                    <apex:pieSeries dataField="data" labelField="name">
+                    <apex:chartTips width="150" height="75" rendererFn="renderChartTip"/>
+                    <apex:chartLabel display="none" field="name1" />
+                    </apex:pieSeries>
+                    <apex:legend position="right"/>
+                </apex:chart>
+            </apex:outputPanel>
+            <apex:actionFunction name="PopulateChartData" action="{!PopulateChartData}" reRender="pChart,piechart"/>
+        </apex:PageBlock>
+    </apex:form>
+</apex:page>

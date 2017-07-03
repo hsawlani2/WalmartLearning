@@ -1,0 +1,22 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="qCon" type="QuestionnaireController" required="true" description="handle to QuestionnaireController" />
+    
+    <h6>Assortment</h6>
+    <fieldset>
+        
+        <h1 class="text-light"><apex:image url="{!URLFOR($Resource.FormPageIcons, 'form-page-icons/blue-2.svg') }" width="28px" height="28px" styleClass="number-circle" />Merchandise Assortment</h1>
+        
+        <div class="embedded_wizard">
+            
+            <c:seller_questionnaire_page_2a qCon="{!qCon}" />
+        
+            <c:seller_questionnaire_page_2b qCon="{!qCon}" />
+        
+            <c:seller_questionnaire_page_2c qCon="{!qCon}" />
+            
+        </div>
+        
+    </fieldset>
+
+</apex:component>

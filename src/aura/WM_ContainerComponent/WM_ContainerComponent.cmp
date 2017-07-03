@@ -1,0 +1,9 @@
+<aura:component controller="SupplierApplication">
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="leadRecord" type="Lead"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <c:WM_Header />
+    <c:WM_PreQualification PreQualificationleadRecord="{!v.leadRecord}"/>
+    <c:WM_Footer />
+    
+</aura:component>

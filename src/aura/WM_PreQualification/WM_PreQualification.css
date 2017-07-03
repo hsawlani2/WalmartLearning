@@ -1,0 +1,38 @@
+.THIS .headerClass {
+    text-align:center;
+    font-size:20px;
+    color:token(backgroundColor);
+    margin-top:40px;
+}
+
+.THIS.selectClass{
+    width:100px;
+}
+
+.THIS .pClass {
+    text-align:center;
+    margin-top:40px;
+    margin-bottom:40px;
+}
+
+.THIS .buttonClass{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.THIS .inputClass{
+    width:100px;
+}
+
+.THIS .radioClass{
+    margin-left:33rem
+}
+
+.THIS .rradioClass{
+    margin-left:6rem
+}
+
+/*toggleCss.css*/
+.THIS.toggle {
+    display: none;
+}

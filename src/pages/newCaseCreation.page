@@ -1,0 +1,10 @@
+<!--
+ * Custom VF page to override New Case creation flow for Sellers.
+ * Sellers will always have access to a particular record type based on
+ * the onboarding status.
+ *
+ * @author		Cloud Sherpas
+ * @createddate 26-Feb-2016
+-->
+<apex:page standardController="Case" extensions="CaseExtension" tabStyle="case" action="{!verifyUserAndRedirect}">
+</apex:page>

@@ -1,0 +1,778 @@
+<apex:page sidebar="false" applyHtmlTag="false" applyBodyTag="false" showHeader="false" standardStylesheets="false">
+    <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <![endif]-->
+    <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <![endif]-->
+    <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <![endif]-->
+    <!--[if gt IE 8]><!--> <html lang="en" class="no-js" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!--<![endif]-->
+       
+            <!-- Fontawesome Icon font -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/font-awesome.min.css')}"/>
+            <!-- bootstrap.min -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/bootstrap.min.css')}"/>
+            <!-- bootstrap.min -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/slit-slider.css')}"/>
+            <!-- bootstrap.min -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/animate.css')}"/>
+            <!-- Main Stylesheet -->
+            <apex:stylesheet value="{!URLFOR($Resource.WalmartDesign, 'Walmart/css/main.css')}"/>
+    
+            <!-- Modernizer Script for old Browsers -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/modernizr-2.6.2.min.js')}"/>
+            
+            <!-- Main jQuery -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery-1.11.1.min.js')}"/>
+            
+            <apex:stylesheet value="{!URLFOR($Resource.jQueryValidation, 'jquery-ui.css')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.jQueryValidation, 'jquery-ui.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.jQueryValidation, 'jquery.validate.min.js')}"/>
+            
+        <head>
+            <!-- meta character set -->
+            <meta charset="utf-8"/>
+            <!-- Always force latest IE rendering engine or request Chrome Frame -->
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            <title>Sell on Walmart.com Marketplace</title>      
+            <!-- Meta Description -->
+            <meta name="description" content="It's easy to sell online with Walmart. Put your products in front of 80 million unique Walmart shoppers and increase your visibility."/>
+            <meta name="keywords" content="sell online, sell on Walmart, sell electronics, sell products online, sell items online, sell stuff online, online selling sites"/>
+            <meta name="author" content="Walmart"/>
+            <meta name="google-site-verification" content="64mV8ZKfoXsf0S6pY5tpQB7QYMpXF9AzwfeBIhopMCM" />
+            
+            <!-- Mobile Specific Meta -->
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            
+            <!-- CSS
+            ================================================== -->
+            
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'/>
+            
+            <style>
+                .logo-img{
+                    position: absolute;
+                    top: 3%;
+                    width: 250px;
+                    left: 3%;
+                }
+                
+                #about {
+                    background-color: #3d454c;
+                    color: #fff;
+                }
+                
+                #about h3 {
+                    color: #D7D7D7;
+                    margin: 0 0 10px;
+                    text-transform: none;
+                    border-bottom: 3px solid #D7D7D7;
+                    padding-bottom: 15px;
+                    font-size: 25px;
+                    text-align: center;
+                }
+                
+                .howItWorks {
+                    text-align: center;
+                    font-size: 38px;
+                    color: #d7d7d7;
+                    margin-bottom: 50px;
+                }
+                
+                .sec-title p {
+                    font-size: 25px;
+                    position: relative;
+                    text-transform: none;
+                    color: #333;
+                    line-height: 35px;
+                }
+                
+                #footer {
+                    background-color: #3d454c;
+                    padding: 10px 0;
+                    color: #fff;
+                }
+                
+                .web-to-lead{
+                    max-width: 800px;
+                    margin: 0 auto;
+                    float: none;
+                }
+                
+                .btn-blue {
+                    background-color: rgba(0,125,198,1);
+                }
+
+                .btn-effect:hover, .btn-effect:focus, .btn-effect:active {
+                    color: #fff;
+                }
+                
+                .btn-blue:hover{
+                    background: #0095EA;
+                    color: #fff;
+                }
+                
+                .service-item h3 {
+                    line-height: 35px;
+                }
+                
+                .error{
+                    margin: 0 !important;
+                    color: #E04C4C !important;
+                    font-size: 20px !important;
+                }
+                
+                @media only screen and (max-width: 767px){
+                    .sec-title h2 {
+                        font-size: 38px;
+                    }
+                    .caption-content h2 {
+                        font-size: 35px;
+                    }
+                    .service-item {
+                        width: 100%;
+                        margin-top: 30px;
+                    }
+                    .caption-content .cch2 {
+                        font-size: 50px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 25px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 280px;
+                        padding-left: 3%;
+                    }
+                    .logo-img{
+                        width: 180px;
+                        position: absolute;
+                        top: 3%;
+                        left: 3%;
+                    }
+                }
+                
+                @media only screen and (max-width: 485px){
+                    .btn-add{
+                        margin-bottom: 10px;
+                        width: 80%;
+                    }
+                    .btn-add-default{
+                        margin-left: 0px !important;
+                    }
+                    .caption-content .cch2, .caption-content .cch3{
+                        text-align: left;
+                        padding-left: 5%;
+                    }
+                    .slide-caption .caption-content{
+                        text-align: center;
+                        padding-top: 280px;
+                        position: relative;
+                        padding-left: 3%;
+                    }
+                    .caption-content .cch2 {
+                        font-size: 42px;
+                    }
+                    .caption-content .cch3{
+                        font-size: 25px;
+                    }
+                }
+                
+                @media only screen and (min-width: 485px){
+                    .slide-caption .caption-content{
+                        text-align: left;
+                        //padding-top: 185px;
+                        position: relative;
+                        padding-left: 3%;
+                    }
+                }
+                
+                .caption-content h2 {
+                    color: #2480B8;
+                    font-weight: 400;
+                    margin-bottom: 25px;
+                    text-transform: normal;
+                }
+                
+                @media only screen and (min-width: 899px){
+                    .caption-content .cch2 {
+                        font-size: 85px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 48px;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        color : #177DC1;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 185px;
+                        padding-left: 3%;
+                    }
+                }
+                
+                @media only screen and (min-width: 768px) and (max-width: 899px){
+                    .caption-content .cch2 {
+                        font-size: 60px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 36px;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        color : #177DC1;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 185px;
+                        padding-left: 3%;
+                    }
+                }
+                
+                @media only screen and (min-width: 1440px){
+                    .container {
+                        width: 1440px;
+                    }
+                }
+                @media only screen and (max-width: 1439px){
+                    .container {
+                        width: 100%;
+                    }
+                }
+                .btn-add{
+                    font-size: 16px;
+                    height: 52px;
+                    border-radius: 4px;
+                }
+                .btn-add:hover{
+                    color: #fff;
+                }
+                .slide-caption{
+                    top: -65px;
+                }
+                .btn-add-default{
+                    color: #167EC7;
+                    background: rgba(244,238,235,0.95) !important;
+                    border: 1px solid #167EC7;
+                    margin-left: 10px;
+                    box-shadow: none;
+                }
+                .btn-add-default:hover{
+                    color: #167EC7;
+                    background: transparent;
+                    border: 1px solid #167EC7;
+                    margin-left: 10px;
+                }
+                .btn-blue{
+                    box-shadow: none;
+                }
+                #hom-slider {
+                    position: relative;
+                    padding: 0;
+                }
+                .btn-blue {
+                    background-color: #007DC6;
+                }
+                .welcome-block p {
+                    color: #D6D6D6;
+                }
+                .arrow {
+                    width: 0;
+                    height: 0;
+                    border-left: 25px solid transparent;
+                    border-right: 25px solid transparent;
+                    border-top: 30px solid #3d454c;
+                    margin: 0 auto;
+                    position: relative;
+                    top: 100px;
+                }
+                .caption-content .cch2 {
+                    letter-spacing: -3px;
+                }
+            </style>
+            
+            <script>
+                $(document).ready(function(){
+                    $('.telnumber').keyup(function(evt) {
+                        var foo = $(this).val().split("-").join(""); // remove hyphens
+                        foo = foo.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
+                        $(this).val(foo);
+                    });
+                    $('.currency').change(function() {
+                        var foo = $(this).val();
+                        foo = foo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        $(this).val(foo);
+                    });
+                    
+                    if('{!JSENCODE(HTMLENCODE($CurrentPage.parameters.thankyou))}' == 'yes')
+                        goToByScroll('contact');
+                        validateFields();
+                });
+                
+                function isNumberKey(event) {
+                    var charCode = (event.which) ? event.which : event.keyCode;
+                    if (charCode != 46 && charCode != 189 && charCode > 31 && (charCode < 48 || charCode > 57))
+                        return false;
+                    
+                    return true;    
+                }
+                
+                function isNumberDashKey(event) {
+                    var charCode = (event.which) ? event.which : event.keyCode;
+                    if (charCode != 46 && charCode != 45 && charCode > 31 && (charCode < 48 || charCode > 57))
+                        return false;
+                    
+                    return true;    
+                }                    
+                    
+                function regivalidation(){ 
+                    var robotest = jQuery('#robotest').val();
+                    if(robotest.trim() != ''){
+                        return false;
+                    }
+                    else
+                    {
+                        jQuery('.required').attr('required',true);
+                        
+                        jQuery(".telnumber").each(function(){
+                             jQuery(this).change(function(){
+                                phone = jQuery(this).val();
+                                
+                                phone = phone.replace(/\s+/g, ""); 
+                                phone = phone.replace(/\-/g, ""); 
+                                phone = phone.replace(/[a-zA-Z]/g, ""); 
+                                
+                                formatted = phone.substr(0, 3) + '-' + phone.substr(3, 3) + '-' + phone.substr(6,4);
+                                jQuery(this).val(formatted);
+                            });
+                         });
+                         
+                         jQuery('.form').validate();
+                         
+                         if(!jQuery('.form').valid()){
+                             validateFields();
+                             console.log('Not Required');
+                         }         
+                         else{
+                             validateFields();
+                             jQuery('#submit').click();
+                         }                
+                    }
+                }
+                function validateFields(){
+                    $.validator.addMethod(
+                            "validFirstName", 
+                            function(value, element) {
+                                var isValidFirstName = /^[^<>;]*$/.test(value);
+                                return this.optional(element) || isValidFirstName;
+                            }, 
+                            "First Name should not contain '>','<',';' characters"
+                        );
+                        $.validator.addMethod(
+                            "validLastName", 
+                            function(value, element) {
+                                var isValidLastName = /^[^<>;]*$/.test(value);
+                                return this.optional(element) || isValidLastName;
+                            }, 
+                            "Last Name should not contain '>','<',';' characters"
+                        );
+                        $.validator.addMethod(
+                            "validCompanyName", 
+                            function(value, element) {
+                                var isValidCompanyName = /^[^<>;]*$/.test(value);
+                                return this.optional(element) || isValidCompanyName;
+                            }, 
+                            "Company Name should not contain '>','<',';' characters"
+                        );                             
+                        $('[id$=first_name]').rules("add",{
+                            required: true,
+                            validFirstName: true,
+                            maxlength:25
+                        });
+                        $('[id$=last_name]').rules("add",{
+                            required: true,
+                            validLastName: true,
+                            maxlength:25
+                        });
+                        $('[id$=company]').rules("add",{
+                            required: true,
+                            validCompanyName: true,
+                            maxlength:50
+                        });                        
+                }               
+                function goToByScroll(id){
+                    $('html,body').animate({ scrollTop: $("#"+id).offset().top}, 'slow');
+                    validateFields();
+                }
+                
+                function checkLeadSource(vl){
+                    if(vl.trim().toLowerCase() == 'other'){
+                        $('.other').addClass('required');
+                        $('#other').show();
+                    }else{
+                        $('.other').removeClass('required');
+                        $('#other').hide();
+                    }
+                }
+            </script>
+        </head>
+        
+        <body id="body">
+            
+            <main class="site-content" role="main">
+            
+            <section id="home-slider" style="background: #f4efeb;">
+                <div class="container" style="padding: 0;">
+                    <div id="slider" class="sl-slider-wrapper">
+        
+                        <div class="sl-slider">
+                        
+                            <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
+                                <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/slider/motherdaughter.png')}" style="float:right;"/>
+                                
+                                <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/logo2.svg')}" class="logo-img"/>
+                                
+                                <div class="slide-caption">
+                                    <div class="caption-content">
+                                        <h2 class="fadeInDown cch2" style="margin-bottom: 0px;">We'll bring </h2>
+                                        <h2 class="fadeInDown cch2" style="margin-top: -15px;margin-bottom:5px;"> the customers</h2>
+                                        <h2 class="fadeInDown cch3" style="margin-top: 0px;">You deliver great products</h2>
+                                        <a href="javascript:void(0);" class="btn btn-blue btn-add" onclick="goToByScroll('service');">Learn more</a>
+                                        <a href="javascript:void(0);" class="btn btn-blue btn-add btn-add-default" onclick="goToByScroll('contact');">Request an invite</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /sl-slider -->
+                    </div><!-- /slider-wrapper -->
+                </div>
+            </section>
+            
+            <!--
+            Home Slider
+            ==================================== -->
+            
+            <!--<section id="hom-slider" style="background: #f4efeb;">
+                <div class="container" style="padding: 0;">
+                    <div id="slider" class="sl-slider-wrapper">
+        
+                        <div class="sl-slider">
+                        
+                            <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
+       
+                                <div class="bg-img bg-img-">
+                                    <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/slider/banner2.png')}" style="width:100%;height:515px;"/>
+                                </div>
+        
+                                <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/logo2.png')}" class="logo-img"/>
+                                
+                                <div class="slide-caption">
+                                    <div class="caption-content">
+                                        <h2 class="animated fadeInDown cch2" style="margin-bottom: 0px;">We'll bring </h2>
+                                        <h2 class="animated fadeInDown cch2" style="margin-top: -15px;margin-bottom:5px;"> the customers</h2>
+                                        <h2 class="animated fadeInDown cch3" style="margin-top: 0px;">You deliver great products</h2>
+                                        <a href="javascript:void(0);" class="btn btn-blue btn-add" onclick="goToByScroll('service');">Learn More</a>
+                                        <a href="javascript:void(0);" class="btn btn-blue btn-add btn-add-default" onclick="goToByScroll('contact');">Request an Invite</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>-->
+            
+            <!--
+            End Home SliderEnd
+            ==================================== -->
+                
+                <!-- Service section -->
+                <section id="service">
+                    <div class="container">
+                        <div class="row">
+                        
+                            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
+                                <div class="service-item">
+                                    <div class="">
+                                        <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/expandIcon.svg')}" class="service-img"/>
+                                        <!--<img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/Expandyouraudience.png')}" class="service-img"/>-->
+                                    </div>
+                                    <h3>Expand your <br/> audience</h3>
+                                    <p>Over 80 million unique visitors shop on Walmart.com every month and many of them are looking for just the product you're offering.</p>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
+                                <div class="service-item">
+                                    <div class="">
+                                        <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/creditIcon.svg')}" class="service-img"/>
+                                    </div>
+                                    <h3>Ensure effortless  <br/>  transactions</h3>
+                                    <p>Our revamped website offers your customers a satisfying shopping experience, letting them find, browse and order your products in just a few clicks.</p>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
+                                <div class="service-item">
+                                    <div class="">
+                                        <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/securityIcon.svg')}" class="service-img"/>
+                                    </div>
+                                    <h3>Rely on our operational safety</h3>
+                                    <p>We've been selling products online since 2000. Our operational safety measures are designed to protect both your customers and your business.</p>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
+                                <div class="service-item">
+                                    <div class="">
+                                        <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/PartnerIcon.svg')}" class="service-img"/>
+                                    </div>
+                                    
+                                    <h3>Be a strategic business partner</h3>
+                                    <p>Along with broad exposure to our customer base, you'll recieve valuable support, plus metrics that provide insights into the success of your efforts.</p>                            
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </section>
+                <!-- end Service section -->
+                
+                <!-- about section -->
+                <section id="about" >
+                    <div class="container">
+                        <div class="row">
+                            <h1 class="howItWorks">How It Works</h1>
+                            <div class="col-md-3 col-md-offset-1 wow animated fadeInLeft" style=" margin-left: 4.16%;">
+                                <div class="welcome-block">
+                                    <div class="">
+                                        <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/applyIcon.svg')}" class="service-img"/>
+                                    </div>
+                                    <h3>Apply &amp; Qualify</h3>                                
+                                     <div class="message-body">
+                                        <p>Our sellers are selected based on reputation, sales projections and alignment with Walmart's values.</p>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-md-offset-1 wow animated fadeInRight">
+                                <div class="welcome-block">
+                                    <div class="">
+                                        <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/goodsIcon.svg')}" class="service-img"/>
+                                    </div>
+                                    <h3>Add Your Goods</h3>                             
+                                     <div class="message-body">
+                                        <p>Your products are sold alongside the Walmart products and are exposed to a massive audience.</p>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-md-offset-1 wow animated fadeInRight">
+                                <div class="welcome-block">
+                                    <div class="">
+                                        <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/fulfillIcon.svg')}" class="service-img"/>
+                                    </div>
+                                    <h3>Fulfill Orders</h3>                             
+                                     <div class="message-body">
+                                        <p>Once an order is placed, you'll ship directly to the customer and handle inquiries and returns of your goods.</p>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arrow"></div>
+                </section>
+                <!-- end about section -->
+                
+                <!-- portfolio section -->
+                <section id="portfolio" style="border-bottom: 1px solid #ddd;">
+                    <div class="container">
+                        <div class="row">
+                        
+                            <div class="sec-title text-center wow animated fadeInDown">
+                                <div class="">
+                                    <img src="{!URLFOR($Resource.WalmartDesign, 'Walmart/img/icons/getPaid.svg')}" class="paid-img"/>
+                                </div>
+                                <h2>Get Paid!</h2>
+                                <p>Your business receives payment for your sales and we <br/> deduct a reasonable referral fee.</p>
+                            </div>  
+                        </div>
+                    </div>
+                </section>
+                <!-- end portfolio section -->
+                
+                <!-- Contact section -->
+                <apex:outputPanel layout="none" rendered="{!IF($CurrentPage.parameters.thankyou=='yes', false, true)}">
+                    <section id="contact" style="background: #fafafa;">
+                        <div class="container">
+                            <div class="row">
+                                
+                                <div class="sec-title text-center wow animated fadeInDown">
+                                    <h2>Request an Invite</h2>
+                                </div>
+                                
+                                
+                                <div class="col-md-12 contact-form wow animated fadeInLeft web-to-lead">
+                                    <form class="form" action="https://na34.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+                                        <input type="hidden" name="oid" value="00D61000000ZKTc"/>
+                                        <input type="hidden" name="retURL" value="http://marketplace.walmart.com/knowledgebase/WalmartWebToLead?thankyou=yes"/>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
+                                                <input  id="first_name" name="first_name" type="text" class="form-control required"/>
+                                            </div>  
+                                            <div class="col-md-6">
+                                                <label>Last Name</label>
+                                                <input  id="last_name" name="last_name" type="text" class="form-control required"/>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label>Title</label>
+                                                <input  id="title" name="title" type="text" class="form-control required"/>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label> Legal Company Name</label>
+                                                <input  id="company" name="company" type="text" class="form-control required"/>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label> Website</label>
+                                                <input  id="URL" name="URL" type="text" class="form-control required"/>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label> Company Email Address</label>
+                                                <input  id="email" name="email" type="text" class="form-control required email"/>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label> Company Phone Number</label>
+                                                <input  id="phone" name="phone" maxlength="12" type="text" class="form-control required telnumber" onkeypress="return isNumberDashKey(event);"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label for="mobile">Mobile Number</label>
+                                                <input  id="mobile" maxlength="12" name="mobile"  type="text"  class="form-control required telnumber" onkeypress="return isNumberDashKey(event);"/>
+                                            </div>
+                                        </div>
+                                       
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label> Online Annual Sales (USD)</label>
+                                                <input  id="revenue" name="revenue" type="text" class="form-control required currency" onkeypress="return isNumberKey(event);"/>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label>Product Categories</label>
+                                                <input  id="00N6100000CMMZP" name="00N6100000CMMZP" type="text" class="form-control required"/>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-field">
+                                            <div class="col-md-12">
+                                                <label for="lead_source"> How did you hear about Walmart Marketplace?</label>
+                                                <select  id="lead_source" name="lead_source" class="form-control required" onchange="if($(this).val().trim() == '') $('#ls').val(''); else $('#ls').val($(this).val()); checkLeadSource(this.value);"> 
+                                                    <option>--None--</option>
+                                                    <option value="Article or Blog">Article or Blog</option>
+                                                    <option value="Channel Partner">Channel Partner</option> 
+                                                    <option value="Catalyst Conference">Catalyst Conference</option>
+                                                    <option value="IRCE">IRCE</option>
+                                                    <option value="Jason and Scot Show Podcast">Jason and Scot Show Podcast</option>
+                                                    <option value="LinkedIn">LinkedIn</option>
+                                                    <option value="Seller Referral">Seller Referral</option>
+                                                    <option value="Trade Show">Trade Show</option> 
+                                                    <option value="Walmart Referral">Walmart Referral</option> 
+                                                    <option value="Walmart.com">Walmart.com</option> 
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                                <input  id="ls" type="text" class="required" style="width: 0; height: 0; border: 0;"/>
+                                            </div>
+                                            <input name="robotest" type="text" id="robotest" class="robotest" style="display:none;"/>
+                                        </div>
+                                        
+                                        <div class="input-field" id="other" style="display:none;">
+                                            <div class="col-md-12">
+                                                <label for="00N6100000CMMZY"> Please Specify How You Heard About Walmart</label>
+                                                <input  id="00N6100000CMMZY" maxlength="100" name="00N6100000CMMZY" type="text" class="form-control other"/>
+                                            </div>
+                                            <input name="robotest" type="text" id="robotest" class="robotest" style="display:none;"/>
+                                        </div>
+                                        
+                                        <div class="input-field">
+                                            <div class="col-md-12" style="text-align: center;">
+                                                <input type="button" class="btn btn-blue" value="Submit" style="margin-top: 35px;" onclick="regivalidation();"/>
+                                                <button type="submit" id="submit" class="btn btn-blue" style="margin-top: 35px; display: none;">Submit</button>
+                                            </div>
+                                        </div>  
+                                    </form>
+                                </div>          
+                            </div>
+                        </div>
+                    </section>
+                </apex:outputPanel>
+                
+                <apex:outputPanel layout="none" rendered="{!IF($CurrentPage.parameters.thankyou=='yes', true, false)}">
+                    <section id="contact" style="background: #fafafa;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="sec-title text-center wow animated fadeInDown">
+                                    <h2>Thank you for submitting a request for an application.</h2>
+                                    <p>Your request has been received and <br/> we will be in touch shortly.</p>
+                                </div>                  
+                            </div>
+                        </div>
+                    </section>
+                </apex:outputPanel>
+                <!-- end Contact section -->
+            </main>
+            
+            <footer id="footer">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="footer-content">
+                            <p>&copy; 2016 Walmart. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            
+            <!-- Essential jQuery Plugins
+            ================================================== -->
+            <!-- Twitter Bootstrap -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/bootstrap.min.js')}"/>
+            <!-- Single Page Nav -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.singlePageNav.min.js')}"/>
+            <!-- jquery.fancybox.pack -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.fancybox.pack.js')}"/>
+            <!-- Owl Carousel -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/owl.carousel.min.js')}"/>
+            <!-- jquery easing -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.easing.min.js')}"/>
+            <!-- Fullscreen slider -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.slitslider.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery.ba-cond.min.js')}"/>
+            <!-- onscroll animation -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/wow.min.js')}"/>
+            <!-- Custom Functions -->
+            <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/main.js')}"/>
+        </body>
+    </html>
+    <site:googleAnalyticsTracking />    
+</apex:page>

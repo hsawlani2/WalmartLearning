@@ -1,0 +1,23 @@
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+
+<apex:variable var="typeName" value="{!SUBSTITUTE(pkbCon.theKad.articleTypeName, pkbCon.kavExtension, '')}" />
+<apex:variable var="articleURL" value="{!$Site.CurrentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!pkbCon.theKad.urlName}" />
+
+<!-- 
+<div style="position: relative; right: -30px;">
+  <div class="icon" style="position: relative; bottom: 2px; right: 20px;">
+-->
+
+  <div class="icon">
+    <!-- PRINT -->
+    <a href="javascript:openPopupFocus('{!articleURL}/p?pubstatus=o', 'PrintableView', 800, 600, 'width=800,height=600,resizable=yes,toolbar=no,status=no,scrollbars=yes,menubar=yes,directories=no,location=no,dependant=no', false, false);" title="{!$Label.PKB2_Printable_View}"><apex:image url="{!URLFOR($Resource.pkb_icons, 'print.png')}" /></a>
+  </div>
+
+  <div class="icon">
+    <!--  EMAIL -->
+    <a href="mailto:?subject=Article%20Title:%20{!SUBSTITUTE(URLENCODE(pkbCon.theKad.title),'+','%20')}&body=Article%20URL:%20{!articleURL}"><apex:image url="{!URLFOR($Resource.pkb_icons, 'email.png')}" title="{!$Label.PKB2_Email_Article}" /></a>
+  </div>   
+
+
+</apex:component>

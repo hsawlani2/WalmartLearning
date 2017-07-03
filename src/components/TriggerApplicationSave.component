@@ -1,0 +1,282 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="qCon" type="QuestionnaireController" required="true" description="handle to QuestionnaireController" />
+    
+    <script>
+        
+        function collectAndSaveForm(e) {
+        
+            // information not wired to apex yet at this point starts at page 2a
+            var selectedCategories = JSON.stringify({ categoryList: collectSelectedCategories()})
+            var selectedIntegrations = collectSelectedIntegrations()
+            var selectedMarketplaces = collectSelectedMarketplaces()
+        
+            showLoadingPanel()
+            
+            $("input[id$=categoriesString]").val(selectedCategories)
+            $("input[id$=integrationsString]").val(selectedIntegrations)
+            $("input[id$=marketplacesString]").val(selectedMarketplaces)
+            
+            // Hit save!
+            console.log("saving form...")
+            saveApplicationForm(selectedCategories, selectedIntegrations)
+        }
+        
+        var categoryFields = ['perc_annual_sales','skus','walmart_skus','brands']
+        
+        function collectSelectedCategories() {
+            var categoryData = []
+            $('.category-table > tbody > tr[id!="categoryTotals"]').each(function() {
+                $this = $(this)
+                var categoryItem = {}
+                categoryItem["id"] = $this.attr('id').replace('categoryData-','') 
+                var i = 0
+                $this.find('input').each(function() {
+                    $this = $(this)
+                    categoryItem[categoryFields[i]] = parseFloat($this.val().replace('%','').replace(',',''))
+                    i++
+                })
+                categoryData.push(categoryItem)
+            })
+            console.log(JSON.stringify({ categoryList: categoryData}));
+            return categoryData
+        }
+        
+        function collectSelectedIntegrations() {
+            var selected = $(".preferred-integrations input:checked").map(function(i,el){return el.name;}).get();
+            var cStrings = selected.join(';')
+            console.log('integrations: ' + cStrings)
+            return cStrings
+        }
+        
+        function collectSelectedMarketplaces() {
+            var selectedMarketplaces = $('select[id*=marketplace-select]').val()
+            var marketplacesStr = ""
+            if (selectedMarketplaces != null && selectedMarketplaces.length > 0) {
+                marketplacesStr = selectedMarketplaces.join()
+            }
+            return marketplacesStr
+        }
+        
+        function showSuccessPanel() {
+            $(".successPanel").css("display","inline")
+        }
+        
+        function showBlockedPanel() {
+            $(".blockedPanel").css("display","inline")
+        }
+        
+        function showLoadingPanel() {
+            $(".loadingStatus").css("display","inline")
+        }
+        
+        function closeWindow() {
+            window.close();
+        }
+        
+        function compileAndSaveCategories() {
+            var selectedList = []
+            $(".categoriesCheckField input:checked").each(function() {
+                $this = $(this)
+                selectedList.push({ id:$this.attr('id').replace('checkbox-',''), name:$this.attr('name') })
+            })
+           // console.log('selectedList: ' + JSON.stringify(selectedList));
+            refreshCategoryTable(selectedList)
+        }
+        
+        // page2a
+        function refreshCategoryTable(selectedCategories) {
+            
+            var savedFields = collectSelectedCategories()
+            
+            var htmlOutput = ''
+            // iterate through selected categories
+            for (var i = 0; i < selectedCategories.length; i++) {
+                
+                // look for the category matching saved
+                var savedCatField = []
+                for (j = 0; j < savedFields.length; j++) {
+                    var catItem = savedFields[j]
+                    if (selectedCategories[i].id == catItem["id"]) {
+                        savedCatField = catItem
+                    }
+                }
+                
+                htmlOutput += '<tr id=categoryData-' + selectedCategories[i].id  + '>'
+                
+                htmlOutput += '<td>' + selectedCategories[i].name + '</td>'
+                htmlOutput += '<td>' + '<input type="text" class="form-control categoryAnnualPct numberInput" maxlength="3" placeholder="%" onchange="checkInputAndComputeTotal()" value="' + cleansedInput(savedCatField[categoryFields[0]]) + '" />' + '</td>'
+                htmlOutput += '<td>' + '<input type="text" class="form-control categorySkus numberInput" onchange="getTotalCategoryTableFieldsValue()" value="' + cleansedInput(savedCatField[categoryFields[1]]) + '" />' + '</td>'
+                htmlOutput += '<td>' + '<input type="text" class="form-control categoryWalmartSkus numberInput" onchange="getTotalCategoryTableFieldsValue()" value="' + cleansedInput(savedCatField[categoryFields[2]]) + '" />' + '</td>'
+                htmlOutput += '<td>' + '<input type="text" class="form-control categoryBrands numberInput" onchange="getTotalCategoryTableFieldsValue()" value="' + cleansedInput(savedCatField[categoryFields[3]]) + '" />' + '</td>'
+                
+                htmlOutput += '</tr>'
+            }
+            
+            // finally add totals
+            htmlOutput += '<tr id=categoryTotals>'
+            htmlOutput += '<td><strong>Total</strong></td>'
+            htmlOutput += '<td id=perc_annual_sales_col><strong></strong></td>'
+            htmlOutput += '<td id=skus_col><strong></strong></td>'
+            htmlOutput += '<td id=walmart_skus_col><strong></strong></td>'
+            htmlOutput += '<td id=brands_col><strong></strong></td>'
+            htmlOutput += '</tr>'
+            
+            $('.category-table > tbody').html(htmlOutput)
+            
+            $('.numberInputNoComma').maskMoney( { precision:'0', thousands:'', allowZero:true })
+            
+            $('.numberInput').maskMoney( { precision:'0', allowZero:true })
+         
+        }
+        
+        function cleansedInput(someInput) {
+            if (someInput == null || isNaN(someInput)) {
+                return ""
+            }
+            return someInput
+        }
+        
+        // LQ: This and the next method could have been merged into one.. rather is the empty checker really needed?
+        function isCategoryTableFieldsEmpty(){
+            var result = false;
+            $('.category-table > tbody > tr[id!="categoryTotals"]').each(function() {
+                $this = $(this)
+                var categoryItem = {}
+                categoryItem["id"] = $this.attr('id').replace('categoryData-','') 
+                var i = 0
+                $this.find('input').each(function() {
+                    $this = $(this)
+                    var fieldvalue = $this.val();
+                    
+                    // LQ: You can reverse the conditional here and produce shorter code
+                    if(fieldvalue){
+                        //do nothing
+                    }else{
+                        result = true;
+                    }
+                    i++
+                })
+            })
+             console.log('isCategoryTableFieldsEmpty: ' + result);
+             return result;
+        }
+        
+        function isCategoryTableFieldsHasNonNumericValue(){
+            var result = false;
+            $('.category-table > tbody > tr[id!="categoryTotals"]').each(function() {
+                $this = $(this)
+                var categoryItem = {}
+                categoryItem["id"] = $this.attr('id').replace('categoryData-','') 
+                var i = 0
+                $this.find('input').each(function() {
+                    $this = $(this)
+                    var fieldvalue = $this.val();
+                    
+                    if($.isNumeric(fieldvalue)){
+                        //do nothing
+                    }else{
+                        result = true;
+                    }
+                    i++
+                })
+            })
+             console.log('isCategoryTableFieldsHasNonNumericValue: ' + result);
+             return result;
+        }
+        
+        function getTotalCategoryPct() {
+            var total = 0
+            // each is an input
+            $('.categoryAnnualPct').each(function() {
+                $this = $(this)
+                console.log('processing ' + $this.val())
+                var formattedInput = $this.val().replace('%','')
+                if ($.isNumeric(formattedInput)) {
+                    total += parseFloat(formattedInput);
+                }
+            })
+            console.log('total pct ' + total)
+            return total
+        }
+        
+        function getTotalOrderPct() {
+            var total = 0
+            // each is an input
+            $('.totalOrderPct').each(function() {
+                $this = $(this)
+                console.log('processing total order pct ' + $this.val())
+                var formattedInput = $this.val().replace('%','')
+                if ($.isNumeric(formattedInput)) {
+                    total += parseFloat(formattedInput);
+                }
+            })
+            console.log('total order pct ' + total)
+            return total
+        }
+        
+        function checkInputAndComputeTotal() {
+            
+            // remove prior errors
+            $('.annual-sales-error').remove()
+            
+            $('.categoryAnnualPct').each(function() {
+                $this = $(this);
+                if (parseFloat($this.val()) > 100) {
+                    $this.parent().append('<span class="text-danger annual-sales-error">Cannot exceed 100.</span>');
+                }
+            })
+            
+            // .. and compute total!
+            getTotalCategoryTableFieldsValue();
+        }
+        
+        function getTotalCategoryTableFieldsValue() {
+            var categoryFields = [0,0,0,0]
+            $('.category-table > tbody > tr[id!="categoryTotals"]').each(function() {
+                $this = $(this)
+                var categoryItem = {}
+                var i = 0
+                $this.find('input').each(function() {
+                    $this = $(this)
+                    
+                    // LQ: This checks the *entire* table so this doesnt work.
+                    // if(isCategoryTableFieldsHasNonNumericValue() || isCategoryTableFieldsEmpty()){
+                        //do nothing
+                    var formattedInput = $this.val().replace('%','').replace(',','')
+                    if ($.isNumeric(formattedInput)) {
+                        categoryFields[i] += parseFloat(formattedInput);
+                    }
+                    i++
+                })
+            })
+            console.log('getTotalCategoryTableFieldsValue: ' + categoryFields);
+            $('.category-table > tbody > tr > td[id$="perc_annual_sales_col"] > strong').text(categoryFields[0] + '%');
+            $('.category-table > tbody > tr > td[id$="skus_col"] > strong').text(categoryFields[1]);
+            $('.category-table > tbody > tr > td[id$="walmart_skus_col"] > strong').text(categoryFields[2]);
+            $('.category-table > tbody > tr > td[id$="brands_col"] > strong').text(categoryFields[3]);
+        }
+        
+        function compareSKUtoSKUMarketplace(){
+            var result = false;
+            var categorySkus = $(this).parent().parent().find('.categorySkus').val();
+            var categoryWalmartSkus = $(this).parent().parent().find('.categoryWalmartSkus').val();
+           $('.category-table > tbody > tr[id!="categoryTotals"]').each(function() {
+                $this = $(this);
+                
+                var categorySkus = parseFloat($this.find('.categorySkus').val().replace(',',''));
+                var categoryWalmartSkus = parseFloat($this.find('.categoryWalmartSkus').val().replace(',',''));
+                
+                console.log('skus: ' + categorySkus + ' walmartskus: ' + categoryWalmartSkus)
+                
+                if (categorySkus < categoryWalmartSkus){
+                    result = true;
+                }
+            })
+            return result;
+        }
+        
+        
+    </script>
+
+</apex:component>

@@ -1,0 +1,661 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="BD2Controller" action="{!CheckSubmission}" id="pg">
+  
+
+  <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/icons/icomoon/styles.css') }"/>
+<!--   <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/core.min.css') }"/> -->
+            <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/components.min.css') }"/>
+            <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/colors.min.css') }"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Marketplace_Bootstrap, '/Marketplace_Bootstrap/CSS/bootstrap.min.css')}"/>
+  <apex:stylesheet value="{!URLFOR($Resource.Marketplace_Bootstrap, '/Marketplace_Bootstrap/CSS/bootstrap_additional.css')}"/>
+  
+<!--   <c:questionnaire_css_overrides /> -->
+  <!--   <apex:includeScript value="{!URLFOR($Resource.Marketplace_Bootstrap, '/Marketplace_Bootstrap/JS/jquery-2.2.2.min.js')}"/> -->
+<!--   <apex:includeScript value="{!URLFOR($Resource.Marketplace_Bootstrap, '/Marketplace_Bootstrap/JS/bootstrap.min.js')}"/> -->
+<apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jquery.min.js') }" />
+<!-- <apex:includeScript value="{!URLFOR($Resource.BootstrapValidator, 'js/validator.js')}"/> -->
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/bootstrap.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/loaders/blockui.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/ui/drilldown.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/ui/nicescroll.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/loaders/pace.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/selects/select2.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/styling/uniform.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jasny_bootstrap.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/validation/validate.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jquery_ui/interactions.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/forms/tags/tagsinput.min.js') }" />
+  <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/plugins/uploaders/fileinput.min.js') }" />
+  
+  <script src="https://rawgit.com/leo-fcx/jquery-steps/master/build/jquery.steps.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+  
+  <script src="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/app.js') }" type="text/javascript"></script>
+  <script src="{!URLFOR($Resource.tooltipster, 'js/tooltipster.bundle.min.js') }" type="text/javascript"></script>
+  <style>
+  #headCss:hover{
+  background-color: white;
+  color : #007dc6;
+  }
+  label{
+    font-size: 11px;
+    font-weight: bold;
+  }
+ 
+.eco{
+  color:#444444;
+  opacity:1;
+  font-size: 16px;
+ font-family: myriad-pro, sans-serif;
+font-style: normal;
+font-weight: 400;
+  line-height: 1.2;
+  
+}
+.home{
+color:#ffffff;
+opacity:1;
+font-size: 17px;
+font-family: source-sans-pro, sans-serif;
+font-style: normal;
+font-weight: 700;
+character:0.3px;
+line-hight:1.3;
+padding: 10px 0;
+
+}
+.login{
+color:#ffffff;
+opacity:1;
+font-size: 17px;
+font-family: source-sans-pro, sans-serif;
+font-style: normal;
+font-weight: 700;
+character:0.3px;
+line-hight:1.3;
+padding: 10px 0;
+
+}
+.button{
+          font-size: 17px;
+          font-family: source-sans-pro, sans-serif;
+          font-style: normal;
+          font-weight: 700;
+          color:#007DC6;
+          height: 50px;
+          width:124px;
+}
+.header{
+
+          color:#2e3338;
+          opacity:1;
+          font-size: 30px;
+          font-family: myriad-pro, sans-serif;
+            font-style: normal;
+            font-weight: 400;
+          line-hight:1.2;
+        
+}
+.nav li.active {
+    border-bottom-style: solid;
+    border-bottom-color: #007DC6;
+}
+.nav-tabs li.active a {
+    color:#444444;
+    opacity:1;
+    font-size: 16px;
+    font-family: myriad-pro, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.2;
+    background:url("{!URLFOR($Resource.MarketplaceApplication, 'greenCheckMark.png')}")no-repeat right ;
+}
+.nav-tabs li a {
+    background:url("{!URLFOR($Resource.MarketplaceApplication, 'GreyedCheckMark.png')}")no-repeat right;  
+}
+
+.btn-success-2 {
+    color:#fff;
+    background-color:#5cb85c;
+    border-color:#4cae4c
+}
+.btn-success-2.focus,.btn-success-2:focus {
+    color:#fff;
+    background-color:#449d44;
+    border-color:#255625
+}
+.btn-success-2:hover {
+    color:#fff;
+    background-color:#449d44;
+    border-color:#398439
+}
+.btn-success-2:disabled {
+    color:#fff;
+    background-color:#d1d7db;
+    border-color:#d1d7db
+}
+.btn-success-2.disabled.focus,.btn-success-2.disabled:focus,.btn-success-2.disabled:hover,.btn-success-2[disabled].focus,.btn-success-2[disabled]:focus,.btn-success-2[disabled]:hover,fieldset[disabled] .btn-success-2.focus,fieldset[disabled] .btn-success-2:focus,fieldset[disabled] .btn-success-2:hover {
+    background-color:#d1d7db;
+    border-color:#d1d7db
+}
+.btn-success-2.active,.btn-success-2:active,.open>.dropdown-toggle.btn-success-2 {
+    color:#fff;
+    background-color:#449d44;
+    border-color:#398439
+}
+.btn-success-2.disabled,.btn-success-2:disabled,.open>.dropdown-toggle.btn-success-2 {
+    background-color:#d1d7db;
+    border-color:#d1d7db;
+}
+.btn-success-2.active.focus,.btn-success-2.active:focus,.btn-success-2.active:hover,.btn-success-2:active.focus,.btn-success-2:active:focus,.btn-success-2:active:hover,.open>.dropdown-toggle.btn-success-2.focus,.open>.dropdown-toggle.btn-success-2:focus,.open>.dropdown-toggle.btn-success-2:hover {
+    color:#fff;
+    background-color:#398439;
+    border-color:#255625
+}
+.btn-success-2.active,.btn-success-2:active,.open>.dropdown-toggle.btn-success-2 {
+    background-image:none
+}
+.btn-success-2.disabled.focus,.btn-success-2.disabled:focus,.btn-success-2.disabled:hover,.btn-success-2[disabled].focus,.btn-success-2[disabled]:focus,.btn-success-2[disabled]:hover,fieldset[disabled] .btn-success-2.focus,fieldset[disabled] .btn-success-2:focus,fieldset[disabled] .btn-success-2:hover {
+    background-color:#d1d7db;
+    border-color:#d1d7db;
+}
+.tabcompleted{
+background:rgba(0, 0, 0, 0) url("{!URLFOR($Resource.MarketplaceApplication, 'greenCheckMark.png')}")no-repeat scroll right 4px center !important ;
+}
+.processingpage{
+    background:rgba(0, 0, 0, 0) url("{!URLFOR($Resource.MarketplaceSpinner, 'loading.gif')}") ;
+    background-position:center center;
+    position: fixed;
+    top: 0px;
+    height:100%;
+    width:100%;
+    background-repeat: no-repeat;
+    display:none;
+    opacity:0.7;
+    background-color:black;
+}
+
+.select2-drop, .select2-chosen {
+    font-size: 14px;
+}
+
+  </style>
+  
+  <style>    
+    .error{
+         margin: 0 !important;
+         color: #E04C4C !important;
+     }
+     .aside{ 
+          opacity:1;
+          font-size: 13px;
+          font-family: myriad-pro, sans-serif;
+          font-style: italic;
+          font-weight: 400;
+          height: 40px;
+          //width:300px;
+          width:100%;
+          border-radius: 4.5px;
+          border-style: solid;
+          border-width: 1px;
+          border-color: #D8E0E5;
+          }
+          .asideNoBorder{ 
+          opacity:1;
+          font-size: 13px;
+          font-family: myriad-pro, sans-serif;
+          font-style: italic;
+          font-weight: 400;
+          height: 40px;
+          width:300px;
+          border: none;
+          }
+          .ext { 
+          opacity:1;
+          font-size: 13px;
+          font-family: myriad-pro, sans-serif;
+          font-style: italic;
+          font-weight: 400;
+          height: 40px;
+          width:75px;
+          border-radius: 4.5px;
+          border-style: solid;
+          border-width: 1px;
+          border-color: #D8E0E5;
+          width:100%;
+         }
+         .extNoBorder { 
+          opacity:1;
+          font-size: 13px;
+          font-family: myriad-pro, sans-serif;
+          font-style: italic;
+          font-weight: 400;
+          height: 40px;
+          width:75px;
+          border: none;
+         }
+          .chkbox{
+         height: 18px;
+         width:18px;
+         }
+         .dropdown{
+          color:#2e3338;
+          opacity:1;
+          font-size: 13px;
+          font-family: myriad-pro, sans-serif;
+          font-style: normal;
+          font-weight: 400;
+          
+         }
+         
+          .emailcss { 
+          color :#9C9C9C;
+          opacity:1;
+          font-size: 13px;
+          font-family: myriad-pro, sans-serif;
+          font-style: italic;
+          font-weight: 400;
+          height: 40px;
+          line-height: 1.2;
+        
+          width:300px;
+          
+          }
+          .btn-size{
+              height:48px;
+              width:196px;
+          }
+          .navbar-nav > li > a {
+    line-height: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+          .nav-tabs > li > a {
+          padding-right: 22px;
+          margin-right:0px;
+          }
+          .nav-tabs li.active a {
+            background: rgba(0, 0, 0, 0) url("{!URLFOR($Resource.MarketplaceApplication, 'GreyedCheckMark.png')}") no-repeat scroll right 4px center;
+          }
+            .aside {
+              padding-left: 4px; 
+            }
+            /*.disabledBackgroundColor{
+             background-color:#fff;
+             color: #9c9c9c;
+            }*/
+            .tooltipbackground{
+               background-image:url("{!URLFOR($Resource.MarketplaceSpinner, 'tooltip.png')}") ;
+           }
+           .pace-done{
+            background-color:#FAFAFA;
+           }
+           
+</style>
+  
+  <script>
+  var bPrimaryContactChanged = false;
+  var bBusinessInfoChanged = false;
+  var bProductAssortmentChanged = false;
+  var bEcommerceChanged = false;
+  var bOperationsChanged = false;
+  var bTechnicalContactChanged = false;
+  
+        function setCurrentTab(){
+            var vId = $("[id$='idcurrentstep']").val();
+            if(vId==undefined || vId==0){
+                $('.nav-tabs a[href="#primarytabinfo"]').tab('show');
+            }
+            else if(vId==1){
+                $('.nav-tabs a[href="#BusinessInfo"]').tab('show');
+            }
+            else if(vId==2){
+                $('.nav-tabs a[href="#ProductAssortment"]').tab('show');
+            }
+            else if(vId==3){
+                $('.nav-tabs a[href="#Ecommerce"]').tab('show');
+            }
+            else if(vId==4){
+                $('.nav-tabs a[href="#Operations"]').tab('show');
+            }
+            else if(vId==5){
+                $('.nav-tabs a[href="#TechnicalContactInfo"]').tab('show');
+            }
+            if($("[id$='inaccuratewarning']")!=undefined){
+                if(vId==5){
+                    $("[id$='inaccuratewarning']").show();
+                }
+                else{
+                    $("[id$='inaccuratewarning']").hide();
+                }
+            }
+            setfooterposition();
+        }
+        function setCurrentStep(event){
+            var stepval = event.data.value;
+            var curTempstepval = $("[id$='idcurrentstep']").val();
+            var bShowMessage = false;
+            if(curTempstepval==undefined ||curTempstepval==''){
+                curTempstepval = 0;
+            }
+            if(curTempstepval==0 && bPrimaryContactChanged){
+                bShowMessage = true;
+            }
+            else if(curTempstepval==1 && bBusinessInfoChanged){
+                bShowMessage = true;
+            }
+            else if(curTempstepval==2 && bProductAssortmentChanged){
+                bShowMessage = true;
+            }
+            else if(curTempstepval==3 && bEcommerceChanged){
+                bShowMessage = true;
+            }
+            else if(curTempstepval==4 && bOperationsChanged){
+                bShowMessage = true;
+            }
+            else if(curTempstepval==5 && bTechnicalContactChanged){
+                bShowMessage = true;
+            }
+            
+            
+            if(!bShowMessage && curTempstepval==0){
+                var applicationcompleted = $("[id$='idApplicationCompleted']").val();
+                if(applicationcompleted!="true"){
+                    bShowMessage = true;
+                }
+            }
+            if(bShowMessage){
+                            var sMessage = 'There are unsaved changes. Do you want to move without saving changes ?';
+                         if(curTempstepval==0){
+                            sMessage = 'Please provide and save your primary contact info before proceeding. Otherwise, you will be unable to fill in the fields in the remaining tabs.';
+                         }
+                var bConfirm = confirm(sMessage);
+                if(!bConfirm){
+                    event.stopPropagation();
+                    return;
+                }
+            }
+            
+            setfooterposition();
+            if($("[id$='inaccuratewarning']")!=undefined){
+                if(stepval==5){
+                    $("[id$='inaccuratewarning']").show();
+                }
+                else{
+                    $("[id$='inaccuratewarning']").hide();
+                }
+            }
+         $("[id$='idcurrentstep']").val(stepval);
+         Resetunsavedflags();
+        }
+        
+        function Resetunsavedflags(){
+            bPrimaryContactChanged = false;
+                                    bBusinessInfoChanged = false;
+                                    bProductAssortmentChanged = false;
+                                    bEcommerceChanged = false;
+                                    bOperationsChanged = false;
+                                    bTechnicalContactChanged = false;
+        }
+        
+        function CreateUpdateApplication(){
+            console.log('Save Started');
+            Resetunsavedflags();
+         var vId = $("[id$='idcurrentstep']").val();
+         if(vId==undefined || vId==0){
+            createNewLead();
+         }
+         else if(vId==1){
+          createNewApplication();
+         }
+         else if(vId==2){
+           console.log('vId-------'+ vId); 
+             updateproductassortment();
+         }
+         else if(vId==3){
+             updateecommerce();
+         }
+         else if(vId==4){
+             updateoperations();
+         }
+         else if(vId==5){
+             updatetechnicalcontact();
+         }
+        }
+        
+        function checkAllTabsCompleted(){
+            var businesscompleted = $("[id$='idBusinessInformationCompleted']").val();
+            var productAssortmentcompleted = $("[id$='idProductAssortmentCompleted']").val();
+            var ecommercecompleted = $("[id$='idEcommerceCompleted']").val();
+            var operationscompleted = $("[id$='idOperationsCompleted']").val();
+            var technicalcontactcompleted = $("[id$='idTechnicalContactCompleted']").val();
+            if(businesscompleted == "true" && productAssortmentcompleted=="true" && ecommercecompleted == "true" && operationscompleted == "true" && technicalcontactcompleted == "true"){
+                $("[id$='Apply']").prop('disabled',false);
+            }
+        }
+        function ShowProcessingMessage(){
+            $("[id$='divProcessing']").show();
+        }
+        function HideProcessingMessage(){
+            $("[id$='divProcessing']").hide();
+        }
+        
+    </script>
+<apex:outputpanel id="pnlMain" layout="block">
+<div>
+<div style="background-color: #007dc6; height: auto; width: 100%;min-height:112px;">
+   <nav class="navbar" style="background-color:#007dc6;color:white;margin-bottom:0px">
+ <!-- <div class="container-fluid"> -->
+    <div class="navbar-header" style="width: 100%;">
+      <a class="navbar-brand" href="#"><apex:image id="theImage"  url="{!URLFOR($Resource.MarketplaceApplication, 'WalmartLogo.png')}" width="228" height="70"/></a>
+      <a class="navbar-brand" href="#"><apex:image url="/application/servlet/servlet.FileDownload?file={!bdCon.attachmntid}" width="228" height="70" rendered="{!bdCon.attachmntid != null}"/></a>
+    </div>
+    <ul class="nav navbar-nav" style="color: white; float: right; margin-right: 15px; margin-top: 20px; position: initial;">
+      <li id="headCss"  class="active"><a href="#" id="home" class="home" onclick="redirecttohome();" >Home</a></li>
+      <li><a href="#" style="/*color: white*/" class="login" onclick="redirecttologin();">Log In</a></li>
+    </ul>
+   
+ <!-- </div> -->
+</nav> 
+  </div>
+  <apex:outputpanel rendered="{! !bdCon.bEmailValidationError}">  
+    <div class="panel panel-default" style="border-bottom: none;padding-bottom: 0px;margin-bottom: 0px;box-shadow: unset;">
+    <div class="panel-heading" style="height:auto;padding-bottom:0px;">
+    <h3 id="header" class="header">Marketplace Application</h3>
+    
+    <label for="inputdefault" class="dropdown"> This application takes about 10 minutes to complete. Please fill it out to the best of your ability. Once we receive your application, a Marketplace Representative will reach out to you to discuss next steps.</label>
+    <ul class="nav nav-tabs" style="padding-top: 18px;">
+     
+     <li><a id="idprimarytabinfo" class="eco {!IF(!ISNULL(bdCon.oApplication.Id),'tabcompleted','')}" data-toggle="tab"  href="#primarytabinfo" >Primary Contact Info</a></li>
+     <li><a id="idBusinessInfo" class="eco {!IF(bdCon.oApplication.BusinessInformationCompleted__c==true,'tabcompleted','')}" data-toggle="tab"  href="#BusinessInfo" >Business Information</a></li>
+     <li><a id="idProductAssortment" class="eco {!IF(bdCon.oApplication.ProductAssortmentCompleted__c==true,'tabcompleted','')}" data-toggle="tab"  href="#ProductAssortment"  >Product Assortment</a></li>
+     <li><a id="idEcommerce" class="eco {!IF(bdCon.oApplication.EcommerceCompleted__c==true,'tabcompleted','')}" data-toggle="tab"  href="#Ecommerce"  >eCommerce &amp; Marketplace Experience</a></li>
+     <li><a id="idOperations" class="eco {!IF(bdCon.oApplication.OperationsCompleted__c==true,'tabcompleted','')}" data-toggle="tab"  href="#Operations"  >Operations</a></li>
+     <li><a id="idTechnicalContactInfo" class="eco {!IF(bdCon.oApplication.TechnicalContactCompleted__c==true,'tabcompleted','')}" data-toggle="tab"  href="#TechnicalContactInfo" >Technical Contact Info</a></li>
+  </ul>
+    </div>
+    
+<!--     <apex:outputpanel rendered="{! !bdCon.oApplication.Application_Completed__c}"> -->
+    <apex:form id="frmMain">
+        <apex:inputhidden value="{!currentstep}" id="idcurrentstep"/>
+        <apex:inputhidden value="{!bdCon.isApplicationCreated}" id="idApplicationCompleted"/>
+        <apex:inputhidden value="{!bdCon.oApplication.BusinessInformationCompleted__c}" id="idBusinessInformationCompleted"/>
+        <apex:inputhidden value="{!bdCon.oApplication.EcommerceCompleted__c}" id="idEcommerceCompleted"/>
+        <apex:inputhidden value="{!bdCon.oApplication.ProductAssortmentCompleted__c}" id="idProductAssortmentCompleted"/>
+        <apex:inputhidden value="{!bdCon.oApplication.OperationsCompleted__c}" id="idOperationsCompleted"/>
+        <apex:inputhidden value="{!bdCon.oApplication.TechnicalContactCompleted__c}" id="idTechnicalContactCompleted"/>
+        <apex:actionFunction name="applynow" action="{!bdCon.applynow}" rerender="pnlMain" status="processingStatus" />
+        <apex:actionFunction name="redirecttohome" action="{!bdCon.redirecttohome}" rerender="pnlMain" status="processingStatus" />
+        <apex:actionFunction name="redirecttologin" action="{!bdCon.redirecttologin}" rerender="pnlMain" status="processingStatus" />
+        <apex:actionStatus id="processingStatus" onstart="ShowProcessingMessage();" onstop="HideProcessingMessage();" ></apex:actionStatus>
+    </apex:form>
+    <apex:outputpanel rendered="{! !bdCon.oApplication.Application_Completed__c}">
+    <div class="tab-content" style="background-color: #FAFAFA;">
+    
+    <div id="primarytabinfo" class="tab-pane fade in active"> <!--Start of Primary contact info tab  -->
+      
+    <div class="panel-body">
+  
+ 
+ <!-- <div class="container"> -->
+  <h2></h2>
+<!--   <apex:actionRegion > -->
+    <c:PrimaryContactInfoTab116 bdCon="{!bdCon}"/>
+    
+<!--   </apex:actionRegion> -->
+</div>
+</div><!--End of Primary contact info tab -->
+
+<div id="BusinessInfo" class="tab-pane fade Step2"><!--Start of BusinessInfo tab -->
+  <div class="panel-body">
+  
+ 
+ <!-- <div class="container"> -->
+  <h2></h2>
+  <apex:actionRegion >
+    <c:BusinessInformation bdCon="{!bdCon}" id="BusinessInformationRegion"/>
+            
+        </apex:actionRegion>
+</div>
+</div><!--End of BusinessInfo tab -->
+
+<div id="ProductAssortment" class="tab-pane fade"><!--Start of ProductAssortment tab -->
+<div class="panel-body">
+  
+ <!-- <div class="container"> -->
+  <h2></h2>
+  <apex:actionRegion >
+    <c:ProductAssortmenttab1 bdCon="{!bdCon}" id="ProductAssortmentRegion"/>
+            
+        </apex:actionRegion>
+</div>
+</div><!--End of ProductAssortment tab -->
+
+<div id="Ecommerce" class="tab-pane fade"><!--Start of Ecommerce tab -->
+<div class="panel-body">
+<h2></h2>
+        <apex:actionRegion >
+      <c:EcommerceTab bdCon="{!bdCon}" />
+      
+        </apex:actionRegion>
+</div>
+<!-- </div>   -->
+</div><!--End of Ecommerce tab -->
+
+<div id="Operations" class="tab-pane fade"><!--Start of Operations tab -->
+<div class="panel-body">
+<!-- <div class="container"> -->
+<h2></h2>
+        <apex:actionRegion >
+   <c:Operationstab bdCon="{!bdCon}" />
+   
+        </apex:actionRegion>
+</div>
+</div><!--End of Operations tab -->
+
+<div id="TechnicalContactInfo" class="tab-pane fade"><!--Start of TechnicalContactInfo tab -->
+<div class="panel-body">
+<!-- <div class="container"> -->
+  <h2></h2>
+  <apex:actionRegion >
+      <c:TechnicalContactInfotab bdCon="{!bdCon}" />
+      
+        </apex:actionRegion>
+</div>
+</div><!--End of TechnicalContactInfo tab -->    
+
+    
+</div><!--End of tab content-->
+    </apex:outputpanel>
+    
+  </div>
+  
+  <div id="pnlButton" style="position:relative;">
+  <apex:outputpanel rendered="{! !bdCon.oApplication.Application_Completed__c && bdCon.isApplicationCreated == true}" id="inaccuratewarning">
+    <p style="text-align:center">Any inaccurate information or misrepresentation of information submitted may result in termination of the agreement.</p>
+  </apex:outputpanel>
+  <apex:outputpanel rendered="{! !bdCon.oApplication.Application_Completed__c}" style="background-color:#e9ebed;display:block;">
+  <!--style="background-color:#e9ebed;display:block;"-->
+  <div style="border-top: 1px solid #a5b0b6;">
+      <div class="btn-group-sm pull-right" style="margin-right: 27px;margin-top: 16px;text-align:center">
+         <button class="btn btn-primary btn-size" style="margin-bottom: 15px;font-size:14px;" id="theButton" onclick="CreateUpdateApplication();">Save</button>
+        <button id="Apply" class="btn btn-success-2 btn-size" style="font-size:14px;margin-bottom: 15px;" disabled="true" onclick="applynow();" >Apply Now</button>
+        </div>
+  </div>
+
+  <div class="clearfix">
+      &nbsp;
+  </div>    
+  </apex:outputpanel>
+  </div>
+  <apex:outputpanel rendered="{!bdCon.oApplication.Application_Completed__c}">
+    <c:MarketPlaceCongratulation />
+  </apex:outputpanel>
+ </apex:outputpanel>
+ <apex:outputpanel rendered="{! bdCon.bEmailValidationError}">
+    <c:MarketplaceEmailError bdCon="{!bdCon}"/>
+ </apex:outputpanel>
+ 
+ 
+</div><!--End of main div-->
+
+<script>
+    setCurrentTab();
+    checkAllTabsCompleted();
+    
+     $("[id$='idprimarytabinfo']").on( "click", { value: 0 },setCurrentStep);
+     $("[id$='idBusinessInfo']").on( "click", { value: 1 },setCurrentStep);
+     $("[id$='idProductAssortment']").on( "click", { value: 2 },setCurrentStep);
+     $("[id$='idEcommerce']").on( "click", { value: 3 },setCurrentStep);
+     $("[id$='idOperations']").on( "click", { value: 4 },setCurrentStep);
+     $("[id$='idTechnicalContactInfo']").on( "click", { value: 5 },setCurrentStep);
+     
+     function setfooterposition(){
+                        if($(document.getElementById('pg:pnlMain')).outerHeight() < $(window).height()){
+                            $('#pnlButton').css('top',($(window).height()-$(document.getElementById('pg:pnlMain')).outerHeight()) + 'px')
+                        }
+                        else{
+                            $('#pnlButton').css('top','0px');
+                        }
+                    }
+     
+     function validatepaste(e,sId){ 
+        console.log('pasted  ->'+e); 
+        var sPasted = e.originalEvent.clipboardData.getData('Text');
+        sPasted = sPasted.replace(/,/g, '');
+        var nValue = parseInt(sPasted);
+        $(document.getElementById(sId)).val(nValue);
+     }
+     function reLabelNoneOption() {
+        console.log('reLabelNoneOption');
+         var replacement = '- Please Select -';
+         $('option[value=""]').each(function() {
+             $this = $(this)
+             if ($this.val() === '' && $this.text() !== replacement) {
+                 $this.text(replacement)
+             }
+         })
+     }
+     $(document).ready(function() {
+        console.log('resize');
+        $("[id$='idprimarytabinfo']").on('shown.bs.tab', setfooterposition);
+        $("[id$='idBusinessInfo']").on('shown.bs.tab', setfooterposition);
+        $("[id$='idProductAssortment']").on('shown.bs.tab', setfooterposition);
+        $("[id$='idEcommerce']").on('shown.bs.tab', setfooterposition);
+        $("[id$='idOperations']").on('shown.bs.tab', setfooterposition);
+        $("[id$='idTechnicalContactInfo']").on('shown.bs.tab', setfooterposition);
+        $(window).resize(function(){setfooterposition();});
+        $('.cAnnualSales').on('paste', function(e){ 
+            var sId = $(this).attr('Id');
+            console.log('field id -->'+sId);
+            validatepaste(e,sId);
+            return false;
+        });
+        reLabelNoneOption();
+     });
+    
+</script>
+</apex:outputpanel>
+<div class="processingpage" id="divProcessing" >
+</div>
+ <site:googleAnalyticsTracking />   
+</apex:page>

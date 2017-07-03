@@ -1,0 +1,25 @@
+<apex:page standardController="Case">
+  <apex:includeScript value="{!URLFOR($Resource.WalmartDesign, 'Walmart/js/jquery-1.11.1.min.js')}"/>
+  <apex:includeScript value="/support/api/39.0/interaction.js"/>
+  <script>
+      var ids = [1,2];
+      $(document).ready(function(){
+          setTimeout(function(){ 
+          
+          // 
+          console.log($('#efpViews_5005B000001F8OZ'));
+          
+          console.log(sforce.interaction.entityFeed);
+          var viewid = "efpViews_"+ "{!Case.id}";
+          //$('#efpViews_5005B000001F8OZ_option1').prop('')
+          //Sfdc.EntityFeed.SelectPanel.selectOptionByName('efpViews_5005B000001F8OZ', 'DetailsView');
+          }, 10000);
+          $('#efpViews_5005B000001F8OZ').load(function(){
+          alert('hi');
+      });
+      });
+      $(window).load(function(){
+          console.log($('#efpViews_5005B000001F8OZ'));
+        });
+  </script>
+</apex:page>

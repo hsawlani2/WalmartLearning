@@ -1,0 +1,19 @@
+.THIS.headerClass{
+    background-color: token(backgroundColor);
+}
+
+.THIS .logoClass{
+	margin:token(marginSpace);
+}
+
+.THIS .linkClass{
+    float:right;
+    text-align:center;
+    margin-top: 35px;
+    margin-right:token(marginSpace);
+}
+
+.THIS .spanClass{
+    margin-right:token(marginSpace);
+    color:token(fontColor);
+}

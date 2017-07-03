@@ -1,0 +1,20 @@
+<apex:component allowDML="true">
+    
+    <apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+    
+    <footer>
+
+      <!-- Footer Info -->
+      <div class="footer-info">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <p class="copyright">{!$Label.Footer_Text}</p>       
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </footer>
+
+</apex:component>

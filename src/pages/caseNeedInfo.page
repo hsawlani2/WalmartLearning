@@ -1,0 +1,87 @@
+<!--
+ * Custom VF page to allow users to enter comments whenever more info is required from Seller.
+ *
+ * @author      Cloud Sherpas
+ * @createddate 04-Feb-2016
+-->
+<apex:page controller="CaseNeedInfoController" tabStyle="case">
+    
+    <apex:outputPanel id="pageMsgPanel">
+        <apex:pagemessages />
+    </apex:outputPanel>
+    
+    <apex:form id="parentForm">
+        <p>
+            <apex:outputText value="Need Info on Case" style="font-size:175%"/>
+        </p>
+        
+        <!-- Shown if Case cannot be edited by cross profiles -->
+        <apex:pageBlock rendered="{!IF(isEditAllowed == false, true, false)}">
+            <apex:outputPanel id="noeditTbl1">
+                <table>
+                    <tr>
+                        <td>                
+                            <apex:outputText escape="true" value="{!noEditMessage}" 
+                                 style="font-size:120%"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:commandButton action="{!back}" value="Back" />
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+        </apex:pageBlock>        
+        <!-- Shown if Case is already in Need Info and Info Received flag is true -->
+        <apex:pageBlock rendered="{!IF(isCaseAlreadyInNeedInfo == true && isEditAllowed == true, true, false)}">
+            <apex:outputPanel id="mainTbl1">
+                <table>
+                    <tr>
+                        <td>                
+                            <apex:outputText escape="true" value="Cannot request further Info on the Case if Info has been received from Seller. In order to request additional info, please uncheck the Info Received and try again." 
+                                 style="font-size:120%"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:commandButton action="{!back}" value="Back" />
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+        </apex:pageBlock>
+
+        
+        <!-- Shown whenever Need Info is required -->
+        <apex:pageBlock title="Need Info on Case" 
+                        rendered="{!IF(isCaseAlreadyInNeedInfo == false && hideCommentBlock == false && isEditAllowed == true, true, false)}">
+            <apex:pageblockbuttons >
+                <apex:commandButton action="{!requestInfoFromSeller}" value="Save" />
+                <apex:commandButton action="{!back}" value="Cancel" />
+            </apex:pageblockbuttons>
+            
+            <apex:outputPanel id="mainTbl2" rendered="{!IF(isCaseAlreadyInNeedInfo == false, true, false)}">
+                <table style="display:block">
+                    <tr>
+                        <td><b> <apex:outputPanel rendered="{!!isSupplier}">Enter Comments to Send to Seller</apex:outputPanel> 
+                            <apex:outputPanel rendered="{!isSupplier}">Enter Comments to Send to Supplier</apex:outputPanel>
+                        </b></td>
+                    </tr>
+                    <tr>
+                        <td><apex:inputTextarea id="sComm" rows="10" cols="80" value="{!sellerComments}" /></td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+        </apex:pageBlock>
+
+        <!-- Shown after successful transmission of email to Seller -->
+        <apex:pageBlock rendered="{!IF(hideCommentBlock == true, true, false)}">
+            <apex:outputPanel id="mainTbl3">
+                <apex:commandButton action="{!back}" value="Back" />
+            </apex:outputPanel>
+        </apex:pageBlock>
+        
+        
+    </apex:form>
+</apex:page>

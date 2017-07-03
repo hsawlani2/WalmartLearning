@@ -1,0 +1,28 @@
+<aura:component >
+<ltng:require styles="/resource/WalmartDesign/Walmart/css/bootstrap.min.css" scripts='/resource/WalmartDesign/Walmart/js/jquery-1.11.1.min.js,/resource/WalmartDesign/Walmart/js/bootstrap.min.js'/>
+
+<!-- Header -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+          <a class="navbar-brand" href="http://marketplace.walmart.com"><img src="/resource/BDImages/SVG/logowhitesvg.svg"/>
+        </a>
+      </div>
+      <div id="navbar3" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="https://marketplace.walmart.com">Home</a></li>
+            <li><a href="https://marketplace.walmart.com/FAQ">FAQ</a></li>
+            <li><a href="https://marketplace.walmart.com/k/">Knowledge</a></li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
+  </nav>
+</aura:component>

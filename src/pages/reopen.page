@@ -1,0 +1,38 @@
+<apex:page standardController="Case" extensions="case_ext" id="pageid">
+<apex:outputPanel id="scriptid">
+<script>
+function confirmdialog() {
+    
+    var cmtvalue=document.getElementById('{!$Component.pageid.formid.mainpagebid.custom1.inputareaid}').value;
+    if(cmtvalue!=''){
+        alert("Case has been reopened, the Support Team has been notified");
+        javasaveReopen();
+    }
+    else{
+        javavalidateComment();
+    }    
+}
+function redirect() {
+    javacancel();
+}        
+            
+</script>
+</apex:outputPanel>
+<apex:form id="formid">
+<apex:pageBlock title="Reopen Case" id="mainpagebid">
+    <apex:outputPanel id="pageMsgPanel">
+        <apex:pagemessages />
+    </apex:outputPanel>
+    <apex:pageBlockButtons >
+         <apex:commandButton value="Save" onclick="confirmdialog();" reRender="scriptid"/>
+         <apex:commandButton value="Cancel" onclick="redirect();" reRender="scriptid"/>
+         </apex:pageBlockButtons>
+<apex:pageBlockSection title="Enter Comment to add to Case" id="custom1" >
+<apex:inputtextarea id="inputareaid"  cols="70" rows="10" value="{!caseComment}"/>
+</apex:pageBlockSection>
+</apex:pageBlock>
+ <apex:actionFunction action="{!saveReopen}" name="javasaveReopen" />
+  <apex:actionFunction action="{!cancelReopen}" name="javacancel" />
+<apex:actionFunction action="{!validateComment}" name="javavalidateComment" reRender="mainpagebid"/>
+  </apex:form>
+ </apex:page>

@@ -1,0 +1,22 @@
+<apex:page standardController="Article__kav"
+    sidebar="false"
+    showHeader="false"
+    cache="false"
+    standardStylesheets="false"
+    docType="html-5.0">
+
+    <apex:composition template="walmart_pkb_template">
+        <apex:define name="body">
+            <div class="article">
+                <article class="post hentry">
+                    <header>
+                        <h1 class="entry-title">{!Article__kav.Title}</h1>
+                    </header>
+                    <div class="entry-content">
+                        <apex:outputfield value="{!Article__kav.Information__c}"/>
+                    </div>
+                </article>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,63 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="qCon" type="QuestionnaireController" required="true" description="handle to QuestionnaireController" />
+    
+    <h6>Select Categories</h6>
+    <fieldset class="categoriesCheckField">
+        
+        <p class="display-block text-light">Select the categories you plan to sell in.</p>        
+        
+        <div class="form-group pt-15 col-md-4">
+        
+            <apex:repeat value="{!qCon.categoriesPage1}" var="category">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="styled" id="checkbox-{!category.Id}" name="{!category.Name}" onchange="checkedCategorySelected()" />
+                        {!category.Name}
+                    </label>
+                </div>
+            </apex:repeat>
+            
+        </div>
+        
+        <div class="form-group pt-15 col-md-4">
+        
+            <apex:repeat value="{!qCon.categoriesPage2}" var="category">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="styled" id="checkbox-{!category.Id}" name="{!category.Name}" onchange="checkedCategorySelected()" />
+                        {!category.Name}
+                    </label>
+                </div>
+            </apex:repeat>
+            
+        </div>
+        
+        <div class="form-group pt-15 col-md-4">
+        
+            <apex:repeat value="{!qCon.categoriesPage3}" var="category">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="styled" id="checkbox-{!category.Id}" name="{!category.Name}" onchange="enableOtherCategoryName()" />
+                        {!category.Name}
+                    </label>
+                </div>
+            </apex:repeat>
+            
+        </div>
+        
+        <div class="row">
+    		<div class="col-md-6">
+    			<div class="form-group">
+    				<label>If you selected All Others, please type in the specific category</label>
+    				<apex:input value="{!qCon.otherCategoryName}" styleClass="form-control specific-category" id="specificCategory"/>
+    			</div>
+    			<div class="spError"></div>
+    		</div>
+	    </div>
+	    
+        
+            
+    </fieldset>
+
+</apex:component>

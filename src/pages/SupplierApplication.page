@@ -1,0 +1,20 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" >
+    <apex:includeScript value="{!$Site.BaseUrl}/lightning/lightning.out.js" />    
+
+    <div id="lightningLocator" />
+ 
+    <script>
+            var leadId = "{!$CurrentPage.parameters.LeadId}";
+            console.log("leadid.. "+leadId);
+            $Lightning.use("c:WM_SupplierApp", function() {
+                $Lightning.createComponent(
+                "c:WM_ContainerComponent",
+                {"leadId":leadId},
+                "lightningLocator",
+                function(cmp) {
+                    console.log("Component created!");
+                    console.log(cmp);
+                });                
+            });            
+    </script>    
+</apex:page>

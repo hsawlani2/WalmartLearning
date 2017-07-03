@@ -1,0 +1,29 @@
+<aura:component >
+    <fieldset class="slds-form--compound">
+  <legend class="slds-form-element__label slds-text-title--caps">Address</legend>
+  <div class="slds-form-element__group">
+    <div class="slds-form-element__row">
+      <div class="slds-form-element slds-size--1-of-1">
+        <label class="slds-form-element__label" for="input-03">Street</label>
+        <input type="text" id="input-03" class="slds-input" />
+      </div>
+    </div>
+    <div class="slds-form-element__row">
+      <div class="slds-form-element slds-size--1-of-2">
+        <label class="slds-form-element__label" for="input-04">City</label>
+        <input type="text" id="input-04" class="slds-input" />
+      </div>
+      <div class="slds-form-element slds-size--1-of-2">
+        <label class="slds-form-element__label" for="input-05">State</label>
+        <input type="text" id="input-05" class="slds-input" />
+      </div>
+    </div>
+    <div class="slds-form-element__row">
+      <div class="slds-form-element slds-size--1-of-2">
+        <label class="slds-form-element__label" for="input-06">ZIP Code</label>
+        <input type="text" id="input-06" class="slds-input" />
+      </div>
+    </div>
+  </div>
+</fieldset>
+</aura:component>

@@ -1,0 +1,42 @@
+<apex:component allowDML="true">
+    
+    <apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+    
+    <!-- Paga title -->
+    <div class="main-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-lg-8">
+            <h1>Knowledge Base</h1>
+            <p class="tagline">Find answers and help fast</p>
+          </div>
+          <div class="col-sm-4 col-lg-4">
+            <!--<form role="search" method="get" id="searchform" class="form-search" action="#">-->
+              <div class="append-icon">
+
+                <!-- FR3.5.4 - Search should use the topTierCategory and not the sidenav filter value. 20161116 -->
+<!--
+                <input type="text" name="s" id="searchAskInput" class="form-control input-lg" autocomplete="off" 
+                value="{!$Label.Search_Placeholder}" 
+                onfocus="if(this.value=='{!$Label.Search_Placeholder}'){this.value='';} clearPrompt(this);" 
+                onblur="if(this.value==''){this.value='{!$Label.Search_Placeholder}';} restorePrompt(this); buildSearchHref();"
+                onkeypress="checkForEnter(event, this);"
+                />
+                <input style="display: none;" type="submit" id="searchAskButton" value="Search" class="btn" onclick="searchButtonClicked(); return false;"/>
+ -->
+                <input type="text" name="s" id="searchAskInput" class="form-control input-lg" autocomplete="off" 
+                value="{!$Label.Search_Placeholder}" 
+                onfocus="if(this.value=='{!$Label.Search_Placeholder}'){this.value='';} clearPrompt(this);" 
+                onblur="if(this.value==''){this.value='{!$Label.Search_Placeholder}';} restorePrompt(this); buildSearchHref();"
+                onkeypress="checkForEnterWithCategory('{!pkbCon.identifyTopTierCategory}', event, this);"
+                />
+                <input style="display: none;" type="submit" id="searchAskButton" value="Search" class="btn" onclick="searchButtonClicked(); return false;"/>
+                <span><i class="icon-search"></i></span>
+              </div>
+            <!--</form>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+</apex:component>

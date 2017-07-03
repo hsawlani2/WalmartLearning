@@ -1,0 +1,790 @@
+<apex:page cache="false" standardStylesheets="false" showHeader="true" sidebar="false" controller="WalmartMissingContactsCntrl" applyBodyTag="false" applyHtmlTag="true" docType="html-5.0">
+    <html>
+        <head>
+            <title>Walmart Missing Contacts</title>
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    
+            <script src="{!$Resource.pkb_jquery_1_6_2}" type="text/javascript" />
+            <script src="{!$Resource.pkb_jquery_simplemodal_1_4_1}" type="text/javascript" />
+            
+            <!-- Custom styles for this template -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous" />
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+            <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slick_theme_css)}" />
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,500,700' rel='stylesheet' type='text/css' />
+            <c:custom_pkb_css />
+    
+            <style>
+                .logo-img{
+                    position: absolute;
+                    top: 3%;
+                    width: 250px;
+                    left: 3%;
+                }
+                
+                #about {
+                    background-color: #3d454c;
+                    color: #fff;
+                }
+                
+                #about h3 {
+                    color: #D7D7D7;
+                    margin: 0 0 10px;
+                    text-transform: none;
+                    border-bottom: 3px solid #D7D7D7;
+                    padding-bottom: 15px;
+                    font-size: 25px;
+                    text-align: center;
+                }
+                
+                .howItWorks {
+                    text-align: center;
+                    font-size: 38px;
+                    color: #d7d7d7;
+                    margin-bottom: 50px;
+                }
+                
+                .sec-title p {
+                    font-size: 25px;
+                    position: relative;
+                    text-transform: none;
+                    color: #333;
+                    line-height: 35px;
+                }
+                
+                #footer {
+                    background-color: #3d454c;
+                    padding: 10px 0;
+                    color: #fff;
+                }
+                
+                .web-to-lead{
+                    max-width: 100%;
+                    margin: 0 auto;
+                    float: none;
+                }
+
+                .btn-effect:hover, .btn-effect:focus, .btn-effect:active {
+                    color: #fff;
+                }
+                
+                .btn-blue:hover{
+                    color: #000;
+                }
+                
+                .service-item h3 {
+                    line-height: 35px;
+                }
+                
+                .error{
+                    margin: 0 !important;
+                    color: #E04C4C !important;
+                    font-size: 20px !important;
+                }
+                
+                @media only screen and (max-width: 767px){
+                    .sec-title h2 {
+                        font-size: 30px;
+                    }
+                    .caption-content h2 {
+                        font-size: 35px;
+                    }
+                    .service-item {
+                        width: 100%;
+                        margin-top: 30px;
+                    }
+                    .caption-content .cch2 {
+                        font-size: 50px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 25px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 280px;
+                        padding-left: 3%;
+                    }
+                    .logo-img{
+                        width: 180px;
+                        position: absolute;
+                        top: 3%;
+                        left: 3%;
+                    }
+                }
+                
+                @media only screen and (max-width: 485px){
+                    .btn-add{
+                        margin-bottom: 10px;
+                        width: 80%;
+                    }
+                    .btn-add-default{
+                        margin-left: 0px !important;
+                    }
+                    .caption-content .cch2, .caption-content .cch3{
+                        text-align: left;
+                        padding-left: 5%;
+                    }
+                    .slide-caption .caption-content{
+                        text-align: center;
+                        padding-top: 280px;
+                        position: relative;
+                        padding-left: 3%;
+                    }
+                    .caption-content .cch2 {
+                        font-size: 42px;
+                    }
+                    .caption-content .cch3{
+                        font-size: 25px;
+                    }
+                }
+                
+                @media only screen and (min-width: 485px){
+                    .slide-caption .caption-content{
+                        text-align: left;
+                        //padding-top: 185px;
+                        position: relative;
+                        padding-left: 3%;
+                    }
+                }
+                
+                .caption-content h2 {
+                    color: #2480B8;
+                    font-weight: 400;
+                    margin-bottom: 25px;
+                    text-transform: normal;
+                }
+                
+                @media only screen and (min-width: 899px){
+                    .caption-content .cch2 {
+                        font-size: 85px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 48px;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        color : #177DC1;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 185px;
+                        padding-left: 3%;
+                    }
+                }
+                
+                @media only screen and (min-width: 768px) and (max-width: 899px){
+                    .caption-content .cch2 {
+                        font-size: 60px;
+                        color : #177DC1;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        font-weight: 900;
+                    }
+                    .caption-content .cch3{
+                        font-size: 36px;
+                        text-shadow: 1px 1px 5px #FFFFFF;
+                        color : #177DC1;
+                        font-weight: 300;
+                    }
+                    .slide-caption .caption-content{
+                        padding-top: 185px;
+                        padding-left: 3%;
+                    }
+                }
+                
+                @media only screen and (min-width: 1440px){
+                    .container {
+                        width: 1440px;
+                    }
+                }
+                @media only screen and (max-width: 1439px){
+                    .container {
+                        width: 100%;
+                    }
+                }
+                .btn-add{
+                    font-size: 16px;
+                    height: 52px;
+                    border-radius: 4px;
+                }
+                .btn-add:hover{
+                    color: #fff;
+                }
+                .slide-caption{
+                    top: -65px;
+                }
+                .btn-add-default{
+                    color: #167EC7;
+                    background: rgba(244,238,235,0.95) !important;
+                    border: 1px solid #167EC7;
+                    margin-left: 10px;
+                    box-shadow: none;
+                }
+                .btn-add-default:hover{
+                    color: #167EC7;
+                    background: transparent;
+                    border: 1px solid #167EC7;
+                    margin-left: 10px;
+                }
+                #hom-slider {
+                    position: relative;
+                    padding: 0;
+                }
+                .welcome-block p {
+                    color: #D6D6D6;
+                }
+                .arrow {
+                    width: 0;
+                    height: 0;
+                    border-left: 25px solid transparent;
+                    border-right: 25px solid transparent;
+                    border-top: 30px solid #3d454c;
+                    margin: 0 auto;
+                    position: relative;
+                    top: 100px;
+                }
+                .caption-content .cch2 {
+                    letter-spacing: -3px;
+                }
+                /*th {
+                    background: steelblue !important;
+                    height: 35px !important;
+                    width: 25% !important;
+                    font-weight: lighter !important;
+                    text-shadow: 0 1px 0 #38678f !important;
+                    color: white !important;
+                    border: 1px solid #38678f !important;
+                    box-shadow: inset 0px 1px 2px #568ebd !important;
+                    transition: all 0.2s !important;
+                    padding : 0 !important;
+                    text-align: left;
+                    vertical-align: middle !important;
+                    padding-left: 20px !important;
+                    font-size: 16px;
+                }*/
+                .bt {
+                    background: #A4ACB0;
+                    height: 23px !important;
+                    width: 25px;
+                    color: #454544 !important;
+                    border: 1px solid #A4ACB0;
+                    box-shadow: inset 0px 1px 2px #f2f3f3;
+                    transition: all 0.2s !important;
+                    font-size: 14px;
+                }
+                .sec-title h2 {
+                    font-size: 30px;
+                    margin: 0 0 0px;
+                    padding-bottom: 0px;
+                    position: relative;
+                    text-transform: none;
+                    color: #333;
+                    text-align:left;
+                }
+                .form-control {
+                    line-height: 1.42857143;
+                    color: #555;
+                    background-color: #fff;
+                    background-image: none;
+                    border: 1px solid #ccc;
+                    border-radius: 0px !important;
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                    border: 1px solid #A4ACB0 !important;
+                    border-radius: 0;
+                    box-shadow: none;
+                    color: #454544;
+                    font-size: 14px;
+                    height: 34px !important;
+                    display: block;
+                    width: 100% !important;
+                    padding: 6px 12px;
+                }
+                span.form-control{
+                    border:none !important;
+                    background: transparent !important;
+                }
+                footer{
+                    position: fixed;
+                    width: 100%;
+                    bottom: 0;
+                }
+                .heavyTable {
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                    animation: float 5s infinite;
+                    margin-top : 5px;
+                }
+                .btn {
+                   display: inline-block;
+                   padding: 4px 12px !important;
+                   margin-bottom: 0;
+                   font-size: 14px;
+                   font-weight: 400;
+                   line-height: 1.42857143;
+                   text-align: center;
+                   white-space: nowrap;
+                   vertical-align: middle;
+                   -ms-touch-action: manipulation;
+                   touch-action: manipulation;
+                   cursor: pointer;
+                   -webkit-user-select: none;
+                   -moz-user-select: none;
+                   -ms-user-select: none;
+                   user-select: none;
+                   background-image: none !important;
+                   border: 1px solid transparent;
+                   border-radius: 4px;
+                }
+                .noSidebarCell, .sidebarCell .fixed {
+                    padding: 0px;
+                }
+                body{
+                    font-size : 12px;
+                }
+                .heavyTable {
+                    box-shadow: none;
+                    animation: float 5s infinite;
+                    border: 1px solid #eee;
+                }
+                .table td {
+                    padding: 0px !important;
+                    padding-top: 4px !important;
+                }
+                th {
+                    background: #DFE1E1;
+                    height: 30px !important;
+                    //width: 25% !important;
+                    font-weight: normal;
+                    color: #454544 !important;
+                    border: 1px solid #A4ACB0 !important;
+                    transition: all 0.2s !important;
+                    padding: 8px 0px !important
+                    text-align: left;
+                    vertical-align: middle !important;
+                    padding-left: 15px !important;
+                    font-size: 15px;
+                }
+                .table-striped>tbody>tr:nth-of-type(odd) {
+                    background-color: #fcfcfc;
+                }
+                .chk{
+                    width: 16px;
+                    height: 16px;
+                    margin: 7px 3px !important;
+                }
+                .table-striped tbody tr:nth-of-type(odd) {
+                    background-color: #fff;
+                }
+                .table-striped tbody tr:nth-of-type(even) {
+                    background-color: #F3F4F4;
+                }
+                .table tbody tr td{
+                    border: 1px solid #E3E2E1;
+                }
+                .ui-multiselect{
+                    min-width : 420px !important;
+                }
+                .ui-widget {
+                    font-size: 13px;
+                }
+                .ui-filter{
+                    margin: 1%;
+                    width: 98%;
+                    border-radius: 3px !important;
+                }
+                body .btn, .btn-blue {
+                    background-color: transparent !important;
+                    border-color: #007BC4 !important;
+                    margin: 2px 0px;
+                    color: #007BC4;
+                    margin-left:10px;
+                    font-size: 14px;
+                    font-weight: normal;
+                }
+                .bodyDiv {
+                    border-top: 0px solid;
+                }
+                .btn-icon{
+                    float: left;
+                    width: 15px;
+                    margin-top: 3px;
+                }
+                .btn-span{
+                    float: left;
+                    margin-left: 5px;
+                }
+                .btn{
+                    padding: 2px 10px !important;
+                }
+                .errorM4, .errorM3 {
+                    background-image: linear-gradient(45deg,rgba(0,0,0,.035) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.035) 50%,rgba(0,0,0,.035) 75%,transparent 75%,transparent);
+                    color: #fff;
+                    background-color: #c23934;
+                    background-size: 64px 64px;
+                    padding: 0px 20px 10px;
+                    border-radius: 4px;
+                }
+                .errorM4 img, .errorM3 img{
+                    display : none;
+                }
+                .message .messageText, .errorM4 h4, .errorM3 h4 {
+                    color: #fff;
+                }
+                span.form-control{
+                    height: auto;
+                }
+                .left img{
+                    width: 175px;
+                    max-width: 175px;
+                }
+                #AppBodyHeader .phHeader {
+                    margin-bottom: 0px;
+                }
+                .infoM6, .infoM4, .infoM3, .infoM2, .infoS1 {
+                    background: #54698d;
+                    border: none;
+                    background-image: linear-gradient(45deg,rgba(0,0,0,.025) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.025) 50%,rgba(0,0,0,.025) 75%,transparent 75%,transparent);
+                }
+                .infoM6 .messageText, .infoM4 .messageText, .infoM3 .messageText, .infoM2 .messageText, .infoS1 .messageText {
+                    float: left;
+                    margin-top: -8px;
+                }
+                .boldText{
+                    font-weight: 800;
+                    text-decoration: underline;
+                }
+            </style>
+            
+            <script>
+                var pagesize = 100;
+                var pagenumber = 0;
+                
+                $(document).ready(function(){
+                    tablePagination();
+                    
+                    $('.filterChar').click(function(){
+                        //searchByChar($(this).text());
+                    });
+                });
+                
+                function disableButtons(obj){
+                    $(obj).prop('disabled', true);
+                    $(obj).val('processing..');
+                    $(obj).find('span').text('processing..');
+                }
+                
+                function jsNext(){
+                    pagenumber = pagenumber + 1;
+                    $('.prev').prop('disabled', false);
+                    var endindex = pagenumber * pagesize;
+                    var totalrecords = $('.datarows:not(.searched)').length;
+                    if(totalrecords < endindex){
+                        $('.next').prop('disabled', true);
+                    }else{
+                        $('.next').prop('disabled', false);
+                        tablePagination();
+                    }
+                    if(totalrecords < (endindex+pagesize))
+                        $('.next').prop('disabled', true);
+                }
+                
+                function jsPrev(){
+                    pagenumber = pagenumber - 1;
+                    $('.next').prop('disabled', false);
+                    if(pagenumber == 0){
+                        $('.prev').prop('disabled', true);
+                    }else{
+                        $('.prev').prop('disabled', false);
+                    }
+                    tablePagination();
+                }
+                
+                function tablePagination(){
+                    var startindex = pagenumber * pagesize;
+                    var endindex = startindex + pagesize;
+                    var count = 0;
+                    
+                    $('.datarows:not(.searched)').each(function(){
+                        if(count >= startindex && count < endindex){
+                            $(this).show();
+                        }else{
+                            $(this).hide();
+                        }
+                        count++;
+                    });
+                }
+                
+                var arr = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+                
+                function searchByChar(chr){
+                    $('.datarows').each(function(){
+                        var obj = $(this);
+                        if(chr.toLowerCase() == 'all'){
+                            $(this).show();
+                            $(obj).removeClass('searched');
+                        }
+                        else if(chr.toLowerCase() == 'others'){
+                            var isShow = true;
+                            for(var i=0; i < 26; i++){
+                                if($(this).find('.accName').text().toLowerCase().indexOf(arr[i].toLowerCase()) == 0)
+                                    isShow = false;
+                            }
+                            if(isShow){
+                                $(this).show();
+                                $(obj).removeClass('searched');
+                            }else{
+                                $(this).hide();
+                                $(obj).addClass('searched');
+                            }
+                        }
+                        else{
+                            if($(this).find('.accName').text().toLowerCase().indexOf(chr.toLowerCase()) == 0){
+                                $(this).show();
+                                $(obj).removeClass('searched');
+                            }else{
+                                $(this).hide();
+                                $(obj).addClass('searched');
+                            }
+                        }
+                    });
+                    
+                    pagenumber = 0;
+                    tablePagination();
+                }
+                
+                function checkAll(isChecked){
+                    $('.datarows:not(.searched)').each(function(){
+                        $(this).find('.ck').prop('checked', isChecked);
+                    });
+                }
+                
+                function applyContactTypeFilter(val){
+                    if(val.trim() != '' && val != '-Select Contact Type-'){
+                        $('.datarows').each(function(){
+                            if($(this).find('.contyp').text().indexOf(val) != -1){
+                                $(this).show();
+                                $(this).removeClass('searched');
+                            }else{
+                                $(this).hide();
+                                $(this).addClass('searched');
+                            }
+                        });
+                    }else{
+                        $('.datarows').show();
+                        $('.datarows').removeClass('searched');
+                    }
+                    
+                    pagenumber = 0;
+                    tablePagination();
+                }
+                
+                function applyNameFilter(val){
+                    if(val.trim() != '' && val.trim().length > 2){
+                        $('.datarows').each(function(){
+                            if($(this).find('.nme').text().toLowerCase().indexOf(val.toLowerCase()) != -1){
+                                $(this).show();
+                                $(this).removeClass('searched');
+                            }else{
+                                $(this).hide();
+                                $(this).addClass('searched');
+                            }
+                        });
+                    }else{
+                        $('.datarows').show();
+                        $('.datarows').removeClass('searched');
+                    }
+                    
+                    pagenumber = 0;
+                    tablePagination();
+                }
+                
+                function handle(e){
+                    var key=e.keyCode || e.which;
+                    if (key==13){
+                        e.preventDefault(); // Otherwise the form will be submitted
+                        applyNmeFilter($('#name').val());
+                    }
+                }
+            </script>
+        </head>
+    
+        <body class="home-1">
+            <header class="banner navbar navbar-static-top" role="banner">
+                <div class="container">
+                    <div class="navbar-header">
+                        <div class="navbar-brand">
+                            <img src="{!$Site.prefix}/resource/1450198358000/WalmartWhiteLogo"/>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <apex:form id="frm">
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <div style="background:#000; opacity: 0.4; width: 100%; height:700px; top:0px; left:0px; position: fixed; z-index:1000000"></div>
+                        <div class="dv_load" style="position:fixed;width:5%;top:40%;left:47%;z-index:1000000">
+                            <img src="{!$Resource.loader}" style="vertical-align:middle;" />
+                        </div>
+                    </apex:facet>
+                </apex:actionStatus>
+        
+                <apex:actionFunction name="callSendAction" status="status" action="{!SendAllAction}" reRender="frm" oncomplete="tablePagination();"/>
+                <apex:actionFunction name="callNext" status="status" action="{!next}" reRender="frm" oncomplete="tablePagination();"/>
+                <apex:actionFunction name="callPrev" status="status" action="{!prev}" reRender="frm" oncomplete="tablePagination();"/>
+                <apex:actionFunction name="callStartWith" status="status" action="{!callStartWith}" reRender="frm" oncomplete="tablePagination();">
+                    <apex:param name="arg1" assignTo="{!startWith}" value=""/>
+                </apex:actionFunction>
+                <apex:actionFunction name="applyNmeFilter" status="status" action="{!callStartWith}" reRender="frm" oncomplete="tablePagination();">
+                    <apex:param name="argName" assignTo="{!accName}" value=""/>
+                </apex:actionFunction>
+                <apex:actionFunction name="applyContactTypFilter" status="status" action="{!callStartWith}" reRender="frm" oncomplete="tablePagination();">
+                    <apex:param name="argType" assignTo="{!missingContactTypes}" value=""/>
+                </apex:actionFunction>
+                
+                <section id="contact">
+                    <br/>
+                    <div class="container">
+                        <div class="row">                            
+                            <div class="sec-title text-center wow animated fadeInDown">
+                                <h2 style="text-align:left;">Accounts missing mandatory contact information</h2>
+                            </div>
+                                         
+                            <apex:pageMessages />
+                            
+                            <div class="col-md-12 contact-form wow animated fadeInLeft web-to-lead">
+                                <div class="slds-button-group" style="text-align:right; float: left; width: 100%;">
+                                    <button class="btn btn-blue" style="width: 205px; float: left; margin: 0px; margin-bottom: 3px;" onclick="callSendAction(); disableButtons(this); return false;">
+                                        <img class="btn-icon" src="{!URLFOR($Resource.WalmatContactResource, 'icons/plus.png')}"/>
+                                        <span class="btn-span">Notify Selected Accounts</span>
+                                    </button>
+                                    
+                                    <!--<apex:commandButton style="float: left;" styleClass="btn btn-blue" value="Notify Selected Accounts" action="{!SendAction}" onclick="disableButtons(this);" reRender="frm" oncomplete="tablePagination();">
+                                    </apex:commandButton>-->
+                                
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'A', 'boldText', '')}" onclick="callStartWith('A');">A</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'B', 'boldText', '')}" onclick="callStartWith('B');">B</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'C', 'boldText', '')}" onclick="callStartWith('C');">C</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'D', 'boldText', '')}" onclick="callStartWith('D');">D</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'E', 'boldText', '')}" onclick="callStartWith('E');">E</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'F', 'boldText', '')}" onclick="callStartWith('F');">F</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'G', 'boldText', '')}" onclick="callStartWith('G');">G</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'H', 'boldText', '')}" onclick="callStartWith('H');">H</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'I', 'boldText', '')}" onclick="callStartWith('I');">I</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'J', 'boldText', '')}" onclick="callStartWith('J');">J</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'K', 'boldText', '')}" onclick="callStartWith('K');">K</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'L', 'boldText', '')}" onclick="callStartWith('L');">L</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'M', 'boldText', '')}" onclick="callStartWith('M');">M</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'N', 'boldText', '')}" onclick="callStartWith('N');">N</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'O', 'boldText', '')}" onclick="callStartWith('O');">O</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'P', 'boldText', '')}" onclick="callStartWith('P');">P</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'Q', 'boldText', '')}" onclick="callStartWith('Q');">Q</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'R', 'boldText', '')}" onclick="callStartWith('R');">R</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'S', 'boldText', '')}" onclick="callStartWith('S');">S</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'T', 'boldText', '')}" onclick="callStartWith('T');">T</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'U', 'boldText', '')}" onclick="callStartWith('U');">U</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'V', 'boldText', '')}" onclick="callStartWith('V');">V</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'W', 'boldText', '')}" onclick="callStartWith('W');">W</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'X', 'boldText', '')}" onclick="callStartWith('X');">X</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'Y', 'boldText', '')}" onclick="callStartWith('Y');">Y</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'Z', 'boldText', '')}" onclick="callStartWith('Z');">Z</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'Others', 'boldText', '')}">Others</a> |
+                                    <a href="javascript:void(0);" class="filterChar {!IF(startWith == 'All', 'boldText', '')}" onclick="callStartWith('All');">All</a>
+                                    <button class="btn btn-blue prev" style="display:{!IF(pageNumber == 0, 'none', '')}; margin-left:3px" onclick="callPrev(); return false;">&lt;</button>
+                                    <button class="btn btn-blue next" style="display:{!IF(pageNumber == totalRecords, 'none', '')}; margin-left:3px" onclick="callNext(); return false;">&gt;</button>
+                                </div>
+                               
+                                <table class="table table-striped heavyTable">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:2%; padding: 0px !important; text-align: center;">
+                                                <input type="checkbox" class="chk" onchange="checkAll(this.checked);"/>
+                                            </th>
+                                            <th style="width:20%">Account Name</th>
+                                            <th>Missing Legal Address</th>
+                                            <th style="width:53%">Missing Contact Types</th>
+                                            <th style="width:15%">Last Email Sent Date</th>
+                                            <th style="width:10%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th style="padding: 0px !important;">
+                                                <input class="form-control ui-filter" id="name" onkeypress="handle(event);" type="text" value="{!accName}" onchange="applyNmeFilter(this.value);"/>
+                                            </th>
+                                            <th></th>
+                                            <th style="padding: 0px !important;">
+                                                <apex:selectList size="1" value="{!missingContactTypes}" styleClass="form-control ui-filter" onchange="applyContactTypFilter(this.value);">
+                                                    <apex:selectOptions value="{!contactTypeList}"></apex:selectOptions>
+                                                </apex:selectList>
+                                            </th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!accModListofList}" var="childList">
+                                            <apex:repeat value="{!childList}" var="c">
+                                                <tr class="datarows">
+                                                    <td style="text-align: center;">
+                                                        <apex:inputCheckbox value="{!c.isChecked}" styleClass="chk ck"/>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/{!c.accId}" target="_blank"><apex:outputText styleClass="form-control accName nme" value="{!c.accName}"/></a>
+                                                    </td>
+                                                    <td style="text-align:center;">
+                                                        <apex:inputCheckbox value="{!c.isLAMissing}" disabled="true" styleClass="chk"/>
+                                                    </td>
+                                                    <td>
+                                                        <apex:outputText styleClass="form-control contyp" value="{!c.contactType}"/>
+                                                    </td>
+                                                    <td>
+                                                        <apex:outputText styleClass="form-control" value="{!c.lastEmailString }"/>
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <apex:commandButton rendered="{!c.isHasEmail && NOT(c.lastEmailSent)}" styleClass="btn btn-blue" value="Notify" action="{!SendAction}" onclick="disableButtons(this);" reRender="frm" oncomplete="tablePagination();">
+                                                            <apex:param name="arg1" value="{!c.accId}" assignTo="{!selAccId}"/>
+                                                        </apex:commandButton>
+                                                        <apex:commandButton rendered="{!c.isHasEmail && c.lastEmailSent}" styleClass="btn btn-blue" value="Remind" action="{!SendAction}" onclick="disableButtons(this);" reRender="frm" oncomplete="tablePagination();">
+                                                            <apex:param name="arg1" value="{!c.accId}" assignTo="{!selAccId}"/>
+                                                        </apex:commandButton>
+                                                        <apex:image value="{!URLFOR($Resource.exclamationicon)}" style="width: 30px;" title="Missing Email" rendered="{!!c.isHasEmail}"/>
+                                                    </td>
+                                                </tr>
+                                            </apex:repeat>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: right;">
+                                        
+                                    </div> 
+                                </div>
+                            </div>        
+                        </div>
+                    </div>
+                    <br/><br/>
+                </section>
+            </apex:form>            
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+            <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+            <script src="{!$Resource.backstretch_min_js}" type="text/javascript" />
+            <script src="{!$Resource.Fitvids_js}" type="text/javascript" />
+        </body>
+    </html>
+</apex:page>

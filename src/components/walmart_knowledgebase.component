@@ -1,0 +1,56 @@
+<apex:component >
+    
+<apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+    
+<div class="main col-sm-9" role="main">
+    <div class="row knowledge-base-row">
+        
+        <knowledge:categoryList categoryVar="c" categoryGroup="{!pkbCon.categoryGroup1}" rootCategory="{!pkbCon.rootCategory1}" level="1">
+            <div class="col-sm-4 kb-category" style="margin-bottom: 30px;">
+                <h2>
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        {!c.Label}    
+                        <apex:param name="{!pkbCon.categoryParam}" value="{!pkbCon.categoryGroup1}:{!c.Name}" />
+                        <apex:param name="{!pkbCon.languageParam}" value="{!pkbCon.selectedLanguage}" />
+                    </apex:outputLink>
+                </h2>
+                <ul>
+                <knowledge:articleList articleVar="a"
+                language="{!pkbCon.selectedLanguage}"
+                sortBy="title" 
+                pageSize="{!pkbCon.popularArticles}"
+                categories="{!pkbCon.categoryGroup1}:{!c.Name}"
+                pageNumber="1">
+                    <apex:outputText escape="false" value="</span>" />
+                    <li>
+                        <i class="fa fa-fw fa-file-text-o"></i>
+                        <c:walmart_simple_article_list_item pkbCon="{!pkbCon}" 
+                        aid="{!a.id}"
+                        title="{!a.title}"
+                        summary="{!a.summary}"
+                        urlName="{!a.urlName}"
+                        articleTypeName="{!a.articleTypeName}"
+                        articleTypeLabel="{!a.articleTypeLabel}"
+                        lastModifiedDate="{!a.lastModifiedDate}"
+                        firstPublishedDate="{!a.firstPublishedDate}"
+                        lastPublishedDate="{!a.lastPublishedDate}" 
+                        />
+                    </li>
+                    <apex:outputText escape="false" value="<span>" />
+                </knowledge:articleList>
+                </ul>
+                <span class="label label-primary">
+                    <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                        View all articles <i class="fa fa-chevron-right" />
+                        <apex:param name="{!pkbCon.categoryParam}" value="{!pkbCon.categoryGroup1}:{!c.Name}" />
+                        <apex:param name="{!pkbCon.languageParam}" value="{!pkbCon.selectedLanguage}" />
+                    </apex:outputLink>
+                </span>
+            </div>
+        </knowledge:categoryList>
+        
+    </div>
+</div>
+
+
+</apex:component>

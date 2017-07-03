@@ -1,0 +1,67 @@
+<apex:page standardController="Case" extensions="CaseSellerSelectionExtension" tabStyle="case" docType="html-5.0">
+    
+    <style>
+        th>label {
+            display: block;
+            padding-top: 4px;
+        }
+        .lookupInput {
+            display: block;
+            margin-left: 20px;
+        }
+    </style>
+    
+    <apex:form id="Form">
+        
+        <apex:pageBlock title="New Case: Channel Partner" mode="edit">
+            
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="Cancel" />
+                <apex:commandButton action="{!continueForm}" value="Continue" />
+            </apex:pageBlockButtons>
+            
+                
+          
+
+            <apex:pageBlockSection columns="1" id="AccountSection">
+                
+                <apex:pageBlockSectionItem rendered="{!profileCheck}">
+                    <apex:outputLabel value="Choose One" style="display: block; padding-top: 8px;" />
+                    <apex:selectRadio value="{!selectedOption}" layout="pageDirection" id="SellerOptions">
+                        <apex:selectOptions value="{!sellerOptions}" />
+                        <apex:actionSupport event="onclick" rerender="AccountSection" />
+                    </apex:selectRadio>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!shouldDisplayRecordSelectionOptions}">
+                    <apex:outputLabel value="Case Type" style="display: block; padding-top: 8px;" />
+                    <apex:selectRadio value="{!selectedRecordType}" id="RecordTypeOptions" label="Case Type">
+                        <apex:selectOptions value="{!recordTypeOptions}" />
+                    </apex:selectRadio>
+                </apex:pageBlockSectionItem>
+                
+                <apex:inputField value="{!Case.In_Reference_to_Seller__c}" rendered="{!shouldDisplaySellerOptions}" label="Seller" />
+                
+                <!--
+                <apex:pageBlockSectionItem rendered="{!shouldDisplaySellerOptions}">
+                    <apex:outputLabel value="Seller Account"  style="display: block; padding-top: 4px;" />
+                    
+                    <apex:selectList value="{!sellerId}" size="1" style="display: block; margin-left: 16px;">
+                        <apex:selectOptions value="{!sellerList}" />
+                    </apex:selectList> 
+                    
+                </apex:pageBlockSectionItem>
+                
+                -->
+                
+                
+            </apex:pageBlockSection>
+            
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+
+</apex:page>

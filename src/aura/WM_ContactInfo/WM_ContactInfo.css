@@ -1,0 +1,21 @@
+.THIS .slds-text-heading--label{
+    font-size : 1.25rem
+}
+.THIS .slds-tabs--default__item{
+    padding : 0  1.75rem
+}
+.THIS .slds-tabs--default__nav{
+    padding-left : 70px
+}
+.THIS .slds-tabs--default__content{
+    padding : 10px 70px
+}
+.THIS .slds-input{
+    height : 40px
+}
+.THIS .slds-form-element__label{
+    font-size : 1.25rem
+}
+.THIS .slds-checkbox .slds-form-element__label{
+    font-size : 1.25rem
+}

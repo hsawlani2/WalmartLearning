@@ -1,0 +1,46 @@
+<apex:component layout="none">
+    
+    <apex:attribute name="qCon" type="QuestionnaireController" required="true" description="handle to QuestionnaireController" />
+    
+    <h6>Finishing Questions</h6>
+    <fieldset>
+        
+        <div id="page2c-errorplace" class="row"></div>
+        
+        <div class="form-group row">
+            <div class="col-md-6 ">
+                <label class="control-label">What percentage of your assortment today is manufactured under your brand by your company? </label>
+            </div>
+            <div class="col-md-1">
+                <apex:inputField value="{!qCon.application.Perc_assortment_manuf_by_company__c}" styleClass="form-control numberInput" html-maxlength="5" html-placeholder="%" id="assortmentmanufacturedItems" />
+            </div>
+        </div> 
+        
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label">What percentage of your assortment is owned versus drop ship?<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-2">
+                <apex:inputField value="{!qCon.application.Percentage_Owned__c}" styleClass="form-control numberInput" html-maxlength="3" html-placeholder="% Owned" id="percentageOwned" required="true" onchange="percentOwnedUpdated()" />
+                <span class="help-block">Percentage Owned</span>
+            </div>
+            <div class="col-md-2">
+                <apex:inputField value="{!qCon.application.Percentage_Drop_Ship__c}" styleClass="form-control numberInput" html-maxlength="3" html-placeholder="% Drop Ship" id="percentageDropShip" required="true" onchange="percentDropShipUpdated()" />
+                <span class="help-block">Percentage Drop Ship</span>
+            </div>
+        </div> 
+        </fieldset>
+        <!-- 
+        
+        <div class="form-group top-spacing row">
+            <div class="col-md-6 top-spacing">
+                <label class="control-label">What percentage of your assortment consists of variant items (e.g. items of a diferent size, color, finish, etc.)?</label>
+            </div>
+            <div class="col-md-1 top-spacing">
+                <apex:inputField value="{!qCon.application.Percentage_of_assortment_variant_items__c}" styleClass="form-control numberInput" html-maxlength="3" html-placeholder="%" id="assortmentVariantItems" />
+            </div>
+        </div>
+        -->
+    
+
+</apex:component>

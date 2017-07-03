@@ -1,0 +1,19 @@
+<aura:component >
+    
+	<div class="headerClass">
+        <span class="logoClass">
+            <img src="/resource/WalmartWhiteLogo" height="50" width="200"/>
+        </span>
+        <div class="linkClass">
+        	<span>
+        	<a href="https://marketplace.walmart.com" target="_blank" class="spanClass">HOME</a>
+        </span>
+        <span >
+        	<a href="https://marketplace.walmart.com/FAQ" target="_blank" class="spanClass">FAQ</a>
+        </span>
+        <span>
+        	<a href="https://marketplace.walmart.com/k/" target="_blank" class="spanClass">Knowledge Base</a>
+        </span>
+        </div>
+    </div>
+</aura:component>

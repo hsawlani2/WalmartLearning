@@ -1,0 +1,52 @@
+<apex:page controller="CumulativeLineChartController">
+         <apex:pageBlock title="Cumulative Chart (All Sellers)">
+              <apex:chart height="400px" width="1200px" data="{!ChartData3}">
+              <apex:axis type="Numeric" position="left" fields="actual,revisedforecast,variance" 
+              title="Number of Direct Sellers" grid="true"/>
+              <apex:axis type="Category" position="bottom" fields="name" 
+              title="Week Number">
+              </apex:axis>
+                  <apex:lineSeries title="Cumulative Actual" axis="left" fill="false" xField="name" yField="actual"
+                  strokeColor="#0000FF" strokeWidth="3" markerType="circle" markerSize="4"/>
+                  <apex:lineSeries title="Cumulative Revised Forecast" axis="left"  fill="false" xField="name" yField="revisedforecast"
+                  strokeColor="#FF2D00" strokeWidth="3" markerType="circle" markerSize="4" />
+                  <apex:lineSeries title="Cumulative Variance" axis="left" fill="false" xField="name" yField="variance"
+                  strokeColor="#51FF00" strokeWidth="3" markerType="circle" markerSize="4" />
+              <apex:legend position="right"/>  
+            </apex:chart>
+            </apex:pageBlock>
+
+         <apex:pageBlock title="Cumulative Chart (Direct Sellers)">
+              <apex:chart height="400px" width="1200px" data="{!ChartData}">
+              <apex:axis type="Numeric" position="left" fields="actual,revisedforecast,variance" 
+              title="Number of Direct Sellers" grid="true"/>
+              <apex:axis type="Category" position="bottom" fields="name" 
+              title="Week Number">
+              </apex:axis>
+                  <apex:lineSeries title="Cumulative Actual" axis="left" fill="false" xField="name" yField="actual"
+                  strokeColor="#0000FF" strokeWidth="3" markerType="circle" markerSize="4"/>
+                  <apex:lineSeries title="Cumulative Revised Forecast" axis="left"  fill="false" xField="name" yField="revisedforecast"
+                  strokeColor="#FF2D00" strokeWidth="3" markerType="circle" markerSize="4" />
+                  <apex:lineSeries title="Cumulative Variance" axis="left" fill="false" xField="name" yField="variance"
+                  strokeColor="#51FF00" strokeWidth="3" markerType="circle" markerSize="4" />
+              <apex:legend position="right"/>  
+            </apex:chart>
+            </apex:pageBlock>
+         <apex:pageBlock title="Cumulative (Partner Sellers)">
+            <apex:chart height="400px" width="1200px" data="{!ChartData2}">
+              <apex:axis type="Numeric" position="left" fields="actual,revisedforecast,variance" 
+              title="Number of Partner Sellers" grid="true"/>
+              <apex:axis type="Category" position="bottom" fields="name" 
+              title="Week Number">
+              </apex:axis>
+                <apex:lineSeries title="Cumulative Actual" axis="left" fill="false" xField="name" yField="actual"
+                strokeColor="#0000FF" strokeWidth="3" markerType="circle" markerSize="4"/>
+                <apex:lineSeries title="Cumulative Revised Forecast" axis="left" fill="false"  xField="name" yField="revisedforecast"
+                strokeColor="#FF2D00" strokeWidth="3" markerType="circle" markerSize="4" />
+                <apex:lineSeries title="Cumulative Variance" axis="left" fill="false" xField="name" yField="variance"
+                strokeColor="#51FF00" strokeWidth="3" markerType="circle" markerSize="4" />
+            <apex:legend position="right"/>  
+          </apex:chart>
+         
+        </apex:pageBlock>     
+</apex:page>

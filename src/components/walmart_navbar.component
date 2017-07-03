@@ -1,0 +1,131 @@
+<apex:component allowDML="true">
+    
+    <apex:attribute name="pkbCon" type="walmart_pkb_Controller" required="true" description="handle to the pkb controller" />
+    <apex:attribute name="rerender" type="String" required="false" description="Hand over a list of additional element ids to rerender"/>
+    <!-- <apex:stylesheet value="{!URLFOR($Resource.Walmart_KB_Design, 'css/custom_pkb_css.component.css')}" /> -->
+    
+    <!-- Navbar -->
+
+    <header class="banner navbar navbar-static-top" role="banner">
+      <div class="container">
+
+        <div class="navbar-header">
+
+          <div class="navbar-brand">
+              <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                  <apex:image id="logo" url="{!$Resource.WalmartWhiteLogo}" />
+                </apex:outputLink>
+          </div>
+          <div class="navbar-brand">
+                  <apex:image id="lineImage" url="{!$Resource.Walmart_line}" styleClass="line" />
+          </div>
+
+
+          <!-- DROPDOWN context selector portion of the Knowledge Base site.  2016-10-26 -->
+          <!-- <div class="navbar-brand dropdown" id="dropdown-div-container"> -->
+            <apex:outputPanel id="walmart-output-panel" styleClass="navbar-brand">
+              <apex:form id="walmart-form-container">
+                <apex:actionRegion >
+                  <apex:selectList styleClass="selectpicker walmart-selectList" html-data-style="btn-primary" size="1" value="{!pkbCon.chosenCategory}" tabindex="100">
+                    <apex:selectOptions value="{!pkbCon.storedOptions}" />
+                    <apex:actionSupport event="onchange" reRender="Context_Header,{!rerender}" action="{!pkbCon.setCategorySelectionViaDropdown}">
+                    </apex:actionSupport>
+                  </apex:selectList>
+                </apex:actionRegion>
+              </apex:form>
+             </apex:outputPanel>
+          <!-- </div> -->
+          <!-- Not Rendered based on design requirement change.  20161122 -->
+          <div id="Context_Header_Container" >
+             <apex:outputPanel id="Context_Header" rendered="0">
+              <apex:outputText value="{!pkbCon.prettyCategory} {!$Label.PKB2M_custom_home_header}" />
+             </apex:outputPanel>
+          </div>
+
+
+          <!-- End of DROPDOWN changes-->
+          
+          <button data-target=".nav-responsive" data-toggle="collapse" type="button" class="navbar-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+        </div>
+
+        <nav class="nav-main hidden-xs" role="navigation">
+          <ul id="menu-main" class="nav navbar-nav">
+            <li>
+                <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                    Home
+                </apex:outputLink>
+            </li>
+<!-- Replacing in order to enable new search result feature - 20161115
+            <li>
+                <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                    Knowledge Base
+                    <apex:param name="{!pkbCon.knowledgeBaseParam}" value="{!pkbCon.contactUsValue}" />
+                </apex:outputLink>
+            </li>
+ -->
+            <li>
+                <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                    Knowledge Base
+                    <apex:param name="{!pkbCon.knowledgeBaseParam}" value="{!pkbCon.valueOfSiteKbParam}" />
+                    <apex:param name="{!pkbCon.categoryParam}" value="{!pkbCon.identifyTopTierCategory}" />
+                </apex:outputLink>
+            </li>
+<!--             <li>
+                <apex:outputLink value="{!pkbCon.currentSiteUrl}articles/Article/FAQ">
+                    FAQ
+                </apex:outputLink>
+            </li>
+ -->
+              <li>
+                <apex:outputLink value="{!pkbCon.faqUrl}">
+                    FAQ
+                </apex:outputLink>
+              </li>
+              <li>
+                <apex:outputLink value="{!pkbCon.contactUsUrl}">
+                  Contact
+                </apex:outputLink>
+              </li>
+<!--             <li>
+                <a href="{!$Label.SupportEmail}">Contact</a>
+            </li>
+ -->
+          </ul>
+        </nav>
+
+        <!-- Responsive Nav -->
+        <div class="visible-xs">
+          <nav class="nav-responsive collapse" role="navigation">
+            <ul class="nav">
+              <li>
+                  <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                      Home
+                  </apex:outputLink>
+              </li>
+              <li>
+                  <apex:outputLink value="{!pkbCon.currentSiteUrl}">
+                      Knowledge Base
+                      <apex:param name="{!pkbCon.knowledgeBaseParam}" value="{!pkbCon.contactUsValue}" />
+                  </apex:outputLink>
+              </li>
+              <li>
+                <apex:outputLink value="{!pkbCon.currentSiteUrl}articles/Article/FAQ">
+                    FAQ
+                </apex:outputLink>
+              </li>
+              <li>
+                  <a href="{!$Label.SupportEmail}">Contact</a>
+              </li>
+            </ul>       
+          </nav>
+        </div>
+
+      </div>
+    </header>
+
+</apex:component>

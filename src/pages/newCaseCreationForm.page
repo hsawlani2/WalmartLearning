@@ -1,0 +1,294 @@
+<!--
+ * Custom VF page used to create Operations case along with Knowledge widget.
+ *
+ * @author      Cloud Sherpas
+ * @createddate 04-Mar-2016
+-->
+<apex:page standardcontroller="Case" extensions="CaseCreationExtension" tabStyle="case" docType="html-5.0">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <apex:stylesheet value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/css/jquery-ui.css') }"/>
+    <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jquery.min.js') }" />
+    <apex:includeScript value="{!URLFOR($Resource.QuestionnaireAssets, 'assets/js/core/libraries/jquery_ui/full.min.js') }" />
+    <style>
+    
+    .rightCell {
+        max-width: 250px;
+        width: 250px;
+    }
+    
+    .rightPane {
+        margin-left: 8px;
+        padding-left: 16px;
+        border-left: 1px solid #888;
+        height: 100%;
+        width: 220px;
+    }
+    
+    .articleListContainer {
+        margin-top: 20px;
+    }
+    
+    
+    .sectionTitleContainer {
+        margin-top: 8px;    
+    }
+    
+    .sectionTitle {
+        font-size: 1.3em;
+        padding-top: 10px;
+    }
+    
+    .loadingBlock {
+        margin-top: 20px;
+    }
+    
+    .popupBackground {
+        /* Background color */
+        background-color:black;
+        opacity: 0.7;
+        filter: alpha(opacity = 70);
+    
+        /* Dimensions */
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 998;
+        position: fixed;
+        
+        /* Mouse */
+        cursor:wait;
+    }
+
+    .PopupPanel {
+        /* Dimensions */
+        width: 100px;
+        margin-left: -50px;
+        height: 100px;
+        margin-top: -50px;
+        left: 50%;
+        top: 50%;
+        z-index: 999;
+        position: fixed;
+        color: #FFF;
+        
+        /* Mouse */
+        cursor:pointer;
+    }
+    
+    .savingSpinner {
+        color: #FFF;
+    }
+    
+    .ui-dialog-titlebar-close{
+                    display: none;
+                }
+        
+    </style>
+
+    <apex:form id="CaseForm" html-novalidate="novalidate">
+        
+        <table width="100%">
+            <tr>
+                <td>
+                    <apex:pageBlock title="New Case" mode="edit">
+                        <apex:pageBlockButtons >
+                            <apex:commandButton action="{!save}" value="Save" status="savingStatus" rerender="CaseForm" onComplete="performAction();" />
+                            <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+                        </apex:pageBlockButtons>
+                        <apex:pageBlockSection title="Case Information" columns="1">
+                            <apex:outputField rendered="{!isFollowUpCase}" value="{!Case.ParentId}"/>
+                            <apex:outputField value="{!Case.In_Reference_to_Seller__c}" label="Seller Account" rendered="{!isCPCaseForSeller}" />
+                            <apex:inputField value="{!Case.Subject}" required="true" style="width: 360px" styleClass="searchableField" onkeyup="subjectTextChanged()" />
+                            <apex:inputField value="{!Case.Issue_Category__c}" />
+                            <apex:inputField value="{!Case.Sub_Category_1__c}" />
+                            <!-- These two fields are commented based on JIRA ticket CDSIM-1766
+                                 these two fields will no longer available for community users -->
+                            <!--
+                            <apex:inputField value="{!Case.Sub_Category_2__c}" />
+                            <apex:inputField value="{!Case.Sub_Category_3__c}" />
+                            -->
+                            <apex:inputField value="{!Case.Description}" style="width: 360px; height: 100px" />
+                            <apex:inputField value="{!Case.Case_Priority__c}" />
+                            
+                            <apex:inputHidden id="idbShowMessage" value="{!bShowMessage}"/>
+                            <apex:inputHidden id="idsRedirectUrl" value="{!sRedirectUrl}"/>
+                            <apex:inputHidden id="idbRedirectOnOk" value="{!bRedirectOnOk}"/>
+                            <apex:inputHidden id="idbShowCancel" value="{!bShowCancel}"/>
+                            
+                            
+                            
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </td>
+                
+                <td class="rightCell">
+                    <apex:outputPanel layout="block" id="knowledge_results" styleClass="rightPane">
+                        <div class="sectionTitleContainer">
+                            <h2 class="sectionTitle">Helpful Knowledge Articles</h2>     
+                        </div>
+                        <div class="articleListContainer">
+                            <apex:repeat var="art" value="{!results}">
+                                <c:caseDeflectionArticleItem baseUrl="{!kbURL}"
+                                    kavExt="{!kavExt}"
+                                    title="{!art.Title}"
+                                    summary="{!art.Summary}"
+                                    articleTypeName="{!art.ArticleType}"
+                                    urlName="{!art.UrlName}"
+                                    firstPublishedDate="{!art.FirstPublishedDate}"
+                                    token="{!pkbToken}"
+                                />
+                            </apex:repeat>
+                        </div>
+                        
+                        <apex:outputText rendered="{!displaySearchHelp}">To search for knowledge articles,<br />start typing in the Subject field.</apex:outputText>
+                        <apex:outputText rendered="{!displayNoArticles}">No knowledge articles found.</apex:outputText>
+                        
+                        <apex:actionStatus id="loadingStatus">
+                            <apex:facet name="start">
+                                <div class="loadingBlock">
+                                    <i class="fa fa-spinner fa-pulse fa-lg" />&nbsp;Loading...
+                                </div>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                            </apex:facet>
+                        </apex:actionStatus>
+                        
+                    </apex:outputPanel>
+                </td>
+            </tr>
+        </table>
+        <div style="display:none" id="idMessage">
+            <apex:outputtext value="{!sMessageForDisplay}" escape="false"/>
+        </div>
+        <apex:actionStatus id="savingStatus">
+            <apex:facet name="start">
+                <div class="blockedPanel">
+                    <div class="popupBackground" />
+                    <div class="PopupPanel">
+                        <i class="fa fa-spinner fa-pulse fa-3x savingSpinner" />
+                    </div>
+                </div>
+            </apex:facet>
+            <apex:facet name="stop" />
+        </apex:actionStatus>
+    
+        <apex:actionFunction action="{!performSearch}" name="performSearch" rerender="knowledge_results" status="loadingStatus" immediate="true">
+            <apex:param name="firstParam" assignTo="{!searchQuery}" value="" />
+        </apex:actionFunction>
+        
+        <apex:actionFunction action="{!saveArticleDeflection}" name="saveArticleDeflection" status="loadingStatus" rerender="knowledge_results">
+            <apex:param name="firstParam" assignTo="{!deflectedArticleLink}" value="" />
+        </apex:actionFunction>
+        <script>
+            function performAction(){
+                var bShowMessage = $("[id$='idbShowMessage']").val();
+                if(bShowMessage){
+                    var bShowCancel = $("[id$='idbShowCancel']").val();
+                    console.log('bShowCancel:'+bShowCancel);
+                    console.log('bShowCancel compare:'+(bShowCancel==true));
+                    if(bShowCancel=="true"){
+                        console.log('ShowMessageWithCancel:');
+                        ShowMessageWithCancel();
+                    }
+                    else{
+                        console.log('ShowMessage:');
+                        ShowMessage();
+                    }
+                }
+            }
+            function ShowMessage(){
+                  $( function() {
+                                        $( "#idMessage" ).dialog({
+                                          resizable: false,
+                                          height: "auto",
+                                          width: 400,
+                                          modal: true,
+                                          title:"Information",
+                                          buttons: {
+                                            "OK": function() {
+                                              var bRedirectOnOk = $("[id$='idbRedirectOnOk']").val();
+                                              console.log('bRedirectOnOk:'+bRedirectOnOk);
+                                              if(bRedirectOnOk=="true"){
+                                                var sRedirectUrl = $("[id$='idsRedirectUrl']").val();
+                                                window.location.href=sRedirectUrl;
+                                              }
+                                              else{
+                                                $(this).dialog( "close" );
+                                              };
+                                            }
+                                          }
+                                        });
+                                      } );
+            }
+            
+            function ShowMessageWithCancel(){
+                  $( function() {
+                                        $( "#idMessage" ).dialog({
+                                          resizable: false,
+                                          height: "auto",
+                                          width: 400,
+                                          modal: true,
+                                          title:"Information",
+                                          buttons: {
+                                            "OK": function() {
+                                              var bRedirectOnOk = $("[id$='idbRedirectOnOk']").val();
+                                              if(bRedirectOnOk=="true"){
+                                                var sRedirectUrl = $("[id$='idsRedirectUrl']").val();
+                                                window.location.href=sRedirectUrl;
+                                              }
+                                              else{
+                                                $(this).dialog( "close" );
+                                              }
+                                            },
+                                            Cancel: function() {
+                                              $( this ).dialog( "close" );
+                                            }
+                                          }
+                                        });
+                                      } );
+            }
+            
+        </script>
+    </apex:form>
+    
+    <script type="text/javascript">
+    
+        var timeOutVar;
+        
+        // For some reason, this block of code is interfering with the onload functionality of the dependent picklists within the page. 
+        // Transferred the behavior to the onkeyup attribute instead.
+        // window.onload = function() {
+        //     var e = document.querySelector('.searchableField')
+        //     e.addEventListener('input', function(a) {
+        //         subjectTextChanged()
+        //     })
+        // };
+        
+        // Invoke a delay that will trigger the search after 750ms. This should minimize the number of queries being sent to the apex controller especially when the user is typing quickly.
+        function subjectTextChanged() {
+            if (timeOutVar != null) {
+                clearTimeout(timeOutVar);
+                timeOutVar = null;
+            }
+            timeOutVar = setTimeout(function() { performDelayedQuery(); }, 750);
+        }
+    
+        function performDelayedQuery() {
+            var searchText = document.querySelector('.searchableField').value;
+            performSearch(searchText);
+        }
+        
+        function openAndSaveLink(url) {
+            console.log("opening URL - " + url)
+            var win = window.open(url, '_blank');
+            win.focus();
+            
+            // invoke apexFunction
+            saveArticleDeflection(url);
+        }
+        
+    </script>
+    
+</apex:page>

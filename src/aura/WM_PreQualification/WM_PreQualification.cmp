@@ -1,0 +1,26 @@
+<aura:component controller="SupplierApplication">
+    
+	<aura:attribute name="PreQualificationleadRecord" type="Lead" default="{'sobject' : 'Lead' , 'id' : '00Q5B000002O48o','Name' : 'TestSMart App'}"/>
+    <aura:attribute name="tbody" type="Aura.Component[]"/>
+	<aura:attribute name="currentScreen" type="string" default="step 1"/>
+    <aura:attribute name="countryList" type="string[]"/>
+    
+    <!--
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>-->
+    <aura:registerEvent name="navigationEvent" type="c:WM_NavigationEvent"/>
+    <aura:handler event="c:WM_NavigationEvent" action="{!c.handleComponentEvent}"/>
+	
+    <div aura:id="HomeScreen">
+	<div class="headerClass">Supplier Application Wizard</div>
+    <div class="pClass"><p>Before we begin, we want to know if you have enough time to complete this application.</p>
+						<p>This entire application process takes approximately 10 minutes to complete. But don’t worry,</p>
+						<p>you are able to save your progress the entire way!</p></div>
+	<div class="buttonClass">
+    	<lightning:button variant="brand" label="Great! Let’s get started" onclick="{!c.startPreSellerSetup}"/>
+    </div>
+    </div>
+	<div class="text-align:center;">
+    	{!v.tbody}
+    </div>
+    
+</aura:component>

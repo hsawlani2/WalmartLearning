@@ -1,0 +1,5 @@
+<aura:component >
+    <hr class="hrClass"></hr>
+    <lightning:button class="slds-button slds-button_success backButton" label="Back"/>
+    <lightning:button class="slds-button slds-button_success nextButton" label="Next"/>
+</aura:component>

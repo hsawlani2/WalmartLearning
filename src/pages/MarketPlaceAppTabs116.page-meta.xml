@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>38.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>VF page for Primary, Business and Product Assortment tabs for Walmart Market place application</description>
+    <label>Market Place app tabs116</label>
+    <packageVersions>
+        <majorNumber>5</majorNumber>
+        <minorNumber>496</minorNumber>
+        <namespace>et4ae5</namespace>
+    </packageVersions>
+</ApexPage>
